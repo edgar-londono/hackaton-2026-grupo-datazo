@@ -71,9 +71,17 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
   - Done when: every project file lives under `grupo-datazo/` and reference files remain unchanged.
   - Evidence: [add link or path]
   - [ ] **3.1 Create the Python entry point.**
-    - Deliverable: `src/mvp.py`.
-    - Done when: one documented command starts the full pipeline.
+    - Deliverable: `src/mvp.py` and a documented run command.
+    - Done when: the entry point starts the completed pipeline. Verify the full run under item 8.4.
     - Evidence: [add link or path]
+    - [x] **3.1.1 Set the run command.**
+      - Deliverable: command and Colab path in `mvp_plan.md`.
+      - Done when: local runs use `python src/mvp.py` and Colab calls the same entry point.
+      - Evidence: `mvp_plan.md`
+    - [ ] **3.1.2 Implement the entry point.**
+      - Deliverable: working `src/mvp.py`.
+      - Done when: the documented command starts the completed pipeline.
+      - Evidence: [add link or path]
   - [ ] **3.2 Keep rules in the parameter file.**
     - Deliverable: pipeline reads `config/parametros.yaml`.
     - Done when: area tolerance, valid price range, confidence thresholds, and search radius come from configuration.

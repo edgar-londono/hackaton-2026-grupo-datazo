@@ -83,7 +83,7 @@ Store generated files under the team folder. Keep generated results separate fro
 
 Build an independent Python pipeline in the team folder. Use the archived code only as a read-only reference. Use its data, documentation, parameters, templates, and manual results as inputs and validation sources.
 
-Provide one notebook for a guided run in Colab. Keep local execution available where the existing Python setup supports it.
+Use `python src/mvp.py` for local runs. The Colab notebook calls the same entry point. Provide one notebook for a guided run in Colab. Keep local execution available where the existing Python setup supports it.
 
 Use Markdown for the readable property card. Do not build a separate web application for the MVP.
 

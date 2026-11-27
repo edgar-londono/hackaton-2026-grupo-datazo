@@ -87,6 +87,13 @@
     .property-table th { background: var(--panel); color: var(--ink); font-weight: 500; }
     .property-table td { color: var(--muted); }
     .property-table th:first-child, .property-table td:first-child { white-space: nowrap; }
+    .resource-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 10px 0 12px; }
+    .resource-card { padding: 12px 14px; border: 1px solid var(--line); background: var(--paper); }
+    .resource-card h4 { margin: 0 0 8px; color: var(--ink); font-size: 1rem; font-weight: 500; }
+    .resource-list { margin: 0; padding: 0; list-style: none; }
+    .resource-list li { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-top: 1px solid var(--line); color: var(--muted); }
+    .resource-list strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+    .resource-note { margin: 0 0 18px; color: var(--muted); font-size: .88rem; }
 
     .column-note { margin-top: 12px; }
     .review-intro { margin-top: 26px; }
@@ -137,7 +144,7 @@
       .review-table th, .review-table td { padding: 8px 9px; }
     }
     @media (max-width: 480px) {
-      .column-list { grid-template-columns: 1fr; }
+      .column-list, .resource-grid { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -180,6 +187,30 @@
               <tr><td>INM-11</td><td>Ditaires</td><td>63</td><td>SIN REMODELAR (OBRA NEGRA)</td></tr>
             </tbody>
           </table>
+          <h3 class="section-title">Capas geográficas</h3>
+          <div class="resource-grid">
+            <section class="resource-card" aria-labelledby="equipment-heading">
+              <h4 id="equipment-heading">Equipamientos (2.714 puntos)</h4>
+              <ul class="resource-list">
+                <li><span>Educación</span><strong>1.018</strong></li>
+                <li><span>Parques</span><strong>799</strong></li>
+                <li><span>Abastecimiento</span><strong>392</strong></li>
+                <li><span>Salud</span><strong>224</strong></li>
+                <li><span>Cultura</span><strong>220</strong></li>
+                <li><span>Seguridad</span><strong>61</strong></li>
+              </ul>
+            </section>
+            <section class="resource-card" aria-labelledby="transport-heading">
+              <h4 id="transport-heading">Transporte (42 puntos)</h4>
+              <ul class="resource-list">
+                <li><span>Metro</span><strong>23</strong></li>
+                <li><span>Metrocable</span><strong>9</strong></li>
+                <li><span>Metroplús</span><strong>1</strong></li>
+                <li><span>Tranvía</span><strong>9</strong></li>
+              </ul>
+            </section>
+          </div>
+          <p class="resource-note">Capas geográficas de OpenStreetMap.</p>
           <h3 class="section-title">Columnas del archivo de anuncios</h3>
           <p class="lead">El archivo contiene 14 columnas:</p>
           <ul class="column-list">

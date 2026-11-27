@@ -42,3 +42,4 @@
 - 2026-11-27 15:59:03: Clarified that the 11 test properties came from the original repository.
 - 2026-11-27 16:00:27: Removed “manually” from the duplicate-review rule.
 - 2026-11-27 16:04:22: Added examples of affected calculations and changed the sample quote marks.
+- 2026-11-27 16:08:15: Added full category counts for the supplied equipment and transit layers.

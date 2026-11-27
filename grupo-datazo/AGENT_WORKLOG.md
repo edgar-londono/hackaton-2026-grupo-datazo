@@ -40,3 +40,4 @@
 - 2026-11-27 15:45:26: Added separator lines below the test count and missing-area metric.
 - 2026-11-27 15:53:44: Added a table of the 11 supplied test properties, titled the listing columns, and bracketed the review count.
 - 2026-11-27 15:59:03: Clarified that the 11 test properties came from the original repository.
+- 2026-11-27 16:00:27: Removed “manually” from the duplicate-review rule.

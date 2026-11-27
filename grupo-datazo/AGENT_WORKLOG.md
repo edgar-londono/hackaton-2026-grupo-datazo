@@ -50,3 +50,4 @@
 - 2026-11-27 16:41:00: Linked the geographic quality report and documented the reproducible cleaning commands.
 - 2026-11-27 16:43:54: Added the test-property validation results before the geographic cleaning step.
 - 2026-11-27 16:45:55: Clarified the geographic overlap count after checking the published slide.
+- 2026-11-27 17:01:17: Added a second data-backed duplicate example and moved keyboard help into a question button.

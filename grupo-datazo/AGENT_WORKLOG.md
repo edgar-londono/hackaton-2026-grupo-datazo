@@ -43,3 +43,4 @@
 - 2026-11-27 16:00:27: Removed “manually” from the duplicate-review rule.
 - 2026-11-27 16:04:22: Added examples of affected calculations and changed the sample quote marks.
 - 2026-11-27 16:08:15: Added full category counts for the supplied equipment and transit layers.
+- 2026-11-27 16:12:40: Moved the test-property table and source note to the end of the input slide.

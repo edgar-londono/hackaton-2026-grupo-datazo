@@ -20,3 +20,4 @@
 - 2026-11-27 12:56:20: Recorded the Python command interface and deferred the entry-point implementation until its pipeline is ready.
 - 2026-11-27 13:07:17: Added and manually verified the YAML parameter loader; pipeline integration remains pending.
 - 2026-11-27 13:11:53: Completed checklist item 3.3 with a minimal dependency and clean-environment install check.
+- 2026-11-27 13:15:05: Completed checklist item 4.1 and recorded the supplied input row and feature counts.

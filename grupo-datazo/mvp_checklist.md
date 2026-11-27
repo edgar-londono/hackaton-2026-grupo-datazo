@@ -101,10 +101,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
   - Deliverable: `output/data_quality.md`.
   - Done when: the report lists row counts, missing fields, invalid rows, and duplicate counts by reason.
   - Evidence: [add link or path]
-  - [ ] **4.1 Load the supplied files.**
+  - [x] **4.1 Load the supplied files.**
     - Deliverable: input-loading code and a successful load record.
     - Done when: both CSV files and both GeoJSON files load from the team folder.
-    - Evidence: [add link or path]
+    - Evidence: `src/data_loader.py` and `output/input_load.md`
   - [ ] **4.2 Validate required fields and values.**
     - Deliverable: validation results in `output/data_quality.md`.
     - Done when: missing fields, invalid numbers, and out-of-range prices have clear reasons.

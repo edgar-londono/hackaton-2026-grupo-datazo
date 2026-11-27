@@ -170,11 +170,11 @@
             <li>Tipo de precio (<code>tipo_precio</code>)</li>
             <li>Origen (<code>origen</code>)</li>
           </ul>
-          <p class="lead column-note">La ficha final usa los datos necesarios y agrega resultados calculados. No es una copia de estas columnas.</p>
+          <p class="lead column-note">La ficha final combina datos del inmueble, anuncios y cálculos.</p>
         </article>
         <article class="slide" data-slide hidden>
-          <h2>Un dato vacío no se inventa</h2>
-          <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">Anuncios no tienen fecha. No podemos confirmar su actualidad.</span></div>
+          <h2>Datos vacíos</h2>
+          <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">Anuncios no tienen fecha.</span></div>
           <div class="fact-line"><strong class="fact-number">25</strong><span class="fact-text">No indican el estado del inmueble. No sirven para comparar por estado.</span></div>
           <div class="fact-line"><strong class="fact-number">1</strong><span class="fact-text">No tiene área. No permite calcular precio por metro cuadrado.</span></div>
           <p class="lead">Los datos originales se conservan. Si falta un dato necesario, esa fila no entra en el cálculo afectado.</p>
@@ -198,7 +198,10 @@
         <article class="slide" data-slide hidden>
           <h2>Si cambia algo, dejamos decidir</h2>
           <p class="lead">Encontramos anuncios con la misma zona, área y precio, pero con identificadores o datos de barrio diferentes.</p>
-          <div class="compare"><b>Ejemplo:</b> Ditaires, 73 m² y $490.000.000 aparecen en tres filas. Tienen tres identificadores y algunos datos distintos.</div>
+          <div class="compare">
+            <b class="compare-title">Ejemplo:</b>
+            <p>Ditaires, 73 m² y $490.000.000 aparecen en tres filas. Tienen tres identificadores y algunos datos distintos.</p>
+          </div>
           <div class="fact-line"><strong class="fact-number" id="review-count">54</strong><span class="fact-text">Filas candidatas quedaron aparte para revisión. <strong>Ninguna fila se eliminó automáticamente.</strong></span></div>
           <div class="review-intro">
             <p><strong>Anuncios candidatos para revisar</strong></p>

@@ -31,65 +31,31 @@
     button { font: inherit; }
     .stage {
       min-height: 100svh;
-      display: grid;
-      grid-template-columns: minmax(320px, 48%) minmax(0, 1fr);
+      position: relative;
     }
-    .artifact {
-      position: sticky;
-      top: 0;
-      height: 100svh;
-      padding: var(--margin);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: #dfe7e8;
-      border-right: 1px solid var(--line);
-    }
-    .brand, .caption, .eyebrow, .slide-count, .small-label {
+    .brand, .eyebrow, .slide-count {
       color: var(--muted);
       font-size: .9rem;
       letter-spacing: .015em;
     }
     .brand { color: var(--ink); font-size: 1.08rem; }
     .brand b { color: var(--accent); font-weight: 600; }
-    .paper-record {
-      width: min(100%, 610px);
-      margin: auto;
-      background: var(--paper);
-      border: 1px solid #b6c1c2;
-      padding: clamp(18px, 3vw, 34px);
-      transform: rotate(-1.1deg);
-    }
-    .record-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: baseline;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 14px;
-      margin-bottom: 18px;
-    }
-    .record-top strong { font-size: clamp(1.1rem, 2vw, 1.55rem); font-weight: 500; }
-    .stamp { color: var(--accent); border: 1px solid currentColor; padding: 4px 8px; font-size: .78rem; }
-    .record-price { display: block; font-size: clamp(1.7rem, 4vw, 3rem); line-height: 1; margin: 14px 0 8px; font-weight: 500; }
-    .record-zone { color: var(--muted); margin: 0 0 24px; }
-    .record-table { width: 100%; border-collapse: collapse; font-size: clamp(.82rem, 1vw, .96rem); }
-    .record-table th, .record-table td { text-align: left; padding: 9px 4px; border-top: 1px solid var(--line); vertical-align: top; }
-    .record-table th { color: var(--muted); font-weight: 400; width: 38%; }
-    .mark { color: var(--accent); background: var(--accent-pale); padding: 1px 4px; }
-    .caption { margin: 0; max-width: 42ch; line-height: 1.45; }
     .content {
       min-height: 100svh;
       padding: var(--margin);
+      width: min(100%, 1120px);
+      margin-inline: auto;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .content-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .eyebrow { margin: 0; }
+    .content-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+    .head-copy { display: grid; gap: 8px; }
+    .brand, .eyebrow { margin: 0; }
+    .eyebrow { color: var(--muted); }
     .slide-count { font-variant-numeric: tabular-nums; }
-    .slides { flex: 1; display: flex; align-items: center; }
-    .slide { width: 100%; max-width: 700px; animation: arrive .28s ease-out; }
+    .slides { flex: 1; display: flex; align-items: flex-start; padding: clamp(36px, 7vh, 72px) 0; }
+    .slide { width: 100%; max-width: 920px; animation: arrive .28s ease-out; }
     .slide[hidden] { display: none; }
     h1, h2 { margin: 0 0 20px; max-width: 15ch; font-size: var(--heading); line-height: 1.02; font-weight: 500; letter-spacing: -.035em; }
     .lead { max-width: 46ch; color: var(--muted); font-size: var(--step); line-height: 1.48; }
@@ -98,6 +64,18 @@
     .fact-line:last-child { border-bottom: 1px solid var(--line); }
     .fact-number { flex: 0 0 3.4ch; inline-size: 3.4ch; text-align: center; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1; font-variant-numeric: tabular-nums; }
     .fact-text { max-width: 38ch; color: var(--muted); line-height: 1.4; }
+    .review-intro { margin-top: 26px; }
+    .review-intro p { margin: 0 0 10px; color: var(--muted); line-height: 1.45; }
+    .review-table-wrap { max-width: 100%; overflow: auto; border: 1px solid var(--line); background: var(--paper); }
+    .review-table { width: max-content; min-width: 100%; border-collapse: collapse; font-size: .9rem; }
+    .review-table th, .review-table td { padding: 9px 11px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    .review-table th { position: sticky; top: 0; z-index: 2; background: var(--panel); color: var(--ink); font-weight: 500; }
+    .review-table th:first-child, .review-table td:first-child { position: sticky; left: 0; z-index: 1; background: var(--paper); }
+    .review-table th:first-child { z-index: 3; background: var(--panel); }
+    .review-table tr:last-child td { border-bottom: 0; }
+    .review-table td.attention { color: #7c321e; background: var(--accent-pale); font-weight: 500; }
+    .review-table .empty { color: #7b888c; font-style: italic; }
+    .review-table-note { margin: 12px 0 0; color: var(--muted); font-size: .92rem; }
     .compare {
       margin-top: 24px;
       padding: 18px 20px;
@@ -121,20 +99,11 @@
     .stage { position: relative; }
     @keyframes arrive { from { opacity: .4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
     @media (max-width: 760px) {
-      .stage { display: flex; flex-direction: column; }
-      .artifact { position: relative; height: auto; min-height: 0; padding: 18px 22px 20px; border-right: 0; border-bottom: 1px solid var(--line); gap: 18px; }
-      .content { order: 1; }
-      .artifact { order: 2; }
-      .paper-record { margin: 0 auto; transform: none; padding: 16px 18px; }
-      .record-top { padding-bottom: 9px; margin-bottom: 10px; }
-      .record-price { font-size: 1.7rem; margin: 8px 0 4px; }
-      .record-zone { margin-bottom: 8px; }
-      .record-table th, .record-table td { padding: 5px 3px; }
-      .caption { display: none; }
-      .content { min-height: min(76svh, 680px); padding: 24px 22px 20px; flex: 1; }
-      .slides { align-items: flex-start; padding: 34px 0; }
+      .content { padding: 24px 22px 20px; }
       h1, h2 { max-width: 17ch; }
       .control-hint { display: none; }
+      .review-table { font-size: .82rem; }
+      .review-table th, .review-table td { padding: 8px 9px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -144,63 +113,60 @@
 <body>
   <main class="stage" aria-label="Presentación sobre limpieza de datos">
     <div class="progress" id="progress" aria-hidden="true"></div>
-    <aside class="artifact" aria-label="Ejemplo real de una fila de anuncios">
-      <div class="brand"><b>Datazo</b> • Estud-IA: Análisis de datos</div>
-      <div class="paper-record">
-        <div class="record-top"><strong>Ficha del anuncio</strong><span class="stamp">MUESTRA REAL</span></div>
-        <span class="small-label">Precio anunciado</span>
-        <strong class="record-price">$610.000.000</strong>
-        <p class="record-zone">La Castellana · 94 m² · Medellín</p>
-        <table class="record-table" aria-label="Campos de la fila real">
-          <tbody>
-            <tr><th>Identificador</th><td>fincaraiz:10710482</td></tr>
-            <tr><th>Estado</th><td>Remodelado</td></tr>
-            <tr><th>Habitaciones</th><td>3</td></tr>
-            <tr><th>Origen</th><td class="mark">Sectorial: 2</td></tr>
-            <tr><th>Fecha</th><td>Sin dato</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="caption">Los valores de esta ficha salen de la muestra entregada. El resaltado marca un campo que cambia entre dos registros candidatos.</p>
-    </aside>
-
     <section class="content" aria-live="polite" aria-atomic="true">
-      <header class="content-head"><p class="eyebrow">Limpieza de datos</p><span class="slide-count" id="slide-count">01 / 06</span></header>
+      <header class="content-head">
+        <div class="head-copy">
+          <p class="brand"><b>Datazo</b> • Estud-IA: Análisis de datos</p>
+          <p class="eyebrow">Limpieza de datos</p>
+        </div>
+        <span class="slide-count" id="slide-count">01 / 06</span>
+      </header>
       <div class="slides">
         <article class="slide" data-slide>
-          <h1>Limpiamos los datos antes de comparar.</h1>
+          <h1>Limpiamos los datos antes de comparar</h1>
           <p class="lead">La meta es usar información confiable para analizar cada inmueble.</p>
         </article>
         <article class="slide" data-slide hidden>
-          <h2>Primero vemos qué recibimos.</h2>
-          <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">anuncios inmobiliarios en la muestra.</span></div>
-          <div class="fact-line"><strong class="fact-number">11</strong><span class="fact-text">inmuebles de prueba para revisar el resultado.</span></div>
-          <p class="lead">Cada anuncio puede tener precio, área, zona, estado y otros datos. Algunos campos llegan vacíos.</p>
+          <h2>Primero vemos qué recibimos</h2>
+          <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">Anuncios inmobiliarios en la muestra.</span></div>
+          <div class="fact-line"><strong class="fact-number">11</strong><span class="fact-text">Inmuebles de prueba para revisar el resultado.</span></div>
+          <p class="lead">El archivo de anuncios trae 14 columnas. Incluye precio, área, zona, estado, fecha y origen. Son datos de entrada, no todos los campos de la ficha final.</p>
         </article>
         <article class="slide" data-slide hidden>
-          <h2>Un dato vacío no se inventa.</h2>
+          <h2>Un dato vacío no se inventa</h2>
           <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">Anuncios no tienen fecha. No podemos confirmar su actualidad.</span></div>
           <div class="fact-line"><strong class="fact-number">25</strong><span class="fact-text">No indican el estado del inmueble. No sirven para comparar por estado.</span></div>
           <div class="fact-line"><strong class="fact-number">1</strong><span class="fact-text">No tiene área. No permite calcular precio por metro cuadrado.</span></div>
           <p class="lead">Los datos originales se conservan. Si falta un dato necesario, esa fila no entra en el cálculo afectado.</p>
         </article>
         <article class="slide" data-slide hidden>
-          <h2>Una coincidencia solo prende una alerta.</h2>
+          <h2>Una coincidencia solo prende una alerta</h2>
           <p class="lead">El identificador o la zona, el área y el precio señalan posibles repeticiones. No confirman que sea el mismo anuncio.</p>
           <div class="compare"><b>Regla para eliminar:</b> todas las columnas deben coincidir. Si alguna cambia, dejamos el grupo para revisión.</div>
-          <div class="compare"><b>Ejemplo de la muestra:</b> el identificador fincaraiz:10710482 aparece dos veces. Una fila dice origen Sectorial: 2 y la otra Sectorial: 11.</div>
+          <div class="compare"><b>Ejemplo:</b> el identificador fincaraiz:10710482 aparece dos veces. Una fila dice origen Sectorial: 2 y la otra Sectorial: 11.</div>
           <p class="decision">Como cambia una columna, ambas filas quedan para revisión.</p>
         </article>
         <article class="slide" data-slide hidden>
-          <h2>Si cambia algo, dejamos decidir.</h2>
+          <h2>Si cambia algo, dejamos decidir</h2>
           <p class="lead">Encontramos anuncios con la misma zona, área y precio, pero con identificadores o datos de barrio diferentes.</p>
-          <div class="compare"><b>Ejemplo real:</b> Ditaires, 73 m² y $490.000.000 aparecen en tres filas. Tienen tres identificadores y algunos datos distintos.</div>
-          <div class="fact-line"><strong class="fact-number">54</strong><span class="fact-text">filas candidatas quedaron aparte para revisión. <strong>Ninguna fila se eliminó automáticamente.</strong></span></div>
+          <div class="compare"><b>Ejemplo:</b> Ditaires, 73 m² y $490.000.000 aparecen en tres filas. Tienen tres identificadores y algunos datos distintos.</div>
+          <div class="fact-line"><strong class="fact-number" id="review-count">54</strong><span class="fact-text">Filas candidatas quedaron aparte para revisión. <strong>Ninguna fila se eliminó automáticamente.</strong></span></div>
+          <div class="review-intro">
+            <p><strong>Anuncios candidatos para revisar</strong></p>
+            <p>El color marca los datos que cambian dentro del grupo. Desplázate a los lados para ver todas las columnas.</p>
+            <div class="review-table-wrap" role="region" aria-label="Tabla de anuncios candidatos a revisión" tabindex="0">
+              <table class="review-table">
+                <thead><tr id="review-head"></tr></thead>
+                <tbody id="review-body"></tbody>
+              </table>
+            </div>
+            <p class="review-table-note">Se muestran las 54 filas candidatas y todos los campos del archivo de revisión.</p>
+          </div>
         </article>
         <article class="slide" data-slide hidden>
-          <h2>Este es el resultado por ahora.</h2>
-          <div class="fact-line"><strong class="fact-number">47</strong><span class="fact-text">anuncios tienen datos suficientes para los cálculos actuales.</span></div>
-          <div class="fact-line"><strong class="fact-number">70</strong><span class="fact-text">se apartan del cálculo por datos faltantes o por revisión pendiente. Algunos tienen más de un motivo.</span></div>
+          <h2>Este es el resultado por ahora</h2>
+          <div class="fact-line"><strong class="fact-number">47</strong><span class="fact-text">Anuncios tienen datos suficientes para los cálculos actuales.</span></div>
+          <div class="fact-line"><strong class="fact-number">70</strong><span class="fact-text">Se apartan del cálculo por datos faltantes o por revisión pendiente. Algunos tienen más de un motivo.</span></div>
           <p class="lead">Los 54 casos dudosos están guardados para que el equipo decida. Esta etapa prepara los datos; todavía no calcula ni publica la ficha del inmueble.</p>
           <ul class="file-list">
             <li><a href="../output/prepared/duplicados_para_revision.csv">Abrir los anuncios que requieren revisión</a></li>
@@ -217,6 +183,7 @@
       </footer>
     </section>
   </main>
+  <script id="review-data" type="application/json">[{"id_anuncio": "fincaraiz:10710482", "fuente": "fincaraiz", "fecha": "", "zona": "castellana_laureles", "municipio": "medellin", "barrio": "la castellana", "area_m2": "94", "precio": "610000000", "habitaciones": "3", "banos": "2", "parqueadero": "1", "estado": "REMODELADO", "tipo_precio": "pedido", "origen": "factibilidad_castellana.xlsx:SECTORIAL:2", "csv_row": "2", "first_candidate_row": "2", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:10710482", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:10710482", "fuente": "fincaraiz", "fecha": "", "zona": "castellana_laureles", "municipio": "medellin", "barrio": "la castellana", "area_m2": "94", "precio": "610000000", "habitaciones": "3", "banos": "2", "parqueadero": "1", "estado": "REMODELADO", "tipo_precio": "pedido", "origen": "factibilidad_castellana.xlsx:SECTORIAL:11", "csv_row": "11", "first_candidate_row": "2", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:10710482", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:193287983", "fuente": "fincaraiz", "fecha": "", "zona": "castellana_laureles", "municipio": "medellin", "barrio": "la castellana", "area_m2": "99", "precio": "690000000", "habitaciones": "3", "banos": "2", "parqueadero": "2", "estado": "REMODELADO", "tipo_precio": "pedido", "origen": "factibilidad_castellana.xlsx:SECTORIAL:3", "csv_row": "3", "first_candidate_row": "3", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:193287983", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:193287983", "fuente": "fincaraiz", "fecha": "", "zona": "castellana_laureles", "municipio": "medellin", "barrio": "la castellana", "area_m2": "99", "precio": "690000000", "habitaciones": "3", "banos": "2", "parqueadero": "2", "estado": "REMODELADO", "tipo_precio": "pedido", "origen": "factibilidad_castellana.xlsx:SECTORIAL:10", "csv_row": "10", "first_candidate_row": "3", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:193287983", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:193440669", "fuente": "fincaraiz", "fecha": "", "zona": "castellana_laureles", "municipio": "medellin", "barrio": "la castellana", "area_m2": "100", "precio": "870000000", "habitaciones": "3", "banos": "2", "parqueadero": "1", "estado": "REMODELADO", "tipo_precio": "pedido", "origen": "factibilidad_castellana.xlsx:SECTORIAL:9", "csv_row": "9", "first_candidate_row": "9", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:193440669", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:193440669", "fuente": "fincaraiz", "fecha": "", "zona": "castellana_laureles", "municipio": "medellin", "barrio": "la castellana", "area_m2": "100", "precio": "870000000", "habitaciones": "3", "banos": "2", "parqueadero": "1", "estado": "REMODELADO", "tipo_precio": "pedido", "origen": "factibilidad_castellana.xlsx:SECTORIAL:12", "csv_row": "12", "first_candidate_row": "9", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:193440669", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:192959138", "fuente": "fincaraiz", "fecha": "", "zona": "ditaires_itagui", "municipio": "itagui", "barrio": "ditaires", "area_m2": "73", "precio": "490000000", "habitaciones": "3", "banos": "2", "parqueadero": "1", "estado": "REMODELADA", "tipo_precio": "pedido", "origen": "factibilidad_proyecto2.xlsx:SECTORIAL:5", "csv_row": "21", "first_candidate_row": "21", "candidate_rule": "claves_sin_id", "candidate_key": "zona=ditaires_itagui, area_m2=73, precio=4.9E+8", "differing_fields": "id_anuncio, barrio, estado, origen"}, {"id_anuncio": "fincaraiz:193131396", "fuente": "fincaraiz", "fecha": "", "zona": "ditaires_itagui", "municipio": "itagui", "barrio": "ditaires", "area_m2": "73", "precio": "490000000", "habitaciones": "3", "banos": "2", "parqueadero": "1", "estado": "REMODELADA ?", "tipo_precio": "pedido", "origen": "factibilidad_proyecto2.xlsx:SECTORIAL:7", "csv_row": "23", "first_candidate_row": "21", "candidate_rule": "claves_sin_id", "candidate_key": "zona=ditaires_itagui, area_m2=73, precio=4.9E+8", "differing_fields": "id_anuncio, barrio, estado, origen"}, {"id_anuncio": "fincaraiz:192937244", "fuente": "fincaraiz", "fecha": "", "zona": "ditaires_itagui", "municipio": "itagui", "barrio": "", "area_m2": "73", "precio": "490000000", "habitaciones": "3", "banos": "2", "parqueadero": "1", "estado": "REMODELADA", "tipo_precio": "pedido", "origen": "factibilidad_proyecto2.xlsx:SECTORIAL:9", "csv_row": "25", "first_candidate_row": "21", "candidate_rule": "claves_sin_id", "candidate_key": "zona=ditaires_itagui, area_m2=73, precio=4.9E+8", "differing_fields": "id_anuncio, barrio, estado, origen"}, {"id_anuncio": "", "fuente": "aviso_calle", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "salvadror/palmas", "area_m2": "73", "precio": "310000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:39", "csv_row": "42", "first_candidate_row": "42", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=73, precio=3.1E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "", "fuente": "aviso_calle", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "salvadror/palmas", "area_m2": "73", "precio": "310000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "Ok", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:11", "csv_row": "101", "first_candidate_row": "42", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=73, precio=3.1E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "", "fuente": "aviso_calle", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador (arriba de gimnasio 36 la que baja)", "area_m2": "70.4", "precio": "250000000", "habitaciones": "2", "banos": "", "parqueadero": "", "estado": "", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:60", "csv_row": "51", "first_candidate_row": "51", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=70.4, precio=2.5E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "", "fuente": "aviso_calle", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador (arriba de gimnasio 36 la que baja)", "area_m2": "70.4", "precio": "250000000", "habitaciones": "2", "banos": "", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:3", "csv_row": "93", "first_candidate_row": "51", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=70.4, precio=2.5E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "fincaraiz:192814617", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador", "area_m2": "71", "precio": "189000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:65", "csv_row": "52", "first_candidate_row": "52", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:192814617", "differing_fields": "estado, origen"}, {"id_anuncio": "fincaraiz:192814617", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador", "area_m2": "71", "precio": "189000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:12", "csv_row": "102", "first_candidate_row": "52", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:192814617", "differing_fields": "estado, origen"}, {"id_anuncio": "fincaraiz:7387557", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "el Salvador", "area_m2": "73", "precio": "300000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:68", "csv_row": "55", "first_candidate_row": "55", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:7387557", "differing_fields": "id_anuncio, fuente, barrio, estado, origen"}, {"id_anuncio": "fincaraiz:7387557", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador", "area_m2": "73", "precio": "300000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:71", "csv_row": "58", "first_candidate_row": "55", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:7387557", "differing_fields": "id_anuncio, fuente, barrio, estado, origen"}, {"id_anuncio": "arrendamientos_santafe:V10746", "fuente": "arrendamientos_santafe", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador", "area_m2": "73", "precio": "300000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:78", "csv_row": "65", "first_candidate_row": "55", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:7387557", "differing_fields": "id_anuncio, fuente, barrio, estado, origen"}, {"id_anuncio": "fincaraiz:7387557", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador", "area_m2": "73", "precio": "300000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:5", "csv_row": "95", "first_candidate_row": "55", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:7387557", "differing_fields": "id_anuncio, fuente, barrio, estado, origen"}, {"id_anuncio": "arrendamientos_santafe:V10746", "fuente": "arrendamientos_santafe", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador", "area_m2": "73", "precio": "300000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:7", "csv_row": "97", "first_candidate_row": "55", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:7387557", "differing_fields": "id_anuncio, fuente, barrio, estado, origen"}, {"id_anuncio": "fincaraiz:10766727", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador", "area_m2": "57", "precio": "225000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:69", "csv_row": "56", "first_candidate_row": "56", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=57, precio=2.25E+8", "differing_fields": "id_anuncio, fuente, estado, origen"}, {"id_anuncio": "arrendamientos_santafe:V12132", "fuente": "arrendamientos_santafe", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador", "area_m2": "57", "precio": "225000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:77", "csv_row": "64", "first_candidate_row": "56", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=57, precio=2.25E+8", "differing_fields": "id_anuncio, fuente, estado, origen"}, {"id_anuncio": "arrendamientos_santafe:V12132", "fuente": "arrendamientos_santafe", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El Salvador", "area_m2": "57", "precio": "225000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:6", "csv_row": "96", "first_candidate_row": "56", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=57, precio=2.25E+8", "differing_fields": "id_anuncio, fuente, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "89", "precio": "200000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "Reformar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:73", "csv_row": "60", "first_candidate_row": "60", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=89, precio=2E+8", "differing_fields": "origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "89", "precio": "200000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "Reformar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:10", "csv_row": "100", "first_candidate_row": "60", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=89, precio=2E+8", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:193042067", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "Bombona No1", "area_m2": "67", "precio": "320000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:82", "csv_row": "69", "first_candidate_row": "69", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:193042067", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:193042067", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "Bombona No1", "area_m2": "67", "precio": "320000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:Bombona:6", "csv_row": "80", "first_candidate_row": "69", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:193042067", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:192609616", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "Bombona No1", "area_m2": "65", "precio": "250000000", "habitaciones": "2", "banos": "2", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:83", "csv_row": "70", "first_candidate_row": "70", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:192609616", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:192609616", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "Bombona No1", "area_m2": "65", "precio": "250000000", "habitaciones": "2", "banos": "2", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:Bombona:7", "csv_row": "81", "first_candidate_row": "70", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:192609616", "differing_fields": "origen"}, {"id_anuncio": "fincaraiz:8146402", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "Bombona No1", "area_m2": "62", "precio": "315000000", "habitaciones": "", "banos": "", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:84", "csv_row": "71", "first_candidate_row": "71", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:8146402", "differing_fields": "habitaciones, banos, estado, origen"}, {"id_anuncio": "fincaraiz:8146402", "fuente": "fincaraiz", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "Bombona No1", "area_m2": "62", "precio": "315000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "Vivir", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:Bombona:8", "csv_row": "82", "first_candidate_row": "71", "candidate_rule": "id_anuncio", "candidate_key": "fincaraiz:8146402", "differing_fields": "habitaciones, banos, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "64", "precio": "250000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:85", "csv_row": "72", "first_candidate_row": "72", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=64, precio=2.5E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "64", "precio": "250000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:13", "csv_row": "103", "first_candidate_row": "72", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=64, precio=2.5E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "64", "precio": "250000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "Vivir", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:VIVIR:5", "csv_row": "111", "first_candidate_row": "72", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=64, precio=2.5E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "47", "precio": "160000000", "habitaciones": "1", "banos": "1", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:86", "csv_row": "73", "first_candidate_row": "73", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=47, precio=1.6E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "47", "precio": "160000000", "habitaciones": "1", "banos": "1", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:14", "csv_row": "104", "first_candidate_row": "73", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=47, precio=1.6E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "47", "precio": "160000000", "habitaciones": "1", "banos": "1", "parqueadero": "", "estado": "Vivir", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:VIVIR:6", "csv_row": "112", "first_candidate_row": "73", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=47, precio=1.6E+8", "differing_fields": "estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "La milagrosa", "area_m2": "48", "precio": "225000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:87", "csv_row": "74", "first_candidate_row": "74", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=48, precio=2.25E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "48", "precio": "225000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "Vivir", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:VIVIR:7", "csv_row": "113", "first_candidate_row": "74", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=48, precio=2.25E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "64", "precio": "245000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:88", "csv_row": "75", "first_candidate_row": "75", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=64, precio=2.45E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "64", "precio": "245000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:15", "csv_row": "105", "first_candidate_row": "75", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=64, precio=2.45E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "64", "precio": "245000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:19", "csv_row": "109", "first_candidate_row": "75", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=64, precio=2.45E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "", "area_m2": "64", "precio": "245000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "Vivir", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:VIVIR:8", "csv_row": "114", "first_candidate_row": "75", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=64, precio=2.45E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "80", "precio": "350000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:89", "csv_row": "76", "first_candidate_row": "76", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=8E+1, precio=3.5E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "80", "precio": "350000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:16", "csv_row": "106", "first_candidate_row": "76", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=8E+1, precio=3.5E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "", "area_m2": "80", "precio": "350000000", "habitaciones": "3", "banos": "2", "parqueadero": "", "estado": "Vivir", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:VIVIR:9", "csv_row": "115", "first_candidate_row": "76", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=8E+1, precio=3.5E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "86", "precio": "265000000", "habitaciones": "3", "banos": "1", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:90", "csv_row": "77", "first_candidate_row": "77", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=86, precio=2.65E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "86", "precio": "265000000", "habitaciones": "3", "banos": "1", "parqueadero": "", "estado": "Remodelar", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:8", "csv_row": "98", "first_candidate_row": "77", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=86, precio=2.65E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "", "area_m2": "86", "precio": "265000000", "habitaciones": "3", "banos": "1", "parqueadero": "", "estado": "", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:VIVIR:10", "csv_row": "116", "first_candidate_row": "77", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=86, precio=2.65E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "105", "precio": "320000000", "habitaciones": "", "banos": "", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:91", "csv_row": "78", "first_candidate_row": "78", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=105, precio=3.2E+8", "differing_fields": "barrio, habitaciones, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "El salvador", "area_m2": "105", "precio": "320000000", "habitaciones": "3", "banos": "", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:El salvador:17", "csv_row": "107", "first_candidate_row": "78", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=105, precio=3.2E+8", "differing_fields": "barrio, habitaciones, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "", "area_m2": "105", "precio": "320000000", "habitaciones": "", "banos": "", "parqueadero": "", "estado": "", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:VIVIR:11", "csv_row": "117", "first_candidate_row": "78", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=105, precio=3.2E+8", "differing_fields": "barrio, habitaciones, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "La milagrosa", "area_m2": "37", "precio": "180000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "OK", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:REMODELAR:92", "csv_row": "79", "first_candidate_row": "79", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=37, precio=1.8E+8", "differing_fields": "barrio, estado, origen"}, {"id_anuncio": "", "fuente": "facebook", "fecha": "", "zona": "buenos_aires_el_salvador", "municipio": "medellin", "barrio": "", "area_m2": "37", "precio": "180000000", "habitaciones": "2", "banos": "1", "parqueadero": "", "estado": "", "tipo_precio": "pedido", "origen": "extension_poligono.xlsx:VIVIR:12", "csv_row": "118", "first_candidate_row": "79", "candidate_rule": "claves_sin_id", "candidate_key": "zona=buenos_aires_el_salvador, area_m2=37, precio=1.8E+8", "differing_fields": "barrio, estado, origen"}]</script>
   <script>
     (() => {
       const slides = [...document.querySelectorAll("[data-slide]")];
@@ -224,7 +191,69 @@
       const progress = document.getElementById("progress");
       const previous = document.getElementById("previous");
       const next = document.getElementById("next");
+      const reviewRows = JSON.parse(document.getElementById("review-data").textContent);
+      const reviewHead = document.getElementById("review-head");
+      const reviewBody = document.getElementById("review-body");
       let current = 0;
+
+      const headers = {
+        csv_row: "Fila del CSV",
+        id_anuncio: "Identificador",
+        fuente: "Fuente",
+        fecha: "Fecha",
+        zona: "Zona",
+        municipio: "Municipio",
+        barrio: "Barrio",
+        area_m2: "Área (m²)",
+        precio: "Precio (COP)",
+        habitaciones: "Habitaciones",
+        banos: "Baños",
+        parqueadero: "Parqueadero",
+        estado: "Estado",
+        tipo_precio: "Tipo de precio",
+        origen: "Origen",
+        first_candidate_row: "Fila de referencia",
+        candidate_rule: "Regla que alertó",
+        candidate_key: "Valores coincidentes",
+        differing_fields: "Campos distintos"
+      };
+      const ruleLabels = {
+        id_anuncio: "Identificador repetido",
+        claves_sin_id: "Zona, área y precio iguales",
+        all_columns: "Todas las columnas iguales"
+      };
+
+      if (reviewRows.length) {
+        const fields = Object.keys(reviewRows[0]);
+        fields.forEach((field) => {
+          const cell = document.createElement("th");
+          cell.scope = "col";
+          cell.textContent = headers[field] ?? field;
+          reviewHead.append(cell);
+        });
+        reviewRows.forEach((row) => {
+          const differing = new Set((row.differing_fields ?? "").split(", "));
+          const line = document.createElement("tr");
+          fields.forEach((field) => {
+            const cell = document.createElement("td");
+            const value = row[field] ?? "";
+            cell.textContent = value === ""
+              ? "Sin dato"
+              : field === "candidate_rule"
+                ? (ruleLabels[value] ?? value)
+                : value;
+            if (differing.has(field) || field === "differing_fields") {
+              cell.classList.add("attention");
+            }
+            if (value === "") cell.classList.add("empty");
+            line.append(cell);
+          });
+          reviewBody.append(line);
+        });
+        document.getElementById("review-count").textContent = reviewRows.length;
+        document.querySelector(".review-table-note").textContent =
+          `Se muestran las ${reviewRows.length} filas candidatas y todos los campos del archivo de revisión.`;
+      }
 
       function show(index) {
         current = Math.max(0, Math.min(index, slides.length - 1));
@@ -234,11 +263,17 @@
         previous.disabled = current === 0;
         next.disabled = current === slides.length - 1;
         document.title = `${String(current + 1).padStart(2, "0")} · Limpieza de datos | Grupo Datazo`;
+        window.scrollTo(0, 0);
       }
 
       previous.addEventListener("click", () => show(current - 1));
       next.addEventListener("click", () => show(current + 1));
       document.addEventListener("keydown", (event) => {
+        if (
+          event.target instanceof Element &&
+          event.target.closest(".review-table-wrap") &&
+          ["ArrowLeft", "ArrowRight", " "].includes(event.key)
+        ) return;
         if (["ArrowRight", " ", "PageDown"].includes(event.key)) {
           event.preventDefault();
           show(current + 1);

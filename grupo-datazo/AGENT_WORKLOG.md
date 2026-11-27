@@ -30,3 +30,4 @@
 - 2026-11-27 14:51:32: Put the cleaning content first on mobile, simplified the labels, capitalized metric text, and centered numbers on both axes.
 - 2026-11-27 14:54:22: Restored the full presentation brand line and kept the accent color on Datazo only.
 - 2026-11-27 14:57:41: Moved the duplicate-removal rule to the slide that explains duplicate review and removed it from the opening slide.
+- 2026-11-27 15:09:32: Moved the brand to the top, removed the unexplained sample card, clarified source fields, and embedded all 54 review rows with differing cells highlighted.

@@ -171,7 +171,7 @@
           <p class="lead">La meta es usar información confiable para analizar cada inmueble.</p>
         </article>
         <article class="slide" data-slide hidden>
-          <h2>Primero vemos qué recibimos</h2>
+          <h2>Vemos qué recibimos</h2>
           <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">Anuncios inmobiliarios en la muestra.</span></div>
           <div class="fact-line separated"><strong class="fact-number">11</strong><span class="fact-text">Inmuebles de prueba para revisar el resultado.</span></div>
           <h3 class="section-title">Capas geográficas</h3>
@@ -204,7 +204,7 @@
         <article class="slide" data-slide hidden>
           <h2>Primero limpiamos los anuncios</h2>
           <p class="lead">El archivo contiene 14 columnas con información de los anuncios y los inmuebles que se ofrecen.</p>
-          <h3 class="section-title">Columnas del archivo de anuncios</h3>
+          <h3 class="section-title">Columnas del <a href="https://github.com/edgar-londono/hackaton-2026-grupo-datazo/blob/main/resources/venture-one-reference/data/anuncios_muestra.csv" target="_blank" rel="noopener noreferrer">archivo</a> de anuncios</h3>
           <ul class="column-list">
             <li>Identificador del anuncio (<code>id_anuncio</code>)</li>
             <li>Fuente (<code>fuente</code>)</li>
@@ -231,11 +231,11 @@
         </article>
         <article class="slide" data-slide hidden>
           <h2>Las coincidencias son señaladas</h2>
-          <p class="lead">El identificador o la zona, el área y el precio señalan posibles repeticiones. No confirman que sea el mismo anuncio.</p>
+          <p class="lead">El identificador, la zona, el área y el precio señalan posibles repeticiones. Las coincidencias de algunos datos no confirman que sea el mismo anuncio.</p>
           <div class="compare">
             <b class="compare-title">Regla para eliminar:</b>
             <ul>
-              <li>Para marcar una entrada como duplicada, debe coincidir toda su información.</li>
+              <li>Una entrada cuenta como duplicada solo cuando toda su información coincide.</li>
               <li>Cuando algunos datos coinciden, pero otros cambian, la entrada debe revisarse.</li>
             </ul>
           </div>
@@ -243,10 +243,9 @@
             <b class="compare-title">Ejemplos de la muestra:</b>
             <ul>
               <li>El identificador "fincaraiz:10710482" aparece en dos filas. Una indica "Sectorial: 2" y la otra "Sectorial: 11".</li>
-              <li>Dos anuncios de Buenos Aires / El Salvador tienen 73 m² y cuestan $310.000.000. Uno no tiene estado; el otro indica "OK".</li>
+              <li>Dos anuncios de la zona Buenos Aires / El Salvador comparten un área de 73 m² y un precio de $310.000.000. Ambos tienen vacío el identificador. Cambian el estado (vacío y "OK") y el origen.</li>
             </ul>
           </div>
-          <p class="decision">Como cambia una columna, ambas filas quedan para revisión.</p>
         </article>
         <article class="slide" data-slide hidden>
           <h2>Si cambia algo, dejamos decidir</h2>
@@ -271,7 +270,7 @@
         <article class="slide" data-slide hidden>
           <h2>Este es el resultado por ahora</h2>
           <div class="fact-line"><strong class="fact-number">47</strong><span class="fact-text">Anuncios tienen datos suficientes para los cálculos actuales.</span></div>
-          <div class="fact-line"><strong class="fact-number">70</strong><span class="fact-text">Se apartan del cálculo por datos faltantes o por revisión pendiente. Algunos tienen más de un motivo.</span></div>
+          <div class="fact-line separated"><strong class="fact-number">70</strong><span class="fact-text">Se apartan del cálculo por datos faltantes o por revisión pendiente. Algunos tienen más de un motivo.</span></div>
           <p class="lead">Los 54 casos dudosos están guardados para que el equipo decida. Esta etapa prepara los datos; todavía no calcula ni publica la ficha del inmueble.</p>
           <ul class="file-list">
             <li><a href="../output/prepared/duplicados_para_revision.csv">Abrir los anuncios que requieren revisión</a></li>
@@ -391,7 +390,7 @@
             const cell = document.createElement("td");
             const value = row[field] ?? "";
             cell.textContent = value === ""
-              ? "Sin dato"
+              ? "Vacío"
               : field === "candidate_rule"
                 ? (ruleLabels[value] ?? value)
                 : value;
@@ -422,7 +421,7 @@
           fields.forEach((field) => {
             const cell = document.createElement("td");
             const value = row[field] ?? "";
-            cell.textContent = value === "" ? "Sin dato" : value;
+            cell.textContent = value === "" ? "Vacío" : value;
             const groupValues = new Set(group.map((item) => item[field] ?? ""));
             if (field !== "fila_origen" && groupValues.size > 1) cell.classList.add("attention");
             if (value === "") cell.classList.add("empty");

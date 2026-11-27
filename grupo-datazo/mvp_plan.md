@@ -1,12 +1,8 @@
-# MVP Plan: Market and Neighborhood Property Card
-
-## Short definition
-
-The MVP should be one reliable market and neighborhood summary for each test property. The team should prove that it works with the supplied data before adding extra features.
+# MVP plan: Market and neighborhood property card
 
 ## Product goal
 
-Help a Venture One analyst review the market context and nearby services for a test property in one consistent, traceable record.
+The MVP should be one reliable market and neighborhood summary for each test property. The team should prove that it works with the supplied data before adding extra features.
 
 The MVP organizes the supplied evidence. It does not decide whether anyone should buy a property.
 

@@ -13,5 +13,3 @@ This repository separates team work from the challenge resources.
 - Use `main` as the only branch. Do not create other branches.
 - Keep `resources/venture-one-reference/` read-only. Copy only needed files into team work.
 - Use the supplied public sample data. Do not scrape listing sites.
-- Keep investment decisions outside the project scope.
-- Get Venture One's review before publishing demos or posts that name the company.

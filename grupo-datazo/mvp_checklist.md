@@ -39,10 +39,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
   - Deliverable: copied inputs and `data/source_manifest.md`.
   - Done when: every input has a source path and the archived source remains unchanged.
   - Evidence: [add link or path]
-  - [ ] **2.1 Copy the listing sample.**
+  - [x] **2.1 Copy the listing sample.**
     - Deliverable: `data/anuncios_muestra.csv`.
     - Done when: the copy matches the supplied source file and its source path appears in the manifest.
-    - Evidence: [add link or path]
+    - Evidence: `data/anuncios_muestra.csv` and `data/source_manifest.md`
   - [ ] **2.2 Copy the test properties.**
     - Deliverable: `data/inmuebles_prueba.csv`.
     - Done when: the copy contains all supplied test properties and its source path appears in the manifest.

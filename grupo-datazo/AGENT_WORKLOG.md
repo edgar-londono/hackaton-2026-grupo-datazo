@@ -11,3 +11,4 @@
 - 2026-11-27 11:46:09: Set independent-build and insufficient-data rules, moved manual entry to post-MVP, and created an evidence-based checklist.
 - 2026-11-27 12:38:14: Completed checklist point 1 with evidence in the accepted MVP plan.
 - 2026-11-27 12:39:47: Copied and checksum-verified the listing sample for checklist item 2.1.
+- 2026-11-27 12:41:39: Copied and checksum-verified the 11 test properties for checklist item 2.2.

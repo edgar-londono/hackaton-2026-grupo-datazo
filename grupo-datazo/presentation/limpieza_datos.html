@@ -169,8 +169,7 @@
       <div class="slides">
         <article class="slide" data-slide>
           <h1>Limpiamos los datos antes de comparar.</h1>
-          <p class="lead">La meta es usar información confiable para analizar cada inmueble. <strong>No completamos datos por intuición ni escondemos diferencias.</strong></p>
-          <div class="compare"><b>La regla principal:</b> si dos filas no coinciden en todas sus columnas, no las borramos automáticamente.</div>
+          <p class="lead">La meta es usar información confiable para analizar cada inmueble.</p>
         </article>
         <article class="slide" data-slide hidden>
           <h2>Primero vemos qué recibimos.</h2>
@@ -187,7 +186,8 @@
         </article>
         <article class="slide" data-slide hidden>
           <h2>Una coincidencia solo prende una alerta.</h2>
-          <p class="lead">Buscamos posibles repeticiones por identificador o por zona, área y precio. Esas coincidencias ayudan a revisar, pero <strong>no demuestran que el anuncio sea el mismo.</strong></p>
+          <p class="lead">El identificador o la zona, el área y el precio señalan posibles repeticiones. No confirman que sea el mismo anuncio.</p>
+          <div class="compare"><b>Regla para eliminar:</b> todas las columnas deben coincidir. Si alguna cambia, dejamos el grupo para revisión.</div>
           <div class="compare"><b>Ejemplo de la muestra:</b> el identificador fincaraiz:10710482 aparece dos veces. Una fila dice origen Sectorial: 2 y la otra Sectorial: 11.</div>
           <p class="decision">Como cambia una columna, ambas filas quedan para revisión.</p>
         </article>

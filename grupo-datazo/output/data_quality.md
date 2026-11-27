@@ -1,7 +1,6 @@
 # Data quality report
 
 This report checks required fields, numeric values, coordinate ranges, accepted price types, and configured price per square meter limits.
-Duplicate analysis remains pending checklist item 4.4.
 
 ## Summary
 
@@ -35,6 +34,17 @@ Counts include optional fields. A missing optional value is not an invalid row.
 |---|---:|---|---|---|---|
 | Listings | 47 | extension_poligono.xlsx:REMODELAR:53 | area_m2 | Required value is missing. | <blank> |
 
+## Duplicate removal
+
+The first source row is retained for each duplicate group.
+
+| Rule | Duplicate groups | Rows removed |
+|---|---:|---:|
+| id_anuncio | 10 | 11 |
+| claves_sin_id (zona, area_m2, precio) | 14 | 22 |
+| Total | 24 | 33 |
+| Rows retained | | 84 |
+
 ## Out-of-range prices
 
 No calculated listing prices per square meter fall outside the configured range.
@@ -60,4 +70,3 @@ Missing or unmapped values remain sin_clasificar.
 ## Pending checks
 
 - Apply invalid-row exclusions to calculations under checklist item 4.5.
-- Count duplicate groups and apply the supplied rules under checklist item 4.4.

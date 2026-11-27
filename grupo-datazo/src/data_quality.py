@@ -1,3 +1,4 @@
+import csv
 import math
 from collections import Counter
 from dataclasses import dataclass
@@ -7,15 +8,16 @@ from typing import Any, Optional
 if __package__:
     from .data_loader import LoadedInputs, load_inputs
     from .parameters import load_parameters
-    from .data_preparation import count_conditions
+    from .data_preparation import DeduplicationResult, count_conditions, deduplicate_listings
 else:
     from data_loader import LoadedInputs, load_inputs
     from parameters import load_parameters
-    from data_preparation import count_conditions
+    from data_preparation import DeduplicationResult, count_conditions, deduplicate_listings
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = PROJECT_ROOT / "output" / "data_quality.md"
+DEDUPLICATED_PATH = PROJECT_ROOT / "output" / "prepared" / "anuncios_sin_duplicados.csv"
 
 LISTING_REQUIRED_FIELDS = (
     "zona",
@@ -62,6 +64,7 @@ class QualitySummary:
     price_calculations: int
     invalid_numeric_count: int
     normalized_conditions: dict[str, Counter[str]]
+    deduplication: DeduplicationResult
 
 
 def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> QualitySummary:
@@ -75,6 +78,9 @@ def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> Quality
     accepted_price_types = parameters["comparables"]["tipos_precio"]
     price_min, price_max = parameters["comparables"]["rango_precio_m2_valido"]
     price_calculations = 0
+    deduplication = deduplicate_listings(
+        inputs.listings, parameters["deduplicacion"]
+    )
     condition_rules = parameters["estados"]
     normalized_conditions = {
         "Listings": count_conditions(inputs.listings, condition_rules),
@@ -207,6 +213,7 @@ def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> Quality
         price_calculations=price_calculations,
         invalid_numeric_count=invalid_numeric_count,
         normalized_conditions=normalized_conditions,
+        deduplication=deduplication,
     )
 
 
@@ -377,7 +384,6 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
         "",
         "This report checks required fields, numeric values, coordinate ranges, "
         "accepted price types, and configured price per square meter limits.",
-        "Duplicate analysis remains pending checklist item 4.4.",
         "",
         "## Summary",
         "",
@@ -421,6 +427,23 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
             )
     else:
         lines.append("No required field or value issues were found.")
+
+    removed_by_rule = Counter(record.rule for record in summary.deduplication.removed)
+    lines.extend(
+        [
+            "",
+            "## Duplicate removal",
+            "",
+            "The first source row is retained for each duplicate group.",
+            "",
+            "| Rule | Duplicate groups | Rows removed |",
+            "|---|---:|---:|",
+            f"| id_anuncio | {summary.deduplication.group_counts['id_anuncio']} | {removed_by_rule['id_anuncio']} |",
+            f"| claves_sin_id ({', '.join(summary.deduplication.tuple_fields)}) | {summary.deduplication.group_counts['claves_sin_id']} | {removed_by_rule['claves_sin_id']} |",
+            f"| Total | {sum(summary.deduplication.group_counts.values())} | {len(summary.deduplication.removed)} |",
+            f"| Rows retained | | {len(summary.deduplication.rows)} |",
+        ]
+    )
 
     lines.extend(["", "## Out-of-range prices", ""])
     if summary.out_of_range_prices:
@@ -466,7 +489,6 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
             "## Pending checks",
             "",
             "- Apply invalid-row exclusions to calculations under checklist item 4.5.",
-            "- Count duplicate groups and apply the supplied rules under checklist item 4.4.",
             "",
         ]
     )
@@ -481,10 +503,21 @@ def _escape(value: str) -> str:
     return value.replace("|", "\\|").replace("\n", " ")
 
 
+def _write_deduplicated_listings(rows: list[dict[str, Any]]) -> None:
+    if not rows:
+        raise ValueError("Cannot write a deduplicated file with no header row.")
+    DEDUPLICATED_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with DEDUPLICATED_PATH.open("w", encoding="utf-8", newline="") as output_file:
+        writer = csv.DictWriter(output_file, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def generate_report() -> Path:
     inputs = load_inputs()
     parameters = load_parameters()
     summary = inspect_quality(inputs, parameters)
+    _write_deduplicated_listings(summary.deduplication.rows)
     report = render_report(summary, str(parameters.get("version", "unknown")))
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(report, encoding="utf-8")
@@ -493,3 +526,4 @@ def generate_report() -> Path:
 
 if __name__ == "__main__":
     print(f"Wrote {generate_report()}")
+    print(f"Wrote {DEDUPLICATED_PATH}")

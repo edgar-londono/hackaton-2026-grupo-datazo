@@ -34,3 +34,4 @@
 - 2026-11-27 15:15:53: Added a main-only GitHub Pages workflow for the presentation and updated the duplicate-review slide title.
 - 2026-11-27 15:19:24: Switched Pages to a main-branch docs publication source after Actions could not create the Pages site.
 - 2026-11-27 15:25:02: Reduced slide whitespace, capitalized metric text, and separated the duplicate rule and sample.
+- 2026-11-27 15:28:13: Removed viewport-height minimums so short slides end after their content.

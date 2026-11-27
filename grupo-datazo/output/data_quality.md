@@ -176,3 +176,7 @@ Missing or unmapped values remain sin_clasificar.
 | Test properties | habitable | 2 |
 | Test properties | por_remodelar | 6 |
 | Test properties | remodelado | 3 |
+
+## Geographic layers
+
+The geospatial cleaning results and review cases are in [geospatial_quality.md](geospatial_quality.md). The source layers remain unchanged.

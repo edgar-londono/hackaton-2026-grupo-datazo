@@ -47,3 +47,4 @@
 - 2026-11-27 16:19:51: Simplified the input slide and moved the test-property note to its end.
 - 2026-11-27 16:22:50: Added a separate slide to introduce the 14 listing fields before the cleaning steps.
 - 2026-11-27 16:34:24: Validated both geographic layers, preserved their data, and listed coordinate overlaps for review.
+- 2026-11-27 16:41:00: Linked the geographic quality report and documented the reproducible cleaning commands.

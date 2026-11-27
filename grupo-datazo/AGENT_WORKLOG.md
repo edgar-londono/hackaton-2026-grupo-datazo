@@ -49,3 +49,4 @@
 - 2026-11-27 16:34:24: Validated both geographic layers, preserved their data, and listed coordinate overlaps for review.
 - 2026-11-27 16:41:00: Linked the geographic quality report and documented the reproducible cleaning commands.
 - 2026-11-27 16:43:54: Added the test-property validation results before the geographic cleaning step.
+- 2026-11-27 16:45:55: Clarified the geographic overlap count after checking the published slide.

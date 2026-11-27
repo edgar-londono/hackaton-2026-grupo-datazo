@@ -35,10 +35,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
 
 ## 2. Prepare the required inputs
 
-- [ ] **2. Prepare a traceable input set.**
+- [x] **2. Prepare a traceable input set.**
   - Deliverable: copied inputs and `data/source_manifest.md`.
   - Done when: every input has a source path and the archived source remains unchanged.
-  - Evidence: [add link or path]
+  - Evidence: `data/source_manifest.md` and `docs/output_contract.md`
   - [x] **2.1 Copy the listing sample.**
     - Deliverable: `data/anuncios_muestra.csv`.
     - Done when: the copy matches the supplied source file and its source path appears in the manifest.
@@ -59,10 +59,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
     - Deliverable: input manifest entry for the absent POT layer.
     - Done when: the manifest states that the archived source marks this layer as pending and no substitute layer is added.
     - Evidence: `data/source_manifest.md` and `../resources/venture-one-reference/README.md`
-  - [ ] **2.6 Record the output contract.**
+  - [x] **2.6 Record the output contract.**
     - Deliverable: `docs/output_contract.md` based on the supplied template and example.
     - Done when: the JSON fields and readable card fields are mapped to source data or marked as unavailable.
-    - Evidence: [add link or path]
+    - Evidence: `docs/output_contract.md`
 
 ## 3. Set up the smallest runnable solution
 

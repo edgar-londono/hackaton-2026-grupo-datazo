@@ -15,3 +15,5 @@
 - 2026-11-27 12:42:24: Copied and checksum-verified both geographic layers for checklist item 2.3.
 - 2026-11-27 12:43:13: Copied and checksum-verified calculation parameters version 1.0 for checklist item 2.4.
 - 2026-11-27 12:44:07: Recorded the missing POT layer and marked checklist item 2.5 complete.
+- 2026-11-27 12:47:46: Mapped the JSON fields, card sections, sources, and missing-data rules in the output contract.
+- 2026-11-27 12:48:51: Completed checklist point 2 after verifying all input copies, provenance, and the output contract.

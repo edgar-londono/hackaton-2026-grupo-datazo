@@ -43,6 +43,20 @@ No calculated listing prices per square meter fall outside the configured range.
 
 25 listings have an empty estado. They remain visible in the source data but cannot match a canonical condition.
 
+## Normalized conditions
+
+Missing or unmapped values remain sin_clasificar.
+
+| Dataset | Canonical condition | Rows |
+|---|---|---:|
+| Listings | habitable | 35 |
+| Listings | por_remodelar | 33 |
+| Listings | remodelado | 24 |
+| Listings | sin_clasificar | 25 |
+| Test properties | habitable | 2 |
+| Test properties | por_remodelar | 6 |
+| Test properties | remodelado | 3 |
+
 ## Pending checks
 
 - Apply invalid-row exclusions to calculations under checklist item 4.5.

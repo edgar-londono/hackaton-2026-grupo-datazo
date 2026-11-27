@@ -7,9 +7,11 @@ from typing import Any, Optional
 if __package__:
     from .data_loader import LoadedInputs, load_inputs
     from .parameters import load_parameters
+    from .data_preparation import count_conditions
 else:
     from data_loader import LoadedInputs, load_inputs
     from parameters import load_parameters
+    from data_preparation import count_conditions
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -59,6 +61,7 @@ class QualitySummary:
     price_range: tuple[float, float]
     price_calculations: int
     invalid_numeric_count: int
+    normalized_conditions: dict[str, Counter[str]]
 
 
 def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> QualitySummary:
@@ -72,6 +75,11 @@ def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> Quality
     accepted_price_types = parameters["comparables"]["tipos_precio"]
     price_min, price_max = parameters["comparables"]["rango_precio_m2_valido"]
     price_calculations = 0
+    condition_rules = parameters["estados"]
+    normalized_conditions = {
+        "Listings": count_conditions(inputs.listings, condition_rules),
+        "Test properties": count_conditions(inputs.properties, condition_rules),
+    }
 
     _count_missing(inputs.listings, LISTING_REQUIRED_FIELDS, missing_fields["Listings"])
     _count_missing(inputs.properties, PROPERTY_REQUIRED_FIELDS, missing_fields["Test properties"])
@@ -198,6 +206,7 @@ def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> Quality
         price_range=(price_min, price_max),
         price_calculations=price_calculations,
         invalid_numeric_count=invalid_numeric_count,
+        normalized_conditions=normalized_conditions,
     )
 
 
@@ -438,6 +447,21 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
             "",
             f"{len(summary.missing_listing_states)} listings have an empty estado. "
             "They remain visible in the source data but cannot match a canonical condition.",
+            "",
+            "## Normalized conditions",
+            "",
+            "Missing or unmapped values remain sin_clasificar.",
+            "",
+            "| Dataset | Canonical condition | Rows |",
+            "|---|---|---:|",
+        ]
+    )
+    for dataset, counts in summary.normalized_conditions.items():
+        for condition, count in sorted(counts.items()):
+            lines.append(f"| {dataset} | {condition} | {count} |")
+
+    lines.extend(
+        [
             "",
             "## Pending checks",
             "",

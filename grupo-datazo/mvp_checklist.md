@@ -109,10 +109,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
     - Deliverable: validation results in `output/data_quality.md`.
     - Done when: missing fields, invalid numbers, and out-of-range prices have clear reasons.
     - Evidence: `src/data_quality.py` and `output/data_quality.md`
-  - [ ] **4.3 Normalize property conditions.**
+  - [x] **4.3 Normalize property conditions.**
     - Deliverable: normalized condition mapping in the pipeline.
     - Done when: supplied mappings create the three canonical conditions and unmapped values remain unclassified.
-    - Evidence: [add link or path]
+    - Evidence: `src/data_preparation.py` and `output/data_quality.md`
   - [ ] **4.4 Remove duplicates with the supplied rules.**
     - Deliverable: deduplication report and cleaned working data.
     - Done when: duplicate rules run in order and retain the first matching row as specified.

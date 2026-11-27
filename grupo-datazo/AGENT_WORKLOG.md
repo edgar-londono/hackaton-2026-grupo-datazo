@@ -18,3 +18,4 @@
 - 2026-11-27 12:47:46: Mapped the JSON fields, card sections, sources, and missing-data rules in the output contract.
 - 2026-11-27 12:48:51: Completed checklist point 2 after verifying all input copies, provenance, and the output contract.
 - 2026-11-27 12:56:20: Recorded the Python command interface and deferred the entry-point implementation until its pipeline is ready.
+- 2026-11-27 13:07:17: Added and manually verified the YAML parameter loader; pipeline integration remains pending.

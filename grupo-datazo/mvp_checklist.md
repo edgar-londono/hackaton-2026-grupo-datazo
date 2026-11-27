@@ -85,7 +85,7 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
   - [ ] **3.2 Keep rules in the parameter file.**
     - Deliverable: pipeline reads `config/parametros.yaml`.
     - Done when: area tolerance, valid price range, confidence thresholds, and search radius come from configuration.
-    - Evidence: [add link or path]
+    - Evidence: `src/parameters.py` (loader only; pipeline use pending)
   - [ ] **3.3 Define the minimal runtime requirements.**
     - Deliverable: `requirements.txt` and a short setup note.
     - Done when: a clean environment can install only the packages needed to run the pipeline.

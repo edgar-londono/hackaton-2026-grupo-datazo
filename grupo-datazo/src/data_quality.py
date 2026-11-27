@@ -2,6 +2,7 @@ import csv
 import math
 from collections import Counter
 from dataclasses import dataclass
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any, Optional
 
@@ -15,6 +16,8 @@ if __package__:
         count_conditions,
         deduplicate_listings,
         normalize_conditions,
+        normalize_output_text,
+        normalize_text_for_comparison,
         prepare_valid_rows,
     )
 else:
@@ -27,6 +30,8 @@ else:
         count_conditions,
         deduplicate_listings,
         normalize_conditions,
+        normalize_output_text,
+        normalize_text_for_comparison,
         prepare_valid_rows,
     )
 
@@ -39,6 +44,7 @@ VALID_LISTINGS_PATH = PREPARED_DIR / "anuncios_validos.csv"
 VALID_PROPERTIES_PATH = PREPARED_DIR / "inmuebles_validos.csv"
 EXCLUSIONS_PATH = PREPARED_DIR / "exclusiones.csv"
 DUPLICATE_REVIEW_PATH = PREPARED_DIR / "duplicados_para_revision.csv"
+NORMALIZATION_AUDIT_PATH = PREPARED_DIR / "normalizacion_texto.csv"
 
 LISTING_REQUIRED_FIELDS = (
     "zona",
@@ -524,9 +530,9 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
             "",
             "## Duplicate removal",
             "",
-            "Configured keys find candidates only. Rows are removed only when every source column matches exactly. Candidate groups with any difference are held for review.",
+            "Configured keys find candidates only. Comparison trims and collapses spaces and ignores letter case, while preserving accents. Rows are removed only when every source column matches after that comparison. Candidate groups with any remaining difference are held for review.",
             "",
-            "| Candidate key | Candidate groups | Exact rows removed |",
+            "| Candidate key | Candidate groups | Rows removed after normalization |",
             "|---|---:|---:|",
             f"| id_anuncio | {summary.deduplication.group_counts['id_anuncio']} | {removed_by_rule['id_anuncio']} |",
             f"| claves_sin_id ({', '.join(summary.deduplication.tuple_fields)}) | {summary.deduplication.group_counts['claves_sin_id']} | {removed_by_rule['claves_sin_id']} |",
@@ -536,6 +542,7 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
             f"| Candidate rows held for review | | {len(summary.deduplication.for_review)} |",
             "",
             "Review file: output/prepared/duplicados_para_revision.csv.",
+            "Normalization before/after log: output/prepared/normalizacion_texto.csv.",
         ]
     )
 
@@ -674,6 +681,59 @@ def _write_exclusions(exclusions: list[QualityIssue]) -> None:
     )
 
 
+def _write_normalization_audit(inputs: LoadedInputs, parameters: dict[str, Any]) -> None:
+    rows: list[dict[str, Any]] = []
+    for dataset, source_file, source_rows in (
+        ("Listings", "data/anuncios_muestra.csv", inputs.listings),
+        ("Test properties", "data/inmuebles_prueba.csv", inputs.properties),
+    ):
+        for csv_row, row in enumerate(source_rows, start=2):
+            for field, value in row.items():
+                if not isinstance(value, str):
+                    continue
+                if field in ("area_m2", "precio", "habitaciones", "banos", "parqueadero"):
+                    try:
+                        comparison_value = format(Decimal(value.strip()).normalize(), "f") if value.strip() else ""
+                        rule = "Número: se compara el valor decimal equivalente"
+                    except (InvalidOperation, ValueError):
+                        comparison_value = normalize_text_for_comparison(value)
+                        rule = "Texto: recorta y agrupa espacios; ignora mayúsculas"
+                else:
+                    comparison_value = normalize_text_for_comparison(value)
+                    rule = "Texto: recorta y agrupa espacios; ignora mayúsculas; conserva tildes"
+                rows.append({
+                    "dataset": dataset,
+                    "source_file": source_file,
+                    "source_row": csv_row,
+                    "field": field,
+                    "original_value": value.replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t"),
+                    "comparison_value": comparison_value,
+                    "prepared_value": normalize_output_text(value),
+                    "comparison_changed": str(value != comparison_value).lower(),
+                    "prepared_changed": str(value != normalize_output_text(value)).lower(),
+                    "rule": f"{rule}; salida: recorta y agrupa espacios, conserva mayúsculas y tildes",
+                })
+                if field == "estado":
+                    canonical = normalize_conditions([row], parameters["estados"])[0]["estado_canonico"]
+                    rows.append({
+                        "dataset": dataset,
+                        "source_file": source_file,
+                        "source_row": csv_row,
+                        "field": "estado_canonico",
+                        "original_value": value.replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t"),
+                        "comparison_value": normalize_text_for_comparison(value),
+                        "prepared_value": canonical,
+                        "comparison_changed": str(value != normalize_text_for_comparison(value)).lower(),
+                        "prepared_changed": str(value != canonical).lower(),
+                        "rule": "Estado: se asigna la categoría configurada; no se corrige por intuición",
+                    })
+    _write_rows(
+        NORMALIZATION_AUDIT_PATH,
+        rows,
+        ["dataset", "source_file", "source_row", "field", "original_value", "comparison_value", "prepared_value", "comparison_changed", "prepared_changed", "rule"],
+    )
+
+
 def _write_duplicate_review(inputs: LoadedInputs, summary: QualitySummary) -> None:
     fieldnames = list(inputs.listings[0]) + [
         "csv_row",
@@ -717,6 +777,7 @@ def generate_report() -> Path:
     )
     _write_exclusions(summary.exclusions)
     _write_duplicate_review(inputs, summary)
+    _write_normalization_audit(inputs, parameters)
     report = render_report(summary, str(parameters.get("version", "unknown")))
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(report, encoding="utf-8")
@@ -730,3 +791,4 @@ if __name__ == "__main__":
     print(f"Wrote {VALID_PROPERTIES_PATH}")
     print(f"Wrote {EXCLUSIONS_PATH}")
     print(f"Wrote {DUPLICATE_REVIEW_PATH}")
+    print(f"Wrote {NORMALIZATION_AUDIT_PATH}")

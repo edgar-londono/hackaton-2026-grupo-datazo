@@ -1,6 +1,6 @@
 # Calidad de las capas geográficas
 
-La preparación valida los puntos y conserva los archivos fuente sin cambios. Solo quita filas GeoJSON idénticas en todos sus campos. Las coincidencias parciales se guardan para revisión.
+La preparación valida los puntos y conserva los archivos fuente sin cambios. En la salida agrupa espacios repetidos y normaliza las categorías a minúsculas sin tildes. Para detectar duplicados ignora mayúsculas y espacios externos o repetidos, pero conserva las tildes al comparar. Solo quita filas iguales en todos sus campos después de esa comparación. Las coincidencias parciales se guardan para revisión.
 
 ## Resumen
 
@@ -35,11 +35,12 @@ Campo: sistema.
 
 - Registros con coordenadas compartidas o identificador osm_id repetido: 10. Se conservan en la capa preparada.
 - Registros con geometría o campos obligatorios inválidos: 0. Se guardan en el CSV de filas inválidas y no entran en la capa preparada.
-- Los nombres vacíos se conservan. No se inventan nombres, y el conteo por categoría no depende de ellos.
+- Los nombres vacíos se conservan. No se inventan nombres. Dentro de grupos con las mismas coordenadas, se marca una posible similitud cuando los nombres alcanzan 90%; esta alerta no corrige ni elimina registros.
 - Las coordenadas GeoJSON se interpretan en orden longitud, latitud y se validan contra los rangos geográficos globales.
 
 Los registros marcados para revisión están en output/prepared/geo/coincidencias_para_revision.csv.
 Las filas inválidas están en output/prepared/geo/filas_invalidas.csv.
+El registro de valores originales, comparados y preparados está en output/prepared/geo/normalizacion_geografica.csv.
 
 ## Capas preparadas
 

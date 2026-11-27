@@ -52,3 +52,4 @@
 - 2026-11-27 16:45:55: Clarified the geographic overlap count after checking the published slide.
 - 2026-11-27 17:01:17: Added a second data-backed duplicate example and moved keyboard help into a question button.
 - 2026-11-27 17:30:26: Clarified duplicate examples, linked the source file, and aligned slide labels and tables.
+- 2026-11-27 17:50:00: Added case and whitespace normalization, preserved accent differences for review, and recorded original, comparison, and prepared values for listing and geographic text.

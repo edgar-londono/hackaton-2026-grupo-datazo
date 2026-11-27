@@ -36,9 +36,9 @@ Counts include optional fields. A missing optional value is not an invalid row.
 
 ## Duplicate removal
 
-Configured keys find candidates only. Rows are removed only when every source column matches exactly. Candidate groups with any difference are held for review.
+Configured keys find candidates only. Comparison trims and collapses spaces and ignores letter case, while preserving accents. Rows are removed only when every source column matches after that comparison. Candidate groups with any remaining difference are held for review.
 
-| Candidate key | Candidate groups | Exact rows removed |
+| Candidate key | Candidate groups | Rows removed after normalization |
 |---|---:|---:|
 | id_anuncio | 10 | 0 |
 | claves_sin_id (zona, area_m2, precio) | 21 | 0 |
@@ -48,6 +48,7 @@ Configured keys find candidates only. Rows are removed only when every source co
 | Candidate rows held for review | | 54 |
 
 Review file: output/prepared/duplicados_para_revision.csv.
+Normalization before/after log: output/prepared/normalizacion_texto.csv.
 
 ## Prepared valid inputs
 
@@ -102,19 +103,19 @@ Counts are issue occurrences. One row can have more than one reason.
 | Listings | 52 | fincaraiz:192814617 | estado | Cannot match this listing to a canonical condition. | <blank> |
 | Listings | 53 | fincaraiz:192824557 | estado | Cannot match this listing to a canonical condition. | <blank> |
 | Listings | 54 | fincaraiz:191722056# | estado | Cannot match this listing to a canonical condition. | <blank> |
-| Listings | 55 | fincaraiz:7387557 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, barrio, estado, origen |
+| Listings | 55 | fincaraiz:7387557 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, estado, origen |
 | Listings | 55 | fincaraiz:7387557 | estado | Cannot match this listing to a canonical condition. | <blank> |
 | Listings | 56 | fincaraiz:10766727 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, estado, origen |
 | Listings | 56 | fincaraiz:10766727 | estado | Cannot match this listing to a canonical condition. | <blank> |
 | Listings | 57 | fincaraiz:192687997 | estado | Cannot match this listing to a canonical condition. | <blank> |
-| Listings | 58 | fincaraiz:7387557 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, barrio, estado, origen |
+| Listings | 58 | fincaraiz:7387557 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, estado, origen |
 | Listings | 58 | fincaraiz:7387557 | estado | Cannot match this listing to a canonical condition. | <blank> |
 | Listings | 60 | extension_poligono.xlsx:REMODELAR:73 | all_columns | Candidate duplicate differs across columns and needs human review. | origen |
 | Listings | 61 | extension_poligono.xlsx:REMODELAR:74 | estado | Cannot match this listing to a canonical condition. | <blank> |
 | Listings | 62 | extension_poligono.xlsx:REMODELAR:75 | estado | Cannot match this listing to a canonical condition. | <blank> |
 | Listings | 63 | extension_poligono.xlsx:REMODELAR:76 | estado | Cannot match this listing to a canonical condition. | <blank> |
 | Listings | 64 | arrendamientos_santafe:V12132 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, estado, origen |
-| Listings | 65 | arrendamientos_santafe:V10746 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, barrio, estado, origen |
+| Listings | 65 | arrendamientos_santafe:V10746 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, estado, origen |
 | Listings | 69 | fincaraiz:193042067 | all_columns | Candidate duplicate differs across columns and needs human review. | origen |
 | Listings | 70 | fincaraiz:192609616 | all_columns | Candidate duplicate differs across columns and needs human review. | origen |
 | Listings | 71 | fincaraiz:8146402 | all_columns | Candidate duplicate differs across columns and needs human review. | habitaciones, banos, estado, origen |
@@ -130,9 +131,9 @@ Counts are issue occurrences. One row can have more than one reason.
 | Listings | 81 | fincaraiz:192609616 | all_columns | Candidate duplicate differs across columns and needs human review. | origen |
 | Listings | 82 | fincaraiz:8146402 | all_columns | Candidate duplicate differs across columns and needs human review. | habitaciones, banos, estado, origen |
 | Listings | 93 | extension_poligono.xlsx:El salvador:3 | all_columns | Candidate duplicate differs across columns and needs human review. | estado, origen |
-| Listings | 95 | fincaraiz:7387557 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, barrio, estado, origen |
+| Listings | 95 | fincaraiz:7387557 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, estado, origen |
 | Listings | 96 | arrendamientos_santafe:V12132 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, estado, origen |
-| Listings | 97 | arrendamientos_santafe:V10746 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, barrio, estado, origen |
+| Listings | 97 | arrendamientos_santafe:V10746 | all_columns | Candidate duplicate differs across columns and needs human review. | id_anuncio, fuente, estado, origen |
 | Listings | 98 | extension_poligono.xlsx:El salvador:8 | all_columns | Candidate duplicate differs across columns and needs human review. | barrio, estado, origen |
 | Listings | 100 | extension_poligono.xlsx:El salvador:10 | all_columns | Candidate duplicate differs across columns and needs human review. | origen |
 | Listings | 101 | extension_poligono.xlsx:El salvador:11 | all_columns | Candidate duplicate differs across columns and needs human review. | estado, origen |
@@ -176,7 +177,3 @@ Missing or unmapped values remain sin_clasificar.
 | Test properties | habitable | 2 |
 | Test properties | por_remodelar | 6 |
 | Test properties | remodelado | 3 |
-
-## Geographic layers
-
-The geospatial cleaning results and review cases are in [geospatial_quality.md](geospatial_quality.md). The source layers remain unchanged.

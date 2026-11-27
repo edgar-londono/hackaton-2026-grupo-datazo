@@ -6,7 +6,7 @@ from typing import Any, Mapping, Optional, Sequence
 
 
 UNCLASSIFIED = "sin_clasificar"
-NUMERIC_DEDUP_FIELDS = {"area_m2", "precio"}
+NUMERIC_DEDUP_FIELDS = {"area_m2", "precio", "habitaciones", "banos", "parqueadero"}
 
 
 @dataclass(frozen=True)
@@ -56,14 +56,27 @@ def build_condition_map(
     return condition_map
 
 
-def normalize_text(value: Any) -> str:
+def normalize_text_for_comparison(value: Any) -> str:
     if value is None:
         return ""
-    normalized = unicodedata.normalize("NFKD", str(value))
-    plain_text = "".join(
+    return " ".join(str(value).casefold().split())
+
+
+def normalize_text_for_similarity(value: Any) -> str:
+    normalized = unicodedata.normalize("NFKD", normalize_text_for_comparison(value))
+    return "".join(
         character for character in normalized if not unicodedata.combining(character)
     )
-    return plain_text.lower().replace("?", "").strip()
+
+
+def normalize_output_text(value: Any) -> Any:
+    if not isinstance(value, str):
+        return value
+    return " ".join(value.split())
+
+
+def normalize_text(value: Any) -> str:
+    return " ".join(normalize_text_for_comparison(value).replace("?", "").split())
 
 
 def normalize_conditions(
@@ -96,11 +109,11 @@ def deduplicate_listings(
     candidates: dict[tuple[str, Any], list[int]] = {}
 
     for index, row in enumerate(rows):
-        full_row_key = tuple((field, row.get(field)) for field in sorted(row))
+        full_row_key = _comparison_row_key(row)
         candidates.setdefault(("all_columns", full_row_key), []).append(index)
         listing_id = row.get("id_anuncio")
         if not _is_missing(listing_id):
-            candidates.setdefault(("id_anuncio", str(listing_id).strip()), []).append(index)
+            candidates.setdefault(("id_anuncio", normalize_text_for_comparison(listing_id)), []).append(index)
         tuple_key = _deduplication_key(row, tuple_fields)
         if tuple_key is not None:
             candidates.setdefault(("claves_sin_id", tuple_key), []).append(index)
@@ -157,7 +170,8 @@ def deduplicate_listings(
             if pair in candidate_rules:
                 rule, key = candidate_rules[pair]
                 break
-        if all(rows[index] == first_row for index in indexes[1:]):
+        first_comparison_key = _comparison_row_key(first_row)
+        if all(_comparison_row_key(rows[index]) == first_comparison_key for index in indexes[1:]):
             for index in indexes[1:]:
                 removed_indexes.add(index)
                 removed.append(
@@ -167,7 +181,11 @@ def deduplicate_listings(
 
         differing_fields = tuple(
             field for field in first_row
-            if any(rows[index].get(field) != first_row.get(field) for index in indexes[1:])
+            if any(
+                _comparison_value(field, rows[index].get(field))
+                != _comparison_value(field, first_row.get(field))
+                for index in indexes[1:]
+            )
         )
         for index in indexes:
             for_review.append(
@@ -187,7 +205,10 @@ def deduplicate_listings(
     ]
 
     return DeduplicationResult(
-        rows=[row for _, row in kept],
+        rows=[
+            {field: normalize_output_text(value) for field, value in row.items()}
+            for _, row in kept
+        ],
         removed=removed,
         for_review=for_review,
         group_counts=candidate_group_counts,
@@ -212,8 +233,33 @@ def prepare_valid_rows(
         if row_number not in excluded_row_numbers and row["estado_canonico"] != UNCLASSIFIED
     ]
     return PreparedRows(
-        rows=[row for _, row in kept],
+        rows=[
+            {field: normalize_output_text(value) for field, value in row.items()}
+            for _, row in kept
+        ],
         source_row_numbers=[row_number for row_number, _ in kept],
+    )
+
+
+def _comparison_value(field: str, value: Any) -> tuple[str, Any]:
+    if _is_missing(value):
+        return ("missing", "")
+    if field in NUMERIC_DEDUP_FIELDS:
+        try:
+            number = Decimal(str(value).strip())
+        except (InvalidOperation, ValueError):
+            return ("text", normalize_text_for_comparison(value))
+        if number.is_finite():
+            return ("number", number.normalize())
+    if isinstance(value, str):
+        return ("text", normalize_text_for_comparison(value))
+    return ("value", value)
+
+
+def _comparison_row_key(row: Mapping[str, Any]) -> tuple[tuple[str, tuple[str, Any]], ...]:
+    return tuple(
+        (field, _comparison_value(field, row.get(field)))
+        for field in sorted(row)
     )
 
 
@@ -235,7 +281,7 @@ def _deduplication_key(
                 return None
             values.append(value.normalize())
         else:
-            values.append(str(raw_value).strip())
+            values.append(normalize_text_for_comparison(raw_value))
     return tuple(values)
 
 

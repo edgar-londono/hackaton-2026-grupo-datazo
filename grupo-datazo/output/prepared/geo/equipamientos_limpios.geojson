@@ -7267,7 +7267,7 @@
         ]
       },
       "properties": {
-        "nombre": "Parque San  Clemente",
+        "nombre": "Parque San Clemente",
         "categoria": "parques",
         "osm_id": "node/9118913263"
       }
@@ -7312,7 +7312,7 @@
         ]
       },
       "properties": {
-        "nombre": "Iglesia  episcopal",
+        "nombre": "Iglesia episcopal",
         "categoria": "parques",
         "osm_id": "node/9118983434"
       }
@@ -7432,7 +7432,7 @@
         ]
       },
       "properties": {
-        "nombre": "Catdog  Hospital Veterinaria",
+        "nombre": "Catdog Hospital Veterinaria",
         "categoria": "abastecimiento",
         "osm_id": "node/9128148844"
       }
@@ -7447,7 +7447,7 @@
         ]
       },
       "properties": {
-        "nombre": "Carnes  Torino",
+        "nombre": "Carnes Torino",
         "categoria": "abastecimiento",
         "osm_id": "node/9128204433"
       }
@@ -7462,7 +7462,7 @@
         ]
       },
       "properties": {
-        "nombre": "Buzz  Gold Mascotas",
+        "nombre": "Buzz Gold Mascotas",
         "categoria": "abastecimiento",
         "osm_id": "node/9128204554"
       }
@@ -7492,7 +7492,7 @@
         ]
       },
       "properties": {
-        "nombre": "Parque  Botero",
+        "nombre": "Parque Botero",
         "categoria": "parques",
         "osm_id": "node/9128232461"
       }
@@ -7537,7 +7537,7 @@
         ]
       },
       "properties": {
-        "nombre": "UNAC  Centro De Entrenamiento  Internacional",
+        "nombre": "UNAC Centro De Entrenamiento Internacional",
         "categoria": "educacion",
         "osm_id": "node/9133499313"
       }
@@ -7582,7 +7582,7 @@
         ]
       },
       "properties": {
-        "nombre": "Fruver  La Granja",
+        "nombre": "Fruver La Granja",
         "categoria": "abastecimiento",
         "osm_id": "node/9133557064"
       }
@@ -7882,7 +7882,7 @@
         ]
       },
       "properties": {
-        "nombre": "Drogeria Santa  Gema",
+        "nombre": "Drogeria Santa Gema",
         "categoria": "salud",
         "osm_id": "node/9225456014"
       }
@@ -9277,7 +9277,7 @@
         ]
       },
       "properties": {
-        "nombre": "Centro infantil \nBuen comienzo centro infantil ser y hacer altos de la torre",
+        "nombre": "Centro infantil Buen comienzo centro infantil ser y hacer altos de la torre",
         "categoria": "cultura",
         "osm_id": "node/11773758851"
       }
@@ -9727,7 +9727,7 @@
         ]
       },
       "properties": {
-        "nombre": "Isglesia  Idiospen M .L",
+        "nombre": "Isglesia Idiospen M .L",
         "categoria": "cultura",
         "osm_id": "node/12057460569"
       }
@@ -37852,7 +37852,7 @@
         ]
       },
       "properties": {
-        "nombre": "Clínica Vida -  Sede La 80",
+        "nombre": "Clínica Vida - Sede La 80",
         "categoria": "salud",
         "osm_id": "way/1383093477"
       }
@@ -40222,7 +40222,7 @@
         ]
       },
       "properties": {
-        "nombre": "sala de  profesores",
+        "nombre": "sala de profesores",
         "categoria": "cultura",
         "osm_id": "way/1556481102"
       }

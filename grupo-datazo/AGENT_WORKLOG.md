@@ -14,3 +14,4 @@
 - 2026-11-27 12:41:39: Copied and checksum-verified the 11 test properties for checklist item 2.2.
 - 2026-11-27 12:42:24: Copied and checksum-verified both geographic layers for checklist item 2.3.
 - 2026-11-27 12:43:13: Copied and checksum-verified calculation parameters version 1.0 for checklist item 2.4.
+- 2026-11-27 12:44:07: Recorded the missing POT layer and marked checklist item 2.5 complete.

@@ -55,10 +55,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
     - Deliverable: `config/parametros.yaml`.
     - Done when: the copied file preserves the supplied version and values.
     - Evidence: `config/parametros.yaml` and `data/source_manifest.md`
-  - [ ] **2.5 Keep the missing POT layer explicit.**
+  - [x] **2.5 Keep the missing POT layer explicit.**
     - Deliverable: input manifest entry for the absent POT layer.
     - Done when: the manifest states that the archived source marks this layer as pending and no substitute layer is added.
-    - Evidence: [add link or path]
+    - Evidence: `data/source_manifest.md` and `../resources/venture-one-reference/README.md`
   - [ ] **2.6 Record the output contract.**
     - Deliverable: `docs/output_contract.md` based on the supplied template and example.
     - Done when: the JSON fields and readable card fields are mapped to source data or marked as unavailable.

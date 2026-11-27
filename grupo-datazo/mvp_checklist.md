@@ -86,10 +86,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
     - Deliverable: pipeline reads `config/parametros.yaml`.
     - Done when: area tolerance, valid price range, confidence thresholds, and search radius come from configuration.
     - Evidence: `src/parameters.py` (loader only; pipeline use pending)
-  - [ ] **3.3 Define the minimal runtime requirements.**
+  - [x] **3.3 Define the minimal runtime requirements.**
     - Deliverable: `requirements.txt` and a short setup note.
     - Done when: a clean environment can install only the packages needed to run the pipeline.
-    - Evidence: [add link or path]
+    - Evidence: `requirements.txt` and `setup.md`
   - [ ] **3.4 Use one calculation path.**
     - Deliverable: notebook calls the same pipeline entry point.
     - Done when: notebook cells do not contain a second copy of market or geographic calculation rules.

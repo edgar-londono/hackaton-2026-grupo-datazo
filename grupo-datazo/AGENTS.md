@@ -17,4 +17,4 @@
 - 2026-11-27 09:44:29: Prepared a clean local checkout from `main` for the requested reorganization.
 - 2026-11-27 09:45:37: Moved the original repository into resources and copied the class brief PDF.
 - 2026-11-27 09:48:52: Preserved the reference files by reusing their original Git objects.
-- 2026-11-27 09:49:38: Verified original blobs, the PDF checksum, and staged whitespace.\n
+- 2026-11-27 09:49:38: Verified original blobs, the PDF checksum, and staged whitespace.\n- 2026-11-27 09:51:50: Set main as default, removed development, and verified one branch remains.\n

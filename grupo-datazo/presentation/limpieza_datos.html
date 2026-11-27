@@ -96,7 +96,7 @@
     .lead strong { color: var(--ink); font-weight: 500; }
     .fact-line { display: flex; gap: 18px; align-items: center; padding: 15px 0; border-top: 1px solid var(--line); }
     .fact-line:last-child { border-bottom: 1px solid var(--line); }
-    .fact-number { min-width: 2.8ch; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1; font-variant-numeric: tabular-nums; }
+    .fact-number { flex: 0 0 3.4ch; inline-size: 3.4ch; text-align: center; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1; font-variant-numeric: tabular-nums; }
     .fact-text { max-width: 38ch; color: var(--muted); line-height: 1.4; }
     .compare {
       margin-top: 24px;
@@ -123,6 +123,8 @@
     @media (max-width: 760px) {
       .stage { display: flex; flex-direction: column; }
       .artifact { position: relative; height: auto; min-height: 0; padding: 18px 22px 20px; border-right: 0; border-bottom: 1px solid var(--line); gap: 18px; }
+      .content { order: 1; }
+      .artifact { order: 2; }
       .paper-record { margin: 0 auto; transform: none; padding: 16px 18px; }
       .record-top { padding-bottom: 9px; margin-bottom: 10px; }
       .record-price { font-size: 1.7rem; margin: 8px 0 4px; }
@@ -143,7 +145,7 @@
   <main class="stage" aria-label="Presentación sobre limpieza de datos">
     <div class="progress" id="progress" aria-hidden="true"></div>
     <aside class="artifact" aria-label="Ejemplo real de una fila de anuncios">
-      <div class="brand"><b>Datazo</b> / Limpieza de datos</div>
+      <div class="brand"><b>Datazo</b></div>
       <div class="paper-record">
         <div class="record-top"><strong>Ficha del anuncio</strong><span class="stamp">MUESTRA REAL</span></div>
         <span class="small-label">Precio anunciado</span>
@@ -163,7 +165,7 @@
     </aside>
 
     <section class="content" aria-live="polite" aria-atomic="true">
-      <header class="content-head"><p class="eyebrow">Preparación de anuncios inmobiliarios</p><span class="slide-count" id="slide-count">01 / 06</span></header>
+      <header class="content-head"><p class="eyebrow">Limpieza de datos</p><span class="slide-count" id="slide-count">01 / 06</span></header>
       <div class="slides">
         <article class="slide" data-slide>
           <h1>Limpiamos los datos antes de comparar.</h1>
@@ -178,9 +180,9 @@
         </article>
         <article class="slide" data-slide hidden>
           <h2>Un dato vacío no se inventa.</h2>
-          <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">anuncios no tienen fecha. No podemos confirmar su actualidad.</span></div>
-          <div class="fact-line"><strong class="fact-number">25</strong><span class="fact-text">no indican el estado del inmueble. No sirven para comparar por estado.</span></div>
-          <div class="fact-line"><strong class="fact-number">1</strong><span class="fact-text">no tiene área. No permite calcular precio por metro cuadrado.</span></div>
+          <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">Anuncios no tienen fecha. No podemos confirmar su actualidad.</span></div>
+          <div class="fact-line"><strong class="fact-number">25</strong><span class="fact-text">No indican el estado del inmueble. No sirven para comparar por estado.</span></div>
+          <div class="fact-line"><strong class="fact-number">1</strong><span class="fact-text">No tiene área. No permite calcular precio por metro cuadrado.</span></div>
           <p class="lead">Los datos originales se conservan. Si falta un dato necesario, esa fila no entra en el cálculo afectado.</p>
         </article>
         <article class="slide" data-slide hidden>

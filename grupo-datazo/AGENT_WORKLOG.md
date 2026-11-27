@@ -32,3 +32,4 @@
 - 2026-11-27 14:57:41: Moved the duplicate-removal rule to the slide that explains duplicate review and removed it from the opening slide.
 - 2026-11-27 15:09:32: Moved the brand to the top, removed the unexplained sample card, clarified source fields, and embedded all 54 review rows with differing cells highlighted.
 - 2026-11-27 15:15:53: Added a main-only GitHub Pages workflow for the presentation and updated the duplicate-review slide title.
+- 2026-11-27 15:19:24: Switched Pages to a main-branch docs publication source after Actions could not create the Pages site.

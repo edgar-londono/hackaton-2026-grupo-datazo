@@ -105,10 +105,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
     - Deliverable: input-loading code and a successful load record.
     - Done when: both CSV files and both GeoJSON files load from the team folder.
     - Evidence: `src/data_loader.py` and `output/input_load.md`
-  - [ ] **4.2 Validate required fields and values.**
+  - [x] **4.2 Validate required fields and values.**
     - Deliverable: validation results in `output/data_quality.md`.
     - Done when: missing fields, invalid numbers, and out-of-range prices have clear reasons.
-    - Evidence: [add link or path]
+    - Evidence: `src/data_quality.py` and `output/data_quality.md`
   - [ ] **4.3 Normalize property conditions.**
     - Deliverable: normalized condition mapping in the pipeline.
     - Done when: supplied mappings create the three canonical conditions and unmapped values remain unclassified.

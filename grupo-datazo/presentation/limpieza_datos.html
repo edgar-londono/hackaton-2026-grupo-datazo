@@ -80,6 +80,13 @@
       line-height: 1.4;
     }
     .column-list code { color: var(--ink); font-size: .88em; }
+    .section-title { margin: 22px 0 8px; font-size: 1.05rem; font-weight: 500; }
+    .property-table { width: 100%; border-collapse: collapse; margin: 8px 0 22px; font-size: .9rem; }
+    .property-table th, .property-table td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    .property-table th { background: var(--panel); color: var(--ink); font-weight: 500; }
+    .property-table td { color: var(--muted); }
+    .property-table th:first-child, .property-table td:first-child { white-space: nowrap; }
+
     .column-note { margin-top: 12px; }
     .review-intro { margin-top: 26px; }
     .review-intro p { margin: 0 0 10px; color: var(--muted); line-height: 1.45; }
@@ -154,7 +161,25 @@
           <h2>Primero vemos qué recibimos</h2>
           <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">Anuncios inmobiliarios en la muestra.</span></div>
           <div class="fact-line separated"><strong class="fact-number">11</strong><span class="fact-text">Inmuebles de prueba para revisar el resultado.</span></div>
-          <p class="lead">El archivo de anuncios trae 14 columnas:</p>
+          <h3 class="section-title">Inmuebles de prueba</h3>
+          <table class="property-table" aria-label="Los 11 inmuebles de prueba">
+            <thead><tr><th>Identificador</th><th>Barrio</th><th>Área (m²)</th><th>Estado</th></tr></thead>
+            <tbody>
+              <tr><td>INM-01</td><td>El Salvador</td><td>73</td><td>Remodelar</td></tr>
+              <tr><td>INM-02</td><td>El Salvador</td><td>57</td><td>Remodelar</td></tr>
+              <tr><td>INM-03</td><td>El Salvador</td><td>73</td><td>Remodelar</td></tr>
+              <tr><td>INM-04</td><td>El Salvador</td><td>71</td><td>OK</td></tr>
+              <tr><td>INM-05</td><td>Bombona No1</td><td>67</td><td>Remodelar</td></tr>
+              <tr><td>INM-06</td><td>La Castellana</td><td>90</td><td>REMODELADO</td></tr>
+              <tr><td>INM-07</td><td>La Castellana</td><td>90</td><td>HABITABLE POR REMODELAR</td></tr>
+              <tr><td>INM-08</td><td>Laureles</td><td>92</td><td>REMODELADO</td></tr>
+              <tr><td>INM-09</td><td>Ditaires</td><td>73</td><td>REMODELADA</td></tr>
+              <tr><td>INM-10</td><td>Ditaires</td><td>64</td><td>SIN REMODELAR (OBRA NEGRA)</td></tr>
+              <tr><td>INM-11</td><td>Ditaires</td><td>63</td><td>SIN REMODELAR (OBRA NEGRA)</td></tr>
+            </tbody>
+          </table>
+          <h3 class="section-title">Columnas del archivo de anuncios</h3>
+          <p class="lead">El archivo contiene 14 columnas:</p>
           <ul class="column-list">
             <li>Identificador del anuncio (<code>id_anuncio</code>)</li>
             <li>Fuente (<code>fuente</code>)</li>
@@ -203,7 +228,7 @@
             <b class="compare-title">Ejemplo:</b>
             <p>Ditaires, 73 m² y $490.000.000 aparecen en tres filas. Tienen tres identificadores y algunos datos distintos.</p>
           </div>
-          <div class="fact-line"><strong class="fact-number" id="review-count">54</strong><span class="fact-text">Filas candidatas quedaron aparte para revisión. <strong>Ninguna fila se eliminó automáticamente.</strong></span></div>
+          <div class="fact-line separated"><strong class="fact-number" id="review-count">54</strong><span class="fact-text">Filas candidatas quedaron aparte para revisión. <strong>Ninguna fila se eliminó automáticamente.</strong></span></div>
           <div class="review-intro">
             <p><strong>Anuncios candidatos para revisar</strong></p>
             <p>El color marca los datos que cambian dentro del grupo. Desplázate a los lados para ver todas las columnas.</p>

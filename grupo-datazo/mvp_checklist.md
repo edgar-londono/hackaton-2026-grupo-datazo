@@ -12,26 +12,26 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
 
 ## 1. Confirm scope and source rules
 
-- [ ] **1. Confirm the MVP scope.**
+- [x] **1. Confirm the MVP scope.**
   - Deliverable: accepted scope in `mvp_plan.md`.
   - Done when: the team agrees on the goal, outputs, limits, and acceptance criteria.
-  - Evidence: [add link or path]
-  - [ ] **1.1 Build an independent solution.**
+  - Evidence: `mvp_plan.md`
+  - [x] **1.1 Build an independent solution.**
     - Deliverable: source-use rule in `mvp_plan.md`.
     - Done when: the team solution does not import or copy the archived `src/ficha/` or `scripts/` implementation.
-    - Evidence: [add link or path]
-  - [ ] **1.2 Define allowed reference materials.**
+    - Evidence: `mvp_plan.md`
+  - [x] **1.2 Define allowed reference materials.**
     - Deliverable: source-use rule in `mvp_plan.md`.
     - Done when: the team may use archived data, documentation, parameters, templates, and manual results, while keeping the archive unchanged.
-    - Evidence: [add link or path]
-  - [ ] **1.3 Define the insufficient-data behavior.**
+    - Evidence: `mvp_plan.md`
+  - [x] **1.3 Define the insufficient-data behavior.**
     - Deliverable: data sufficiency rule in `mvp_plan.md`.
-    - Done when: unsupported values remain empty, the card states the reason, and valid independent sections remain visible.
-    - Evidence: [add link or path]
-  - [ ] **1.4 Keep manual data entry after the MVP.**
+    - Done when: unsupported values remain null, the card states the reason, and valid independent sections remain visible.
+    - Evidence: `mvp_plan.md`
+  - [x] **1.4 Keep manual data entry after the MVP.**
     - Deliverable: post-MVP idea in `mvp_plan.md`.
     - Done when: the MVP has no form or workflow for entering missing values.
-    - Evidence: [add link or path]
+    - Evidence: `mvp_plan.md`
 
 ## 2. Prepare the required inputs
 

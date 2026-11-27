@@ -26,3 +26,4 @@
 - 2026-11-27 13:34:10: Completed checklist item 4.4 and verified ordered duplicate removal against the supplied zone example.
 - 2026-11-27 13:45:39: Completed checklist item 4.5 and point 4 with verified valid inputs and traceable exclusions.
 - 2026-11-27 14:36:08: Corrected duplicate handling to remove only exact full-row matches, regenerated quality outputs, and added the data-cleaning presentation.
+- 2026-11-27 14:45:49: Centered the presentation's metric numbers vertically beside their descriptions.

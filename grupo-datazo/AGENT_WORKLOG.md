@@ -12,3 +12,4 @@
 - 2026-11-27 12:38:14: Completed checklist point 1 with evidence in the accepted MVP plan.
 - 2026-11-27 12:39:47: Copied and checksum-verified the listing sample for checklist item 2.1.
 - 2026-11-27 12:41:39: Copied and checksum-verified the 11 test properties for checklist item 2.2.
+- 2026-11-27 12:42:24: Copied and checksum-verified both geographic layers for checklist item 2.3.

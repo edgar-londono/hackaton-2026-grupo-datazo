@@ -47,10 +47,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
     - Deliverable: `data/inmuebles_prueba.csv`.
     - Done when: the copy contains all supplied test properties and its source path appears in the manifest.
     - Evidence: `data/inmuebles_prueba.csv` and `data/source_manifest.md`
-  - [ ] **2.3 Copy the geographic layers.**
+  - [x] **2.3 Copy the geographic layers.**
     - Deliverable: `data/geo/transporte.geojson` and `data/geo/equipamientos.geojson`.
     - Done when: both files match their supplied sources and appear in the manifest.
-    - Evidence: [add link or path]
+    - Evidence: `data/geo/transporte.geojson`, `data/geo/equipamientos.geojson`, and `data/source_manifest.md`
   - [ ] **2.4 Copy the calculation parameters.**
     - Deliverable: `config/parametros.yaml`.
     - Done when: the copied file preserves the supplied version and values.

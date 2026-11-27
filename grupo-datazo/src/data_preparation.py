@@ -23,6 +23,13 @@ class DeduplicationResult:
     removed: list[DuplicateRecord]
     group_counts: Counter[str]
     tuple_fields: tuple[str, ...]
+    source_row_numbers: list[int]
+
+
+@dataclass(frozen=True)
+class PreparedRows:
+    rows: list[dict[str, Any]]
+    source_row_numbers: list[int]
 
 
 def build_condition_map(
@@ -95,7 +102,7 @@ def deduplicate_listings(
 
     tuple_fields = tuple(rules["claves_sin_id"])
     tuple_first_rows: dict[tuple[Any, ...], int] = {}
-    kept: list[dict[str, Any]] = []
+    kept: list[tuple[int, dict[str, Any]]] = []
 
     for row_number, row in after_id_rule:
         key = _deduplication_key(row, tuple_fields)
@@ -113,10 +120,10 @@ def deduplicate_listings(
                 )
                 continue
             tuple_first_rows[key] = row_number
-        kept.append(row)
+        kept.append((row_number, row))
 
     return DeduplicationResult(
-        rows=kept,
+        rows=[row for _, row in kept],
         removed=removed,
         group_counts=Counter(
             {
@@ -125,6 +132,28 @@ def deduplicate_listings(
             }
         ),
         tuple_fields=tuple_fields,
+        source_row_numbers=[row_number for row_number, _ in kept],
+    )
+
+
+def prepare_valid_rows(
+    rows: list[dict[str, Any]],
+    source_row_numbers: list[int],
+    excluded_row_numbers: set[int],
+    rules: Mapping[str, Sequence[str]],
+) -> PreparedRows:
+    if len(rows) != len(source_row_numbers):
+        raise ValueError("Each prepared row must have one source row number.")
+
+    normalized_rows = normalize_conditions(rows, rules)
+    kept = [
+        (row_number, row)
+        for row_number, row in zip(source_row_numbers, normalized_rows)
+        if row_number not in excluded_row_numbers and row["estado_canonico"] != UNCLASSIFIED
+    ]
+    return PreparedRows(
+        rows=[row for _, row in kept],
+        source_row_numbers=[row_number for row_number, _ in kept],
     )
 
 

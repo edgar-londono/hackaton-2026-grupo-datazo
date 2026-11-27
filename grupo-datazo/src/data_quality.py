@@ -8,16 +8,36 @@ from typing import Any, Optional
 if __package__:
     from .data_loader import LoadedInputs, load_inputs
     from .parameters import load_parameters
-    from .data_preparation import DeduplicationResult, count_conditions, deduplicate_listings
+    from .data_preparation import (
+        DeduplicationResult,
+        PreparedRows,
+        UNCLASSIFIED,
+        count_conditions,
+        deduplicate_listings,
+        normalize_conditions,
+        prepare_valid_rows,
+    )
 else:
     from data_loader import LoadedInputs, load_inputs
     from parameters import load_parameters
-    from data_preparation import DeduplicationResult, count_conditions, deduplicate_listings
+    from data_preparation import (
+        DeduplicationResult,
+        PreparedRows,
+        UNCLASSIFIED,
+        count_conditions,
+        deduplicate_listings,
+        normalize_conditions,
+        prepare_valid_rows,
+    )
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = PROJECT_ROOT / "output" / "data_quality.md"
-DEDUPLICATED_PATH = PROJECT_ROOT / "output" / "prepared" / "anuncios_sin_duplicados.csv"
+PREPARED_DIR = PROJECT_ROOT / "output" / "prepared"
+DEDUPLICATED_PATH = PREPARED_DIR / "anuncios_sin_duplicados.csv"
+VALID_LISTINGS_PATH = PREPARED_DIR / "anuncios_validos.csv"
+VALID_PROPERTIES_PATH = PREPARED_DIR / "inmuebles_validos.csv"
+EXCLUSIONS_PATH = PREPARED_DIR / "exclusiones.csv"
 
 LISTING_REQUIRED_FIELDS = (
     "zona",
@@ -65,6 +85,9 @@ class QualitySummary:
     invalid_numeric_count: int
     normalized_conditions: dict[str, Counter[str]]
     deduplication: DeduplicationResult
+    exclusions: list[QualityIssue]
+    prepared_listings: PreparedRows
+    prepared_properties: PreparedRows
 
 
 def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> QualitySummary:
@@ -200,6 +223,56 @@ def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> Quality
                 )
             )
 
+    normalized_deduplicated = normalize_conditions(
+        deduplication.rows, condition_rules
+    )
+    condition_issues: list[QualityIssue] = []
+    for row_number, row in zip(
+        deduplication.source_row_numbers, normalized_deduplicated
+    ):
+        if row["estado_canonico"] == UNCLASSIFIED and not _is_missing(row.get("estado")):
+            condition_issues.append(
+                _issue(
+                    "Listings", row_number, _record_id(row, "origen"), "estado",
+                    "Condition is unmapped and remains sin_clasificar.", row.get("estado"),
+                    "condition",
+                )
+            )
+
+    property_source_rows = list(range(2, len(inputs.properties) + 2))
+    normalized_properties = normalize_conditions(inputs.properties, condition_rules)
+    for row_number, row in zip(property_source_rows, normalized_properties):
+        if row["estado_canonico"] == UNCLASSIFIED and not _is_missing(row.get("estado")):
+            condition_issues.append(
+                _issue(
+                    "Test properties", row_number, _record_id(row, "id_inmueble"),
+                    "estado", "Condition is unmapped and remains sin_clasificar.",
+                    row.get("estado"), "condition",
+                )
+            )
+
+    retained_listing_rows = set(deduplication.source_row_numbers)
+    base_exclusions = invalid_values + out_of_range_prices + missing_listing_states
+    exclusions = [
+        issue for issue in base_exclusions
+        if issue.dataset == "Test properties"
+        or issue.row_number in retained_listing_rows
+    ] + condition_issues
+    excluded_listing_rows = {
+        issue.row_number for issue in exclusions if issue.dataset == "Listings"
+    }
+    excluded_property_rows = {
+        issue.row_number for issue in exclusions if issue.dataset == "Test properties"
+    }
+    prepared_listings = prepare_valid_rows(
+        deduplication.rows,
+        deduplication.source_row_numbers,
+        excluded_listing_rows,
+        condition_rules,
+    )
+    prepared_properties = prepare_valid_rows(
+        inputs.properties, property_source_rows, excluded_property_rows, condition_rules
+    )
     invalid_numeric_count = sum(issue.kind == "numeric" for issue in invalid_values)
 
     return QualitySummary(
@@ -214,6 +287,9 @@ def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> Quality
         invalid_numeric_count=invalid_numeric_count,
         normalized_conditions=normalized_conditions,
         deduplication=deduplication,
+        exclusions=exclusions,
+        prepared_listings=prepared_listings,
+        prepared_properties=prepared_properties,
     )
 
 
@@ -390,8 +466,8 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
         f"- Listings checked: {summary.listing_count}.",
         f"- Test properties checked: {summary.property_count}.",
         f"- Rows with required field or value issues: "
-        f"{_invalid_row_count(invalid_issues, 'Listings')} listings and "
-        f"{_invalid_row_count(invalid_issues, 'Test properties')} test properties.",
+        f"{_unique_row_count(invalid_issues, 'Listings')} listings and "
+        f"{_unique_row_count(invalid_issues, 'Test properties')} test properties.",
         f"- Invalid numeric values: {summary.invalid_numeric_count}.",
         f"- Price per square meter checked for {summary.price_calculations} listings.",
         f"- Configured price range: {summary.price_range[0]:,.0f} to "
@@ -445,6 +521,57 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
         ]
     )
 
+    excluded_counts = Counter(
+        (issue.dataset, issue.field, issue.reason) for issue in summary.exclusions
+    )
+    excluded_listings = _unique_row_count(summary.exclusions, "Listings")
+    excluded_properties = _unique_row_count(summary.exclusions, "Test properties")
+    lines.extend(
+        [
+            "",
+            "## Prepared valid inputs",
+            "",
+            f"Listings: {len(summary.deduplication.rows)} after deduplication, "
+            f"{excluded_listings} excluded, {len(summary.prepared_listings.rows)} valid.",
+            f"Test properties: {summary.property_count} checked, {excluded_properties} excluded, "
+            f"{len(summary.prepared_properties.rows)} valid.",
+            "Use only the valid files below for later market and neighborhood calculations.",
+            "",
+            "- output/prepared/anuncios_validos.csv",
+            "- output/prepared/inmuebles_validos.csv",
+            "- output/prepared/exclusiones.csv",
+            "",
+            "## Exclusion counts by reason",
+            "",
+            "Counts are issue occurrences. One row can have more than one reason.",
+            "",
+            "| Dataset | Field | Reason | Occurrences |",
+            "|---|---|---|---:|",
+        ]
+    )
+    for (dataset, field, reason), count in sorted(excluded_counts.items()):
+        lines.append(
+            f"| {dataset} | {field} | {_escape(reason)} | {count} |"
+        )
+
+    lines.extend(["", "## Excluded rows", ""])
+    if summary.exclusions:
+        lines.extend(
+            [
+                "| Dataset | CSV row | Record | Field | Reason | Value |",
+                "|---|---:|---|---|---|---|",
+            ]
+        )
+        for issue in sorted(
+            summary.exclusions, key=lambda item: (item.dataset, item.row_number, item.field)
+        ):
+            lines.append(
+                f"| {issue.dataset} | {issue.row_number} | {_escape(issue.record_id)} | "
+                f"{_escape(issue.field)} | {_escape(issue.reason)} | {_escape(issue.value)} |"
+            )
+    else:
+        lines.append("No rows were excluded from the prepared inputs.")
+
     lines.extend(["", "## Out-of-range prices", ""])
     if summary.out_of_range_prices:
         lines.extend(
@@ -486,16 +613,12 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
     lines.extend(
         [
             "",
-            "## Pending checks",
-            "",
-            "- Apply invalid-row exclusions to calculations under checklist item 4.5.",
-            "",
         ]
     )
     return "\n".join(lines)
 
 
-def _invalid_row_count(issues: list[QualityIssue], dataset: str) -> int:
+def _unique_row_count(issues: list[QualityIssue], dataset: str) -> int:
     return len({issue.row_number for issue in issues if issue.dataset == dataset})
 
 
@@ -503,21 +626,53 @@ def _escape(value: str) -> str:
     return value.replace("|", "\\|").replace("\n", " ")
 
 
-def _write_deduplicated_listings(rows: list[dict[str, Any]]) -> None:
-    if not rows:
-        raise ValueError("Cannot write a deduplicated file with no header row.")
-    DEDUPLICATED_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with DEDUPLICATED_PATH.open("w", encoding="utf-8", newline="") as output_file:
-        writer = csv.DictWriter(output_file, fieldnames=list(rows[0]))
+def _write_rows(
+    path: Path, rows: list[dict[str, Any]], fieldnames: list[str]
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as output_file:
+        writer = csv.DictWriter(output_file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
+
+
+def _write_exclusions(exclusions: list[QualityIssue]) -> None:
+    rows = [
+        {
+            "dataset": issue.dataset,
+            "csv_row": issue.row_number,
+            "record_id": issue.record_id,
+            "field": issue.field,
+            "reason": issue.reason,
+            "value": issue.value,
+        }
+        for issue in exclusions
+    ]
+    _write_rows(
+        EXCLUSIONS_PATH,
+        rows,
+        ["dataset", "csv_row", "record_id", "field", "reason", "value"],
+    )
 
 
 def generate_report() -> Path:
     inputs = load_inputs()
     parameters = load_parameters()
     summary = inspect_quality(inputs, parameters)
-    _write_deduplicated_listings(summary.deduplication.rows)
+    listing_fields = list(inputs.listings[0])
+    property_fields = list(inputs.properties[0])
+    _write_rows(DEDUPLICATED_PATH, summary.deduplication.rows, listing_fields)
+    _write_rows(
+        VALID_LISTINGS_PATH,
+        summary.prepared_listings.rows,
+        listing_fields + ["estado_canonico"],
+    )
+    _write_rows(
+        VALID_PROPERTIES_PATH,
+        summary.prepared_properties.rows,
+        property_fields + ["estado_canonico"],
+    )
+    _write_exclusions(summary.exclusions)
     report = render_report(summary, str(parameters.get("version", "unknown")))
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(report, encoding="utf-8")
@@ -527,3 +682,6 @@ def generate_report() -> Path:
 if __name__ == "__main__":
     print(f"Wrote {generate_report()}")
     print(f"Wrote {DEDUPLICATED_PATH}")
+    print(f"Wrote {VALID_LISTINGS_PATH}")
+    print(f"Wrote {VALID_PROPERTIES_PATH}")
+    print(f"Wrote {EXCLUSIONS_PATH}")

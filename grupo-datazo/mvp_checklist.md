@@ -97,10 +97,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
 
 ## 4. Validate and prepare the source data
 
-- [ ] **4. Produce a quality report for the inputs.**
+- [x] **4. Produce a quality report for the inputs.**
   - Deliverable: `output/data_quality.md`.
   - Done when: the report lists row counts, missing fields, invalid rows, and duplicate counts by reason.
-  - Evidence: [add link or path]
+  - Evidence: `output/data_quality.md` and `output/prepared/`
   - [x] **4.1 Load the supplied files.**
     - Deliverable: input-loading code and a successful load record.
     - Done when: both CSV files and both GeoJSON files load from the team folder.
@@ -117,10 +117,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
     - Deliverable: deduplication report and cleaned working data.
     - Done when: duplicate rules run in order and retain the first matching row as specified.
     - Evidence: `src/data_preparation.py`, `output/data_quality.md`, and `output/prepared/anuncios_sin_duplicados.csv`
-  - [ ] **4.5 Exclude invalid rows from calculations.**
+  - [x] **4.5 Exclude invalid rows from calculations.**
     - Deliverable: valid data set and exclusion counts.
-    - Done when: invalid rows do not affect market or geographic calculations and remain visible in the quality report.
-    - Evidence: [add link or path]
+    - Done when: prepared input files exclude invalid rows before later market and neighborhood calculations, and the report records each exclusion reason.
+    - Evidence: `src/data_quality.py`, `output/prepared/anuncios_validos.csv`, `output/prepared/inmuebles_validos.csv`, `output/prepared/exclusiones.csv`, and `output/data_quality.md`
 
 ## 5. Calculate the market summary
 

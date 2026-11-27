@@ -35,3 +35,4 @@
 - 2026-11-27 15:19:24: Switched Pages to a main-branch docs publication source after Actions could not create the Pages site.
 - 2026-11-27 15:25:02: Reduced slide whitespace, capitalized metric text, and separated the duplicate rule and sample.
 - 2026-11-27 15:28:13: Removed viewport-height minimums so short slides end after their content.
+- 2026-11-27 15:38:28: Aligned the slide counter with its section label and listed all 14 source columns.

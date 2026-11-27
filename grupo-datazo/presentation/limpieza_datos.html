@@ -47,8 +47,15 @@
       flex-direction: column;
       justify-content: flex-start;
     }
-    .content-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
-    .head-copy { display: grid; gap: 8px; }
+    .content-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: auto auto;
+      gap: 8px 16px;
+    }
+    .content-head .brand { grid-column: 1; grid-row: 1; }
+    .content-head .eyebrow { grid-column: 1; grid-row: 2; }
+    .content-head .slide-count { grid-column: 2; grid-row: 2; align-self: end; justify-self: end; }
     .brand, .eyebrow { margin: 0; }
     .eyebrow { color: var(--muted); }
     .slide-count { font-variant-numeric: tabular-nums; }
@@ -62,6 +69,17 @@
     .fact-line:last-child { border-bottom: 1px solid var(--line); }
     .fact-number { flex: 0 0 3.4ch; inline-size: 3.4ch; text-align: center; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1; font-variant-numeric: tabular-nums; }
     .fact-text { max-width: 38ch; color: var(--muted); line-height: 1.4; }
+    .column-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 24px;
+      margin: 8px 0 16px;
+      padding-left: 1.25em;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .column-list code { color: var(--ink); font-size: .88em; }
+    .column-note { margin-top: 12px; }
     .review-intro { margin-top: 26px; }
     .review-intro p { margin: 0 0 10px; color: var(--muted); line-height: 1.45; }
     .review-table-wrap { max-width: 100%; overflow: auto; border: 1px solid var(--line); background: var(--paper); }
@@ -109,6 +127,9 @@
       .review-table { font-size: .82rem; }
       .review-table th, .review-table td { padding: 8px 9px; }
     }
+    @media (max-width: 480px) {
+      .column-list { grid-template-columns: 1fr; }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
@@ -119,10 +140,8 @@
     <div class="progress" id="progress" aria-hidden="true"></div>
     <section class="content" aria-live="polite" aria-atomic="true">
       <header class="content-head">
-        <div class="head-copy">
-          <p class="brand"><b>Datazo</b> • Estud-IA: Análisis de datos</p>
-          <p class="eyebrow">Limpieza de datos</p>
-        </div>
+        <p class="brand"><b>Datazo</b> • Estud-IA: Análisis de datos</p>
+        <p class="eyebrow">Limpieza de datos</p>
         <span class="slide-count" id="slide-count">01 / 06</span>
       </header>
       <div class="slides">
@@ -134,7 +153,24 @@
           <h2>Primero vemos qué recibimos</h2>
           <div class="fact-line"><strong class="fact-number">117</strong><span class="fact-text">Anuncios inmobiliarios en la muestra.</span></div>
           <div class="fact-line"><strong class="fact-number">11</strong><span class="fact-text">Inmuebles de prueba para revisar el resultado.</span></div>
-          <p class="lead">El archivo de anuncios trae 14 columnas. Incluye precio, área, zona, estado, fecha y origen. Son datos de entrada, no todos los campos de la ficha final.</p>
+          <p class="lead">El archivo de anuncios trae 14 columnas:</p>
+          <ul class="column-list">
+            <li>Identificador del anuncio (<code>id_anuncio</code>)</li>
+            <li>Fuente (<code>fuente</code>)</li>
+            <li>Fecha (<code>fecha</code>)</li>
+            <li>Zona (<code>zona</code>)</li>
+            <li>Municipio (<code>municipio</code>)</li>
+            <li>Barrio (<code>barrio</code>)</li>
+            <li>Área (<code>area_m2</code>)</li>
+            <li>Precio (<code>precio</code>)</li>
+            <li>Habitaciones (<code>habitaciones</code>)</li>
+            <li>Baños (<code>banos</code>)</li>
+            <li>Parqueadero (<code>parqueadero</code>)</li>
+            <li>Estado (<code>estado</code>)</li>
+            <li>Tipo de precio (<code>tipo_precio</code>)</li>
+            <li>Origen (<code>origen</code>)</li>
+          </ul>
+          <p class="lead column-note">La ficha final usa los datos necesarios y agrega resultados calculados. No es una copia de estas columnas.</p>
         </article>
         <article class="slide" data-slide hidden>
           <h2>Un dato vacío no se inventa</h2>

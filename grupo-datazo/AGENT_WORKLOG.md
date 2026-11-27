@@ -28,3 +28,4 @@
 - 2026-11-27 14:36:08: Corrected duplicate handling to remove only exact full-row matches, regenerated quality outputs, and added the data-cleaning presentation.
 - 2026-11-27 14:45:49: Centered the presentation's metric numbers vertically beside their descriptions.
 - 2026-11-27 14:51:32: Put the cleaning content first on mobile, simplified the labels, capitalized metric text, and centered numbers on both axes.
+- 2026-11-27 14:54:22: Restored the full presentation brand line and kept the accent color on Datazo only.

@@ -29,6 +29,7 @@ The archived reference describes 117 sample listings and 11 test properties. It 
 - Normalize property condition labels with the supplied mappings.
 - Detect duplicates with the supplied rules.
 - Record invalid rows, duplicate counts, and missing fields.
+- Exclude invalid rows from calculations and record why each row was excluded.
 - Preserve source identifiers and input references for traceability.
 
 ### 3. Comparable market summary
@@ -45,6 +46,10 @@ For each test property:
 
 Use the supplied parameter file as the source of thresholds. Do not hard-code a second set of rules.
 
+If no valid comparable supports a market result, set unsupported numeric fields to `null` and show “insufficient data” with the reason and missing fields. If valid comparables support a calculation but the sample is weak, show the result with the configured low confidence level.
+
+Keep other supported sections visible when one section lacks enough data. Exclude invalid inputs from calculations and record why they were excluded. Do not treat approximate coordinates as exact.
+
 ### 4. Neighborhood summary
 
 For each test property:
@@ -52,7 +57,7 @@ For each test property:
 - Find the nearest supplied transit station and show its distance.
 - Count supplied stations and facility types within the configured search radius.
 - Mark results as approximate when the input coordinate represents a neighborhood instead of an exact location.
-- Report unavailable geographic results as unavailable.
+- Report unavailable geographic results as unavailable. Do not present approximate coordinates as exact.
 
 ### 5. Urban planning data
 
@@ -76,7 +81,9 @@ Store generated files under the team folder. Keep generated results separate fro
 
 ## Implementation shape
 
-Use one small Python pipeline for data preparation and calculations. Provide one notebook for a guided run in Colab. Keep local execution available where the existing Python setup supports it.
+Build an independent Python pipeline in the team folder. Use the archived code only as a read-only reference. Use its data, documentation, parameters, templates, and manual results as inputs and validation sources.
+
+Provide one notebook for a guided run in Colab. Keep local execution available where the existing Python setup supports it.
 
 Use Markdown for the readable property card. Do not build a separate web application for the MVP.
 
@@ -91,6 +98,7 @@ Use Markdown for the readable property card. Do not build a separate web applica
 - Building a full dashboard, interactive map, or mobile application.
 - Automatically downloading or reconstructing missing geographic layers.
 - Filling missing source data with guesses or external assumptions.
+- Adding a manual data-entry flow during the MVP.
 - Supporting markets, cities, or data formats beyond the supplied challenge sample.
 
 ## Known data limits
@@ -112,7 +120,13 @@ The MVP is ready for review when:
 3. It reports missing, invalid, and duplicate data without hiding those issues.
 4. It labels approximate coordinates and unavailable POT results.
 5. It can reproduce results from the supplied input files and parameter version.
-6. It makes no unsupported claims when the input data is incomplete.
+6. It marks unsupported results as insufficient data and gives the reason.
+7. It keeps valid independent results when another section lacks enough data.
+8. It makes no unsupported claims when the input data is incomplete.
+
+## Ideas after the MVP
+
+- Add a manual data-entry flow for missing information. Validate each new value and record its source. Consider this only after the MVP works with the supplied data.
 
 ## KISS rule
 

@@ -8,3 +8,4 @@
 - 2026-11-27 10:43:37: Defined the MVP goal, product scope, exclusions, outputs, and acceptance criteria.
 - 2026-11-27 10:50:21: Renamed team documents to lowercase and retained uppercase agent filenames.
 - 2026-11-27 10:57:42: Applied sentence case and consolidated the MVP goal paragraphs as requested.
+- 2026-11-27 11:46:09: Set independent-build and insufficient-data rules, moved manual entry to post-MVP, and created an evidence-based checklist.

@@ -113,10 +113,10 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
     - Deliverable: normalized condition mapping in the pipeline.
     - Done when: supplied mappings create the three canonical conditions and unmapped values remain unclassified.
     - Evidence: `src/data_preparation.py` and `output/data_quality.md`
-  - [x] **4.4 Remove duplicates with the supplied rules.**
-    - Deliverable: deduplication report and cleaned working data.
-    - Done when: duplicate rules run in order and retain the first matching row as specified.
-    - Evidence: `src/data_preparation.py`, `output/data_quality.md`, and `output/prepared/anuncios_sin_duplicados.csv`
+  - [x] **4.4 Review and remove only exact duplicate rows.**
+    - Deliverable: deduplication report, review file, and cleaned working data.
+    - Done when: candidate keys only flag rows for comparison; a row is removed only when every source column matches exactly. Any differing candidate remains available for review.
+    - Evidence: `src/data_preparation.py`, `output/data_quality.md`, `output/prepared/anuncios_sin_duplicados.csv`, and `output/prepared/duplicados_para_revision.csv`
   - [x] **4.5 Exclude invalid rows from calculations.**
     - Deliverable: valid data set and exclusion counts.
     - Done when: prepared input files exclude invalid rows before later market and neighborhood calculations, and the report records each exclusion reason.

@@ -38,6 +38,7 @@ DEDUPLICATED_PATH = PREPARED_DIR / "anuncios_sin_duplicados.csv"
 VALID_LISTINGS_PATH = PREPARED_DIR / "anuncios_validos.csv"
 VALID_PROPERTIES_PATH = PREPARED_DIR / "inmuebles_validos.csv"
 EXCLUSIONS_PATH = PREPARED_DIR / "exclusiones.csv"
+DUPLICATE_REVIEW_PATH = PREPARED_DIR / "duplicados_para_revision.csv"
 
 LISTING_REQUIRED_FIELDS = (
     "zona",
@@ -258,6 +259,19 @@ def inspect_quality(inputs: LoadedInputs, parameters: dict[str, Any]) -> Quality
         if issue.dataset == "Test properties"
         or issue.row_number in retained_listing_rows
     ] + condition_issues
+    for duplicate in deduplication.for_review:
+        row = inputs.listings[duplicate.row_number - 2]
+        exclusions.append(
+            _issue(
+                "Listings",
+                duplicate.row_number,
+                _record_id(row, "id_anuncio", "origen"),
+                "all_columns",
+                "Candidate duplicate differs across columns and needs human review.",
+                ", ".join(duplicate.differing_fields),
+                "duplicate_review",
+            )
+        )
     excluded_listing_rows = {
         issue.row_number for issue in exclusions if issue.dataset == "Listings"
     }
@@ -510,14 +524,18 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
             "",
             "## Duplicate removal",
             "",
-            "The first source row is retained for each duplicate group.",
+            "Configured keys find candidates only. Rows are removed only when every source column matches exactly. Candidate groups with any difference are held for review.",
             "",
-            "| Rule | Duplicate groups | Rows removed |",
+            "| Candidate key | Candidate groups | Exact rows removed |",
             "|---|---:|---:|",
             f"| id_anuncio | {summary.deduplication.group_counts['id_anuncio']} | {removed_by_rule['id_anuncio']} |",
             f"| claves_sin_id ({', '.join(summary.deduplication.tuple_fields)}) | {summary.deduplication.group_counts['claves_sin_id']} | {removed_by_rule['claves_sin_id']} |",
+            f"| All source columns | {summary.deduplication.group_counts['all_columns']} | {removed_by_rule['all_columns']} |",
             f"| Total | {sum(summary.deduplication.group_counts.values())} | {len(summary.deduplication.removed)} |",
             f"| Rows retained | | {len(summary.deduplication.rows)} |",
+            f"| Candidate rows held for review | | {len(summary.deduplication.for_review)} |",
+            "",
+            "Review file: output/prepared/duplicados_para_revision.csv.",
         ]
     )
 
@@ -540,6 +558,7 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
             "- output/prepared/anuncios_validos.csv",
             "- output/prepared/inmuebles_validos.csv",
             "- output/prepared/exclusiones.csv",
+            "- output/prepared/duplicados_para_revision.csv",
             "",
             "## Exclusion counts by reason",
             "",
@@ -655,6 +674,30 @@ def _write_exclusions(exclusions: list[QualityIssue]) -> None:
     )
 
 
+def _write_duplicate_review(inputs: LoadedInputs, summary: QualitySummary) -> None:
+    fieldnames = list(inputs.listings[0]) + [
+        "csv_row",
+        "first_candidate_row",
+        "candidate_rule",
+        "candidate_key",
+        "differing_fields",
+    ]
+    rows = []
+    for review in summary.deduplication.for_review:
+        source_row = inputs.listings[review.row_number - 2]
+        rows.append(
+            {
+                **source_row,
+                "csv_row": review.row_number,
+                "first_candidate_row": review.first_row_number,
+                "candidate_rule": review.rule,
+                "candidate_key": review.key,
+                "differing_fields": ", ".join(review.differing_fields),
+            }
+        )
+    _write_rows(DUPLICATE_REVIEW_PATH, rows, fieldnames)
+
+
 def generate_report() -> Path:
     inputs = load_inputs()
     parameters = load_parameters()
@@ -673,6 +716,7 @@ def generate_report() -> Path:
         property_fields + ["estado_canonico"],
     )
     _write_exclusions(summary.exclusions)
+    _write_duplicate_review(inputs, summary)
     report = render_report(summary, str(parameters.get("version", "unknown")))
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(report, encoding="utf-8")
@@ -685,3 +729,4 @@ if __name__ == "__main__":
     print(f"Wrote {VALID_LISTINGS_PATH}")
     print(f"Wrote {VALID_PROPERTIES_PATH}")
     print(f"Wrote {EXCLUSIONS_PATH}")
+    print(f"Wrote {DUPLICATE_REVIEW_PATH}")

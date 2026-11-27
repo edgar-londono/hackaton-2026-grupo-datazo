@@ -18,9 +18,19 @@ class DuplicateRecord:
 
 
 @dataclass(frozen=True)
+class DuplicateReviewRecord:
+    row_number: int
+    first_row_number: int
+    rule: str
+    key: str
+    differing_fields: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class DeduplicationResult:
     rows: list[dict[str, Any]]
     removed: list[DuplicateRecord]
+    for_review: list[DuplicateReviewRecord]
     group_counts: Counter[str]
     tuple_fields: tuple[str, ...]
     source_row_numbers: list[int]
@@ -81,56 +91,106 @@ def deduplicate_listings(
     rules: Mapping[str, Any],
 ) -> DeduplicationResult:
     removed: list[DuplicateRecord] = []
-    id_groups: set[str] = set()
-    tuple_groups: set[tuple[Any, ...]] = set()
-    id_first_rows: dict[str, int] = {}
-    after_id_rule: list[tuple[int, dict[str, Any]]] = []
+    for_review: list[DuplicateReviewRecord] = []
+    tuple_fields = tuple(rules["claves_sin_id"])
+    candidates: dict[tuple[str, Any], list[int]] = {}
 
-    for row_number, row in enumerate(rows, start=2):
+    for index, row in enumerate(rows):
+        full_row_key = tuple((field, row.get(field)) for field in sorted(row))
+        candidates.setdefault(("all_columns", full_row_key), []).append(index)
         listing_id = row.get("id_anuncio")
         if not _is_missing(listing_id):
-            listing_id = str(listing_id).strip()
-            first_row = id_first_rows.get(listing_id)
-            if first_row is not None:
-                id_groups.add(listing_id)
-                removed.append(
-                    DuplicateRecord(row_number, first_row, "id_anuncio", listing_id)
-                )
-                continue
-            id_first_rows[listing_id] = row_number
-        after_id_rule.append((row_number, row))
+            candidates.setdefault(("id_anuncio", str(listing_id).strip()), []).append(index)
+        tuple_key = _deduplication_key(row, tuple_fields)
+        if tuple_key is not None:
+            candidates.setdefault(("claves_sin_id", tuple_key), []).append(index)
 
-    tuple_fields = tuple(rules["claves_sin_id"])
-    tuple_first_rows: dict[tuple[Any, ...], int] = {}
-    kept: list[tuple[int, dict[str, Any]]] = []
+    # Candidate keys only find rows to compare. They never prove that rows match.
+    parents = list(range(len(rows)))
 
-    for row_number, row in after_id_rule:
-        key = _deduplication_key(row, tuple_fields)
-        if key is not None:
-            first_row = tuple_first_rows.get(key)
-            if first_row is not None:
-                tuple_groups.add(key)
+    def find(index: int) -> int:
+        while parents[index] != index:
+            parents[index] = parents[parents[index]]
+            index = parents[index]
+        return index
+
+    def union(left: int, right: int) -> None:
+        left_root, right_root = find(left), find(right)
+        if left_root != right_root:
+            parents[right_root] = left_root
+
+    candidate_group_counts: Counter[str] = Counter()
+    candidate_rules: dict[tuple[int, int], tuple[str, str]] = {}
+    candidate_indexes: set[int] = set()
+    for (rule, raw_key), indexes in candidates.items():
+        if len(indexes) < 2:
+            continue
+        candidate_indexes.update(indexes)
+        candidate_group_counts[rule] += 1
+        if rule == "id_anuncio":
+            key = str(raw_key)
+        elif rule == "claves_sin_id":
+            key = _format_key(tuple_fields, raw_key)
+        else:
+            key = "all source columns"
+        for index in indexes[1:]:
+            union(indexes[0], index)
+            candidate_rules.setdefault(
+                (min(indexes[0], index), max(indexes[0], index)), (rule, key)
+            )
+
+    components: dict[int, list[int]] = {}
+    for index in candidate_indexes:
+        root = find(index)
+        components.setdefault(root, []).append(index)
+
+    removed_indexes: set[int] = set()
+    for indexes in sorted(components.values(), key=lambda group: min(group)):
+        indexes.sort()
+        if len(indexes) < 2:
+            continue
+        first_index = indexes[0]
+        first_row = rows[first_index]
+        rule, key = "all_columns", "exact row match"
+        for other_index in indexes[1:]:
+            pair = (min(first_index, other_index), max(first_index, other_index))
+            if pair in candidate_rules:
+                rule, key = candidate_rules[pair]
+                break
+        if all(rows[index] == first_row for index in indexes[1:]):
+            for index in indexes[1:]:
+                removed_indexes.add(index)
                 removed.append(
-                    DuplicateRecord(
-                        row_number,
-                        first_row,
-                        "claves_sin_id",
-                        _format_key(tuple_fields, key),
-                    )
+                    DuplicateRecord(index + 2, first_index + 2, rule, key)
                 )
-                continue
-            tuple_first_rows[key] = row_number
-        kept.append((row_number, row))
+            continue
+
+        differing_fields = tuple(
+            field for field in first_row
+            if any(rows[index].get(field) != first_row.get(field) for index in indexes[1:])
+        )
+        for index in indexes:
+            for_review.append(
+                DuplicateReviewRecord(
+                    index + 2,
+                    first_index + 2,
+                    rule,
+                    key,
+                    differing_fields,
+                )
+            )
+
+    kept = [
+        (index + 2, row)
+        for index, row in enumerate(rows)
+        if index not in removed_indexes
+    ]
 
     return DeduplicationResult(
         rows=[row for _, row in kept],
         removed=removed,
-        group_counts=Counter(
-            {
-                "id_anuncio": len(id_groups),
-                "claves_sin_id": len(tuple_groups),
-            }
-        ),
+        for_review=for_review,
+        group_counts=candidate_group_counts,
         tuple_fields=tuple_fields,
         source_row_numbers=[row_number for row_number, _ in kept],
     )

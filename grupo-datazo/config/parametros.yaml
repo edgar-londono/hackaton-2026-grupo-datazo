@@ -15,9 +15,9 @@ comparables:
 
 # --- Deduplicación ---------------------------------------------------------
 deduplicacion:
-  # Se aplican en orden. Se conserva la primera fila del CSV.
-  # 1) mismo id_anuncio (si no está vacío)
-  # 2) misma combinación de estas columnas (detecta el mismo inmueble en dos fuentes)
+  # Estas claves encuentran candidatos, pero no autorizan borrar filas.
+  # Solo se elimina una fila si todas sus columnas coinciden exactamente.
+  # Si una columna cambia, todas las filas candidatas quedan para revisión.
   claves_sin_id: [zona, area_m2, precio]
 
 # --- Estados del inmueble --------------------------------------------------

@@ -14,6 +14,14 @@ The sources reviewed do not define a required final submission method. They do n
 - Use Colab when its prepared notebook is useful. Local Python execution is also supported by the reference README.
 - Confirm the submission format separately if the organizers provide one later.
 
+## Team roles
+
+- Esteban: investigador
+- Jonathan: documentador
+- Sebastian: diseñador
+- Julio: investigador
+- David: coordinador
+- Edgar: comunicador
 ## Sources reviewed
 
 - `../resources/additional/10.pdf`, page 2, lists the repository and Colab environment as challenge resources.

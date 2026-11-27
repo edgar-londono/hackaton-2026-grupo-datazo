@@ -37,3 +37,4 @@
 - 2026-11-27 15:28:13: Removed viewport-height minimums so short slides end after their content.
 - 2026-11-27 15:38:28: Aligned the slide counter with its section label and listed all 14 source columns.
 - 2026-11-27 15:42:44: Shortened the data notes, renamed the missing-data slide, and separated the example label.
+- 2026-11-27 15:45:26: Added separator lines below the test count and missing-area metric.

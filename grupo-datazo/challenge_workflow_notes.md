@@ -1,4 +1,4 @@
-# Documentación CHALLENGE_WORKFLOW_NOTES
+# Documentación challenge_workflow_notes
 
 ## Our team approach
 

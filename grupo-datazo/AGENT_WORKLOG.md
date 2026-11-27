@@ -45,3 +45,4 @@
 - 2026-11-27 16:08:15: Added full category counts for the supplied equipment and transit layers.
 - 2026-11-27 16:12:40: Moved the test-property table and source note to the end of the input slide.
 - 2026-11-27 16:19:51: Simplified the input slide and moved the test-property note to its end.
+- 2026-11-27 16:22:50: Added a separate slide to introduce the 14 listing fields before the cleaning steps.

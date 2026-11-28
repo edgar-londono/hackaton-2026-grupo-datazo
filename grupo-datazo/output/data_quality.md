@@ -49,6 +49,7 @@ Configured keys find candidates only. Comparison trims and collapses spaces and 
 | Candidate rows held for review | | 54 |
 
 Review file: output/prepared/duplicados_para_revision.csv.
+Grouped decision aid: output/prepared/grupos_revision_resumen.csv. It lists the changed columns and original values for each connected review group.
 Normalization before/after log: output/prepared/normalizacion_texto.csv.
 
 ## Prepared valid inputs

@@ -54,3 +54,4 @@
 - 2026-11-27 17:30:26: Clarified duplicate examples, linked the source file, and aligned slide labels and tables.
 - 2026-11-27 17:50:00: Added case and whitespace normalization, preserved accent differences for review, and recorded original, comparison, and prepared values for listing and geographic text.
 - 2026-11-27 19:25:28: Completed MVP checklist points 3 through 8, generated 11 property records and cards, and verified all 117 listing statuses and repeat-run hashes.
+- 2026-11-27 19:27:51: Added a grouped review file for the 54 ambiguous listing rows, showing all 21 groups and their differing values.

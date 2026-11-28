@@ -31,6 +31,7 @@ The archived manual examples remove rows by candidate ID or by zone, area, and p
 - Every output keeps unsupported numeric values as `null` and includes a reason in the card.
 - Listing rows with missing condition or area remain in the source and are excluded from calculations with a recorded reason.
 - Candidate rows with differing source columns remain available in `prepared/duplicados_para_revision.csv`; they are not removed or treated as confirmed duplicates.
+- The 54 candidate rows are organized into 21 groups in `prepared/grupos_revision_resumen.csv`, with the original values that differ listed for team decisions.
 - Approximate neighborhood coordinates are marked in each affected card.
 - The POT layer is not supplied. Covered Medellin records report `pendiente_capa`; Itagui reports `no_disponible`.
 - The supplied listing sample has no publication dates and no closing prices. These limits appear in each card.

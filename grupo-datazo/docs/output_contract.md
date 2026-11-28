@@ -63,6 +63,7 @@ This document maps the challenge template to our JSON record and readable proper
 - Keep other supported sections visible when one section cannot be calculated.
 - Show a low-confidence calculation when valid data supports it and the supplied rule assigns low confidence.
 - Exclude invalid rows from calculations and include their reasons in the quality section.
+- Keep differing duplicate candidates in `output/prepared/duplicados_para_revision.csv` and provide a group-level decision aid in `output/prepared/grupos_revision_resumen.csv`.
 
 ## Reference sources
 

@@ -1,4 +1,5 @@
 import csv
+import json
 import math
 from collections import Counter
 from dataclasses import dataclass
@@ -44,6 +45,7 @@ VALID_LISTINGS_PATH = PREPARED_DIR / "anuncios_validos.csv"
 VALID_PROPERTIES_PATH = PREPARED_DIR / "inmuebles_validos.csv"
 EXCLUSIONS_PATH = PREPARED_DIR / "exclusiones.csv"
 DUPLICATE_REVIEW_PATH = PREPARED_DIR / "duplicados_para_revision.csv"
+REVIEW_GROUP_SUMMARY_PATH = PREPARED_DIR / "grupos_revision_resumen.csv"
 NORMALIZATION_AUDIT_PATH = PREPARED_DIR / "normalizacion_texto.csv"
 
 LISTING_REQUIRED_FIELDS = (
@@ -543,6 +545,7 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
             f"| Candidate rows held for review | | {len(summary.deduplication.for_review)} |",
             "",
             "Review file: output/prepared/duplicados_para_revision.csv.",
+            "Grouped decision aid: output/prepared/grupos_revision_resumen.csv. It lists the changed columns and original values for each connected review group.",
             "Normalization before/after log: output/prepared/normalizacion_texto.csv.",
         ]
     )
@@ -757,6 +760,33 @@ def _write_duplicate_review(inputs: LoadedInputs, summary: QualitySummary) -> No
             }
         )
     _write_rows(DUPLICATE_REVIEW_PATH, rows, fieldnames)
+    groups: dict[int, list[Any]] = {}
+    for review in summary.deduplication.for_review:
+        groups.setdefault(review.first_row_number, []).append(review)
+    group_rows = []
+    for number, (first_row, reviews) in enumerate(sorted(groups.items()), start=1):
+        source_rows = [inputs.listings[review.row_number - 2] for review in reviews]
+        differing_fields = sorted({field for review in reviews for field in review.differing_fields})
+        values_by_field = {
+            field: list(dict.fromkeys(str(row.get(field, "")) for row in source_rows))
+            for field in differing_fields
+        }
+        group_rows.append({
+            "review_group": f"REV-{number:02d}",
+            "first_candidate_row": first_row,
+            "csv_rows": ", ".join(str(review.row_number) for review in sorted(reviews, key=lambda item: item.row_number)),
+            "zone": str(source_rows[0].get("zona", "")),
+            "candidate_rules": "; ".join(sorted({review.rule for review in reviews})),
+            "candidate_keys": " || ".join(sorted({review.key for review in reviews})),
+            "listing_ids": "; ".join(dict.fromkeys(str(row.get("id_anuncio", "")) for row in source_rows)),
+            "differing_fields": ", ".join(differing_fields),
+            "original_values_by_field_json": json.dumps(values_by_field, ensure_ascii=False, sort_keys=True),
+        })
+    _write_rows(
+        REVIEW_GROUP_SUMMARY_PATH,
+        group_rows,
+        ["review_group", "first_candidate_row", "csv_rows", "zone", "candidate_rules", "candidate_keys", "listing_ids", "differing_fields", "original_values_by_field_json"],
+    )
 
 
 def generate_report() -> Path:
@@ -792,4 +822,5 @@ if __name__ == "__main__":
     print(f"Wrote {VALID_PROPERTIES_PATH}")
     print(f"Wrote {EXCLUSIONS_PATH}")
     print(f"Wrote {DUPLICATE_REVIEW_PATH}")
+    print(f"Wrote {REVIEW_GROUP_SUMMARY_PATH}")
     print(f"Wrote {NORMALIZATION_AUDIT_PATH}")

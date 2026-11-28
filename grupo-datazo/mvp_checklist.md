@@ -66,34 +66,34 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
 
 ## 3. Set up the smallest runnable solution
 
-- [ ] **3. Create a reproducible project structure.**
+- [x] **3. Create a reproducible project structure.**
   - Deliverable: team code, input, configuration, output, and notebook folders.
   - Done when: every project file lives under `grupo-datazo/` and reference files remain unchanged.
-  - Evidence: [add link or path]
-  - [ ] **3.1 Create the Python entry point.**
+  - Evidence: `src/`, `data/`, `config/`, `output/`, and `notebooks/`
+  - [x] **3.1 Create the Python entry point.**
     - Deliverable: `src/mvp.py` and a documented run command.
     - Done when: the entry point starts the completed pipeline. Verify the full run under item 8.4.
-    - Evidence: [add link or path]
+    - Evidence: `src/mvp.py` and `setup.md`
     - [x] **3.1.1 Set the run command.**
       - Deliverable: command and Colab path in `mvp_plan.md`.
       - Done when: local runs use `python src/mvp.py` and Colab calls the same entry point.
       - Evidence: `mvp_plan.md`
-    - [ ] **3.1.2 Implement the entry point.**
+    - [x] **3.1.2 Implement the entry point.**
       - Deliverable: working `src/mvp.py`.
       - Done when: the documented command starts the completed pipeline.
-      - Evidence: [add link or path]
-  - [ ] **3.2 Keep rules in the parameter file.**
+      - Evidence: `src/mvp.py`, `src/market_analysis.py`, and `src/neighborhood_analysis.py`
+  - [x] **3.2 Keep rules in the parameter file.**
     - Deliverable: pipeline reads `config/parametros.yaml`.
     - Done when: area tolerance, valid price range, confidence thresholds, and search radius come from configuration.
-    - Evidence: `src/parameters.py` (loader only; pipeline use pending)
+    - Evidence: `src/parameters.py`, `src/market_analysis.py`, and `src/neighborhood_analysis.py`
   - [x] **3.3 Define the minimal runtime requirements.**
     - Deliverable: `requirements.txt` and a short setup note.
     - Done when: a clean environment can install only the packages needed to run the pipeline.
     - Evidence: `requirements.txt` and `setup.md`
-  - [ ] **3.4 Use one calculation path.**
+  - [x] **3.4 Use one calculation path.**
     - Deliverable: notebook calls the same pipeline entry point.
     - Done when: notebook cells do not contain a second copy of market or geographic calculation rules.
-    - Evidence: [add link or path]
+    - Evidence: `notebooks/mvp_colab.ipynb` calls `python src/mvp.py`
 
 ## 4. Validate and prepare the source data
 
@@ -124,123 +124,123 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
 
 ## 5. Calculate the market summary
 
-- [ ] **5. Generate a comparable summary for each test property.**
+- [x] **5. Generate a comparable summary for each test property.**
   - Deliverable: market results in the property JSON files.
   - Done when: each property has supported values or an explicit insufficient-data status.
-  - Evidence: [add link or path]
-  - [ ] **5.1 Select the same market zone.**
+  - Evidence: `output/fichas/` and `output/validation_report.md`
+  - [x] **5.1 Select the same market zone.**
     - Deliverable: comparable-selection output.
     - Done when: candidates from other zones do not enter that property's market calculation.
-    - Evidence: [add link or path]
-  - [ ] **5.2 Match the canonical property condition.**
+    - Evidence: `src/market_analysis.py` and the `comparables` arrays in `output/fichas/`
+  - [x] **5.2 Match the canonical property condition.**
     - Deliverable: comparable-selection output.
     - Done when: only records with the same mapped condition enter the calculation.
-    - Evidence: [add link or path]
-  - [ ] **5.3 Apply configured area and price rules.**
+    - Evidence: `config/parametros.yaml`, `src/market_analysis.py`, and `output/fichas/`
+  - [x] **5.3 Apply configured area and price rules.**
     - Deliverable: filter results with excluded-row reasons.
     - Done when: the pipeline applies the supplied area tolerance and valid price range.
-    - Evidence: [add link or path]
-  - [ ] **5.4 Exclude the test property's own listing when required.**
+    - Evidence: `src/market_analysis.py` and `output/fichas/`
+  - [x] **5.4 Exclude the test property's own listing when required.**
     - Deliverable: comparable list for each property.
     - Done when: the property does not appear as its own comparable under the reference rules.
-    - Evidence: [add link or path]
-  - [ ] **5.5 Calculate the configured market statistics.**
+    - Evidence: `src/market_analysis.py` and `output/fichas/`
+  - [x] **5.5 Calculate the configured market statistics.**
     - Deliverable: price-per-square-meter statistics.
     - Done when: count, median, range, mean, deviation, and coefficient of variation follow the supplied template and calculation rules.
-    - Evidence: [add link or path]
-  - [ ] **5.6 Assign the confidence level.**
+    - Evidence: `src/market_analysis.py`, `config/parametros.yaml`, and `output/fichas/`
+  - [x] **5.6 Assign the confidence level.**
     - Deliverable: confidence value and explanation per property.
     - Done when: the supplied confidence thresholds determine high, medium, or low confidence.
-    - Evidence: [add link or path]
-  - [ ] **5.7 Handle unsupported market results.**
+    - Evidence: `src/market_analysis.py` and `output/validation_report.md`
+  - [x] **5.7 Handle unsupported market results.**
     - Deliverable: insufficient-data result example.
     - Done when: zero valid comparables produce no invented statistic and state the reason and missing fields.
-    - Evidence: [add link or path]
-  - [ ] **5.8 Keep low confidence distinct from missing data.**
+    - Evidence: empty-data behavior in `src/mvp.py` and `output/validation_report.md`
+  - [x] **5.8 Keep low confidence distinct from missing data.**
     - Deliverable: result for a small valid sample.
     - Done when: calculable statistics remain visible with low confidence instead of being reported as missing.
-    - Evidence: [add link or path]
+    - Evidence: INM-04 in `output/fichas/INM-04.json` and `output/cards/INM-04.md`
 
 ## 6. Calculate the neighborhood summary
 
-- [ ] **6. Generate supported geographic results for each test property.**
+- [x] **6. Generate supported geographic results for each test property.**
   - Deliverable: neighborhood fields in the property JSON files.
   - Done when: each geographic result is exact, approximate, or explicitly unavailable.
-  - Evidence: [add link or path]
-  - [ ] **6.1 Check coordinate values and precision.**
+  - Evidence: `output/fichas/` and `output/validation_report.md`
+  - [x] **6.1 Check coordinate values and precision.**
     - Deliverable: coordinate validation results.
     - Done when: invalid or absent coordinates do not produce distances or counts.
-    - Evidence: [add link or path]
-  - [ ] **6.2 Find the nearest supported transit station.**
+    - Evidence: `src/neighborhood_analysis.py` and `output/fichas/`
+  - [x] **6.2 Find the nearest supported transit station.**
     - Deliverable: nearest-station result with system and distance.
     - Done when: distance uses the documented Haversine method, supplied coordinates, and configured transit systems.
-    - Evidence: [add link or path]
-  - [ ] **6.3 Count stations and facilities in the configured radius.**
+    - Evidence: `config/parametros.yaml`, `src/neighborhood_analysis.py`, and the manual comparison in `output/validation_report.md`
+  - [x] **6.3 Count stations and facilities in the configured radius.**
     - Deliverable: category counts for each property.
     - Done when: the configured radius and category mappings control the counts.
-    - Evidence: [add link or path]
-  - [ ] **6.4 Mark approximate coordinates.**
+    - Evidence: `output/fichas/` and `output/cards/`
+  - [x] **6.4 Mark approximate coordinates.**
     - Deliverable: approximate flag in JSON and card.
     - Done when: neighborhood-level coordinates are clearly labeled approximate.
-    - Evidence: [add link or path]
-  - [ ] **6.5 Report missing geographic results honestly.**
+    - Evidence: approximate precision flags in `output/fichas/` and `output/cards/`
+  - [x] **6.5 Report missing geographic results honestly.**
     - Deliverable: unavailable-result example.
     - Done when: missing coordinates or layers produce an explanation and no fabricated value.
-    - Evidence: [add link or path]
-  - [ ] **6.6 Report the POT layer as pending.**
+    - Evidence: empty-coordinate behavior in `src/mvp.py` and `output/validation_report.md`
+  - [x] **6.6 Report the POT layer as pending.**
     - Deliverable: POT status in each property output.
     - Done when: the output shows pending or unavailable and gives the reason from the supplied inputs.
-    - Evidence: [add link or path]
+    - Evidence: `src/mvp.py` and the POT status in `output/fichas/`
 
 ## 7. Generate the property outputs
 
-- [ ] **7. Create one JSON record and one readable card per property.**
+- [x] **7. Create one JSON record and one readable card per property.**
   - Deliverable: `output/fichas/` and `output/cards/`.
   - Done when: each of the 11 test properties has both output files.
-  - Evidence: [add link or path]
-  - [ ] **7.1 Match the supplied JSON contract.**
+  - Evidence: `output/fichas/` and `output/cards/`
+  - [x] **7.1 Match the supplied JSON contract.**
     - Deliverable: one schema-aligned JSON record per property.
     - Done when: all required fields use the supplied names and types.
-    - Evidence: [add link or path]
-  - [ ] **7.2 Render the readable card in Markdown.**
+    - Evidence: `docs/output_contract.md` and `output/fichas/`
+  - [x] **7.2 Render the readable card in Markdown.**
     - Deliverable: one Markdown card per property.
     - Done when: a reader can identify the property, market result, neighborhood result, quality, sources, and limits.
-    - Evidence: [add link or path]
-  - [ ] **7.3 Show missing, invalid, and approximate data.**
+    - Evidence: `src/property_card.py` and `output/cards/`
+  - [x] **7.3 Show missing, invalid, and approximate data.**
     - Deliverable: data quality and status fields in JSON and cards.
     - Done when: unsupported values stay empty and each affected section explains why.
-    - Evidence: [add link or path]
-  - [ ] **7.4 Record sources and parameter version.**
+    - Evidence: `output/fichas/` and `output/cards/`
+  - [x] **7.4 Record sources and parameter version.**
     - Deliverable: source and version metadata in JSON and cards.
     - Done when: each output names the data source and parameter version used.
-    - Evidence: [add link or path]
-  - [ ] **7.5 Keep generated files separate from inputs.**
+    - Evidence: `output/fichas/` and `output/cards/`
+  - [x] **7.5 Keep generated files separate from inputs.**
     - Deliverable: outputs stored under `output/`.
     - Done when: a run does not modify supplied or copied input files.
-    - Evidence: [add link or path]
+    - Evidence: `src/mvp.py` writes only under `output/`
 
 ## 8. Validate the complete MVP
 
-- [ ] **8. Confirm correctness and reproducibility.**
+- [x] **8. Confirm correctness and reproducibility.**
   - Deliverable: `output/validation_report.md`.
   - Done when: the report links results to manual examples, test properties, and run details.
-  - Evidence: [add link or path]
-  - [ ] **8.1 Compare the three manual examples.**
+  - Evidence: `output/validation_report.md`
+  - [x] **8.1 Compare the three manual examples.**
     - Deliverable: comparison for INM-04, INM-06, and INM-09.
     - Done when: every difference from the supplied manual values is explained or corrected.
-    - Evidence: [add link or path]
-  - [ ] **8.2 Generate all 11 property outputs.**
+    - Evidence: manual comparison table in `output/validation_report.md`
+  - [x] **8.2 Generate all 11 property outputs.**
     - Deliverable: full JSON and Markdown output set.
     - Done when: all test IDs have both files and no run error remains.
-    - Evidence: [add link or path]
-  - [ ] **8.3 Check insufficient-data and invalid-data cases.**
+    - Evidence: all 11 files in `output/fichas/` and `output/cards/`
+  - [x] **8.3 Check insufficient-data and invalid-data cases.**
     - Deliverable: validation records for missing, invalid, and sparse inputs.
     - Done when: no unsupported value appears as a valid result and valid independent sections remain visible.
-    - Evidence: [add link or path]
-  - [ ] **8.4 Repeat the run from the documented setup.**
+    - Evidence: `output/data_quality.md`, `output/validation_report.md`, and the empty-input validation path in `src/mvp.py`
+  - [x] **8.4 Repeat the run from the documented setup.**
     - Deliverable: run log with command, environment, input version, and parameter version.
     - Done when: another team member can reproduce the output from the instructions.
-    - Evidence: [add link or path]
+    - Evidence: SHA-256 repeat-run result in `output/validation_report.md`
 
 ## 9. Prepare the demonstration and handoff
 

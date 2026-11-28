@@ -45,6 +45,7 @@ Configured keys find candidates only. Comparison trims and collapses spaces and 
 | All source columns | 0 | 0 |
 | Total | 31 | 0 |
 | Rows retained | | 117 |
+| Connected groups held for review | | 21 |
 | Candidate rows held for review | | 54 |
 
 Review file: output/prepared/duplicados_para_revision.csv.

@@ -8,12 +8,10 @@ From this folder, install the runtime dependency with:
 
 PyYAML is the current runtime dependency. Add a package only when the pipeline needs it.
 
-Run the listing and test-property quality report from this folder with:
+Run the complete MVP from this folder with:
 
-    python src/data_quality.py
+    python src/mvp.py
 
-Prepare and report the geographic layers with:
+This command refreshes the input-quality reports and prepared layers, then writes one JSON record and one Markdown card for each supplied test property. It also writes `output/validation_report.md`.
 
-    python src/geospatial_preparation.py
-
-The planned run command is python src/mvp.py. It will work when checklist item 3.1.2 is complete.
+The focused commands `python src/data_quality.py` and `python src/geospatial_preparation.py` remain available when only those reports need to be refreshed.

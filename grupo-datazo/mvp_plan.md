@@ -29,6 +29,7 @@ The archived reference describes 117 sample listings and 11 test properties. It 
 - Normalize property condition labels with the supplied mappings.
 - Detect duplicates with the supplied rules.
 - Record invalid rows, duplicate counts, and missing fields.
+- Remove a row only when all source columns match after case and whitespace normalization. Keep every other candidate in the review file and out of calculations until the team decides.
 - Exclude invalid rows from calculations and record why each row was excluded.
 - Preserve source identifiers and input references for traceability.
 
@@ -116,7 +117,7 @@ Show these limits in the property card when they affect a result.
 The MVP is ready for review when:
 
 1. It creates one JSON record and one readable card for each of the 11 supplied test properties.
-2. It matches the provided manual calculations for INM-04, INM-06, and INM-09 under the supplied parameters.
+2. It compares INM-04, INM-06, and INM-09 with the manual reference. It explains differences caused by the stricter team duplicate rule and does not remove rows to force a match.
 3. It reports missing, invalid, and duplicate data without hiding those issues.
 4. It labels approximate coordinates and unavailable POT results.
 5. It can reproduce results from the supplied input files and parameter version.

@@ -27,15 +27,18 @@ This document maps the challenge template to our JSON record and readable proper
 | `mercado.comparables` | Matched rows from `anuncios_muestra.csv` | Use an empty list when none qualify. Sort by `precio_m2` in ascending order. |
 | `mercado.precio_m2_por_estado_en_zona` | Count and median for each normalized condition in the zone, without the comparable area filter | Use `n: 0` and `mediana: null` when a condition has no valid records. |
 | `calidad_datos_zona.anuncios_en_zona` | All input listing rows in the property's zone | Count before deduplication. |
-| `calidad_datos_zona.duplicados_eliminados`, `anuncios_unicos` | Supplied deduplication rules | Report both counts and keep the first row as specified. |
+| `calidad_datos_zona.duplicados_eliminados`, `anuncios_unicos` | Approved full-row comparison rule | Remove a row only when all source columns match after case and whitespace normalization. |
 | `calidad_datos_zona.anuncios_invalidos` | Validation of zone rows | Count each excluded row by reason. Do not use invalid rows in calculations. |
+| `calidad_datos_zona.anuncios_pendientes_revision` | Candidate duplicate groups with differing source columns | Count held-out rows separately from invalid rows. Do not delete or calculate with these rows before team review. |
+| `calidad_datos_zona.grupos_pendientes_revision` | Connected candidate groups with differing columns | Report the number of groups, separate from the number of rows. |
+| `calidad_datos_zona.filas_invalidas_unicas` | Unique invalid rows outside the review set | Count invalid rows once, even when a row has more than one invalid reason. |
 | `calidad_datos_zona.anuncios_validos` | Rows left after deduplication and validation | Report the actual count. |
 | `entorno.radio_busqueda_m` | `config/parametros.yaml:entorno.radio_busqueda_m` | Report the configured value used for this result. |
 | `entorno.estacion_mas_cercana` | Test coordinates and supported station features in `data/geo/transporte.geojson`, using the documented Haversine method | Use `null` when the location or layer cannot support a calculation. Report the nearest station even when it is outside the search radius. |
 | `entorno.estaciones_en_radio` | Transit features in the configured radius and supported systems | Use `null` when the count cannot be calculated. Use `0` only when a valid calculation finds none. |
 | `entorno.equipamientos_en_radio` | `data/geo/equipamientos.geojson` and configured categories | Use `null` for counts that cannot be calculated. Use `0` only for a valid count of none. |
 | `entorno.aproximado` | Coordinate precision | Set `true` when the source location is neighborhood-level. |
-| `norma.tratamiento_pot`, `estado`, `motivo` | POT layer and `municipios_cubiertos` in `config/parametros.yaml` | Use `pendiente_capa` for a covered municipality when the layer is absent. Use `no_disponible` for a municipality outside coverage. Keep treatment null and explain the status. |
+| `norma.tratamiento_pot`, `estado`, `motivo` | POT layer and `municipios_cubiertos` in `config/parametros.yaml` | Use `pendiente_capa` for a covered municipality when the layer is absent. Use `no_disponible` for a municipality outside coverage. Use `capa_disponible_sin_interseccion` if a layer exists but the MVP cannot calculate the polygon intersection. Keep treatment null and explain the status. |
 | `datos_faltantes` | Missing fields and unsupported calculations found during processing | Preserve supplied codes. Add a clear code for insufficient comparables or unavailable coordinates when needed. Include missing listing dates and closing prices when relevant. |
 | `metadatos.version_parametros` | `config/parametros.yaml:version` | Record the exact version used. |
 | `metadatos.fecha_generacion` | Date of the pipeline run | Use the same date format as the supplied example. |
@@ -50,7 +53,7 @@ This document maps the challenge template to our JSON record and readable proper
 | Market | Reference condition, median price per square meter, range, comparable count, coefficient of variation, confidence, and zone context by condition | Show numeric results only when supported. Include the confidence reason. |
 | Neighborhood | Search radius, nearest station and distance, station count, facility counts by category | Mark approximate results. Show “insufficient data” when a calculation cannot run. Preserve zero when a valid calculation finds none. |
 | Zoning | POT treatment, status, and reason | Show the pending status while the layer is absent. |
-| Data quality | Zone rows, duplicates, valid rows, invalid rows by reason, and missing fields | Show excluded data and its reason. Do not present excluded values as valid. |
+| Data quality | Zone rows, exact duplicates, held-out candidates, valid rows, invalid rows by reason, and missing fields | Show excluded data and its reason. Do not present excluded values as valid. |
 | Sources | Input files, parameter version, and source-layer date | List the sources used for the record. |
 
 ## Data integrity rules

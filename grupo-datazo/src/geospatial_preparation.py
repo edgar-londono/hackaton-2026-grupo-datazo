@@ -6,7 +6,7 @@ import math
 from collections import Counter, defaultdict
 from difflib import SequenceMatcher
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 if __package__:
     from .data_preparation import normalize_text_for_comparison, normalize_text_for_similarity
@@ -135,7 +135,7 @@ def _read_layer(path: Path) -> dict[str, Any]:
 
 def _validate_feature(
     feature: Any, category_field: str
-) -> tuple[list[str], tuple[float, float] | None]:
+) -> tuple[list[str], Optional[tuple[float, float]]]:
     issues: list[str] = []
     if not isinstance(feature, dict) or feature.get("type") != "Feature":
         return ["El registro no tiene el tipo GeoJSON Feature."], None

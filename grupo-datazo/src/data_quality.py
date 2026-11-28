@@ -539,6 +539,7 @@ def render_report(summary: QualitySummary, parameter_version: str) -> str:
             f"| All source columns | {summary.deduplication.group_counts['all_columns']} | {removed_by_rule['all_columns']} |",
             f"| Total | {sum(summary.deduplication.group_counts.values())} | {len(summary.deduplication.removed)} |",
             f"| Rows retained | | {len(summary.deduplication.rows)} |",
+            f"| Connected groups held for review | | {len({record.first_row_number for record in summary.deduplication.for_review})} |",
             f"| Candidate rows held for review | | {len(summary.deduplication.for_review)} |",
             "",
             "Review file: output/prepared/duplicados_para_revision.csv.",

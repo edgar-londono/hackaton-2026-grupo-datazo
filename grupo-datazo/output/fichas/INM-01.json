@@ -1,0 +1,150 @@
+{
+  "id_inmueble": "INM-01",
+  "inmueble": {
+    "direccion": "Cra 36A con Calle 41",
+    "barrio": "El Salvador",
+    "municipio": "medellin",
+    "zona": "buenos_aires_el_salvador",
+    "area_m2": 73.0,
+    "estado_texto": "Remodelar",
+    "estado": "por_remodelar",
+    "coordenadas": {
+      "lat": 6.238961,
+      "lon": -75.560963,
+      "precision": "cruce",
+      "fuente": "OSM cruce Carrera 36A x Calle 41 (separación 0 m)"
+    }
+  },
+  "mercado": {
+    "estado_referencia": "por_remodelar",
+    "precio_m2": {
+      "n": 6,
+      "mediana": 4708333,
+      "promedio": 4759298,
+      "minimo": 4333333,
+      "maximo": 5214286,
+      "desviacion": 359616,
+      "coef_variacion": 0.0756
+    },
+    "confianza": {
+      "nivel": "alta",
+      "motivo": "6 comparables y coeficiente de variación 7.56%; cumple la regla alta."
+    },
+    "comparables": [
+      {
+        "origen": "extension_poligono.xlsx:Bombona:18",
+        "id_anuncio": "fincaraiz:193000855",
+        "fuente": "fincaraiz",
+        "area_m2": 60.0,
+        "precio": 260000000,
+        "precio_m2": 4333333
+      },
+      {
+        "origen": "extension_poligono.xlsx:REMODELAR:80",
+        "id_anuncio": "fincaraiz:192947650",
+        "fuente": "fincaraiz",
+        "area_m2": 54.0,
+        "precio": 240000000,
+        "precio_m2": 4444444
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:16",
+        "id_anuncio": "fincaraiz:192983429",
+        "fuente": "fincaraiz",
+        "area_m2": 60.0,
+        "precio": 280000000,
+        "precio_m2": 4666667
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:11",
+        "id_anuncio": "fincaraiz:191865763",
+        "fuente": "fincaraiz",
+        "area_m2": 52.0,
+        "precio": 247000000,
+        "precio_m2": 4750000
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:17",
+        "id_anuncio": "fincaraiz:191508829",
+        "fuente": "fincaraiz",
+        "area_m2": 68.0,
+        "precio": 350000000,
+        "precio_m2": 5147059
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:13",
+        "id_anuncio": "fincaraiz:191455271",
+        "fuente": "fincaraiz",
+        "area_m2": 70.0,
+        "precio": 365000000,
+        "precio_m2": 5214286
+      }
+    ],
+    "precio_m2_por_estado_en_zona": {
+      "remodelado": {
+        "n": 0,
+        "mediana": null
+      },
+      "habitable": {
+        "n": 7,
+        "mediana": 3909091
+      },
+      "por_remodelar": {
+        "n": 14,
+        "mediana": 4933140
+      }
+    }
+  },
+  "calidad_datos_zona": {
+    "anuncios_en_zona": 82,
+    "duplicados_eliminados": 0,
+    "anuncios_unicos": 82,
+    "anuncios_invalidos": {
+      "estado_sin_clasificar": 25,
+      "sin_area": 1
+    },
+    "anuncios_pendientes_revision": 45,
+    "grupos_pendientes_revision": 17,
+    "filas_invalidas_unicas": 16,
+    "anuncios_validos": 21
+  },
+  "entorno": {
+    "radio_busqueda_m": 800,
+    "estacion_mas_cercana": {
+      "nombre": "Bicentenario",
+      "sistema": "tranvia",
+      "distancia_m": 605
+    },
+    "estaciones_en_radio": 2,
+    "equipamientos_en_radio": {
+      "educacion": 35,
+      "salud": 4,
+      "parques": 14,
+      "abastecimiento": 7,
+      "seguridad": 1,
+      "cultura": 4
+    },
+    "aproximado": false
+  },
+  "norma": {
+    "tratamiento_pot": null,
+    "estado": "pendiente_capa",
+    "motivo": "Falta el archivo data/geo/pot_tratamientos.geojson."
+  },
+  "datos_faltantes": [
+    "fecha_publicacion_comparables",
+    "precios_de_cierre"
+  ],
+  "metadatos": {
+    "version_parametros": "1.0",
+    "fecha_generacion": "2026-11-27",
+    "fecha_capas_osm": "2026-11-13T23:03:06Z",
+    "fuentes": [
+      "data/inmuebles_prueba.csv",
+      "data/anuncios_muestra.csv",
+      "OpenStreetMap transit layer (ODbL)",
+      "OpenStreetMap facility layer (ODbL)",
+      "config/parametros.yaml (POT coverage and missing layer status)"
+    ]
+  }
+}

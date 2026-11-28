@@ -1,0 +1,142 @@
+{
+  "id_inmueble": "INM-04",
+  "inmueble": {
+    "direccion": "Calle 37 con Cra 33B",
+    "barrio": "El Salvador",
+    "municipio": "medellin",
+    "zona": "buenos_aires_el_salvador",
+    "area_m2": 71.0,
+    "estado_texto": "OK",
+    "estado": "habitable",
+    "coordenadas": {
+      "lat": 6.234861,
+      "lon": -75.560101,
+      "precision": "cruce",
+      "fuente": "OSM cruce Calle 37 x Carrera 33B (separación 0 m)"
+    }
+  },
+  "mercado": {
+    "estado_referencia": "habitable",
+    "precio_m2": {
+      "n": 5,
+      "mediana": 5769231,
+      "promedio": 5331537,
+      "minimo": 3902439,
+      "maximo": 6615385,
+      "desviacion": 1340002,
+      "coef_variacion": 0.2513
+    },
+    "confianza": {
+      "nivel": "baja",
+      "motivo": "5 comparables y coeficiente de variación 25.13%; no cumple los umbrales superiores."
+    },
+    "comparables": [
+      {
+        "origen": "extension_poligono.xlsx:Bombona:9",
+        "id_anuncio": "fincaraiz:191455596",
+        "fuente": "fincaraiz",
+        "area_m2": 82.0,
+        "precio": 320000000,
+        "precio_m2": 3902439
+      },
+      {
+        "origen": "extension_poligono.xlsx:REMODELAR:35",
+        "id_anuncio": null,
+        "fuente": "aviso_calle",
+        "area_m2": 55.0,
+        "precio": 215000000,
+        "precio_m2": 3909091
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:12",
+        "id_anuncio": "fincaraiz:11002434",
+        "fuente": "fincaraiz",
+        "area_m2": 78.0,
+        "precio": 450000000,
+        "precio_m2": 5769231
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:10",
+        "id_anuncio": "fincaraiz:193060833",
+        "fuente": "fincaraiz",
+        "area_m2": 65.0,
+        "precio": 420000000,
+        "precio_m2": 6461538
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:15",
+        "id_anuncio": "fincaraiz:192171314",
+        "fuente": "fincaraiz",
+        "area_m2": 65.0,
+        "precio": 430000000,
+        "precio_m2": 6615385
+      }
+    ],
+    "precio_m2_por_estado_en_zona": {
+      "remodelado": {
+        "n": 0,
+        "mediana": null
+      },
+      "habitable": {
+        "n": 7,
+        "mediana": 3909091
+      },
+      "por_remodelar": {
+        "n": 14,
+        "mediana": 4933140
+      }
+    }
+  },
+  "calidad_datos_zona": {
+    "anuncios_en_zona": 82,
+    "duplicados_eliminados": 0,
+    "anuncios_unicos": 82,
+    "anuncios_invalidos": {
+      "estado_sin_clasificar": 25,
+      "sin_area": 1
+    },
+    "anuncios_pendientes_revision": 45,
+    "grupos_pendientes_revision": 17,
+    "filas_invalidas_unicas": 16,
+    "anuncios_validos": 21
+  },
+  "entorno": {
+    "radio_busqueda_m": 800,
+    "estacion_mas_cercana": {
+      "nombre": "Buenos Aires",
+      "sistema": "tranvia",
+      "distancia_m": 1000
+    },
+    "estaciones_en_radio": 0,
+    "equipamientos_en_radio": {
+      "educacion": 22,
+      "salud": 2,
+      "parques": 12,
+      "abastecimiento": 1,
+      "seguridad": 1,
+      "cultura": 0
+    },
+    "aproximado": false
+  },
+  "norma": {
+    "tratamiento_pot": null,
+    "estado": "pendiente_capa",
+    "motivo": "Falta el archivo data/geo/pot_tratamientos.geojson."
+  },
+  "datos_faltantes": [
+    "fecha_publicacion_comparables",
+    "precios_de_cierre"
+  ],
+  "metadatos": {
+    "version_parametros": "1.0",
+    "fecha_generacion": "2026-11-27",
+    "fecha_capas_osm": "2026-11-13T23:03:06Z",
+    "fuentes": [
+      "data/inmuebles_prueba.csv",
+      "data/anuncios_muestra.csv",
+      "OpenStreetMap transit layer (ODbL)",
+      "OpenStreetMap facility layer (ODbL)",
+      "config/parametros.yaml (POT coverage and missing layer status)"
+    ]
+  }
+}

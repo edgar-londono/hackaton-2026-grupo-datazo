@@ -68,3 +68,4 @@
 - 2026-11-28 00:35:10: Put Google Maps and OpenStreetMap links in the requested order with concise labels, and refreshed the script version to bypass the page cache; Google walking duration still needs a configured Routes API service.
 - 2026-11-28 00:45:00: Added category-specific pastel markers and matching dots in nearby equipment lists and the map legend.
 - 2026-11-28 00:53:02: Removed internal OSM identifiers from nearby-place lists, separated confidence and missing-data details into labeled bullet lists, and enlarged the Datazo wordmark.
+- 2026-11-28 01:02:03: Formatted equipment map popups with a bold place name, a labeled type, and Google Maps and OpenStreetMap links; omitted stored walking times by request.

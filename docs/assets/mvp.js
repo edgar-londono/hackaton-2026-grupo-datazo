@@ -94,7 +94,9 @@
     content.append(title);
     if (categoryText) {
       const category = document.createElement("span");
-      category.textContent = categoryText;
+      const categoryLabel = document.createElement("strong");
+      categoryLabel.textContent = "Tipo: ";
+      category.append(categoryLabel, `${categoryText}.`);
       content.append(category);
     }
     const point = feature?.geometry?.coordinates;
@@ -103,7 +105,9 @@
       routeLink.href = directionsUrl(origin, { lon: point[0], lat: point[1] });
       routeLink.target = "_blank";
       routeLink.rel = "noopener noreferrer";
-      routeLink.textContent = "Ver en Google Maps";
+      const routeLabel = document.createElement("strong");
+      routeLabel.textContent = "Ver en: ";
+      routeLink.append(routeLabel, "Google Maps");
       content.append(routeLink);
     }
     const source = osmUrl(feature?.properties?.osm_id);
@@ -112,7 +116,9 @@
       sourceLink.href = source;
       sourceLink.target = "_blank";
       sourceLink.rel = "noopener noreferrer";
-      sourceLink.textContent = "Ver en OpenStreetMap";
+      const sourceLabel = document.createElement("strong");
+      sourceLabel.textContent = "Ver en: ";
+      sourceLink.append(sourceLabel, "OpenStreetMap");
       content.append(sourceLink);
     }
     return content;

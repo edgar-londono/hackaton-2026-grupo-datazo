@@ -72,3 +72,4 @@
 - 2026-11-28 01:05:17: Moved Sebastian to the second team-list position and Jonathan to the third.
 - 2026-11-28 01:09:32: Improved MVP heading letter spacing, enlarged the theme icon, and clarified the footer note and team link.
 - 2026-11-28 01:12:37: Matched map popup backgrounds to the active theme so popup text remains readable in dark mode.
+- 2026-11-28 01:19:29: Removed the MVP section note about which listings the calculations use.

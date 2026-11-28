@@ -237,7 +237,7 @@
         include4375000 = !include4375000;
         updateComparableToggle();
       });
-      updateComparableToggle();
+      comparableToggle.textContent = "Quitar grupo de COP 4.375.000/m² (3)";
       priceBlock.append(comparableToggle);
     }
 

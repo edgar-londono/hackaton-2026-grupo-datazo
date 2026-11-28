@@ -61,3 +61,4 @@
 - 2026-11-27 21:02:15: Implemented strict duplicate handling, include or exclude options, a 1,638-field audit, evidence-gated corrections, and updated cleanup documents and slides.
 - 2026-11-27 21:04:48: Regenerated all 11 property records and cards with possible repeats included, reusing existing prepared geographic outputs.
 - 2026-11-27 22:07:28: Refined slide copy, added data types and source links, centered slide-picker labels, and repaired artifact links.
+- 2026-11-27 23:10:42: Added a project home page, interactive MVP property cards, team roles, and a shared dark or light theme.

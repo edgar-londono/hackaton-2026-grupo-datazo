@@ -25,3 +25,9 @@ Without either option, the value in `config/parametros.yaml` applies.
 This command refreshes the input-quality reports and prepared layers, then writes one JSON record and one Markdown card for each supplied test property. It also writes `output/validation_report.md`.
 
 The focused commands `python src/data_quality.py` and `python src/geospatial_preparation.py` remain available when only those reports need to be refreshed.
+
+To refresh the records and cards used by the GitHub Pages MVP after a pipeline run, use:
+
+    python src/publish_site_data.py
+
+This copies the generated records and cards into `../docs/data/` without changing the source outputs.

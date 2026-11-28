@@ -162,13 +162,16 @@
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
   </style>
+  <link rel="stylesheet" href="../assets/site.css">
+  <script src="../assets/theme.js" defer></script>
 </head>
 <body>
   <main class="stage" aria-label="Presentación sobre limpieza de datos">
     <div class="progress" id="progress" aria-hidden="true"></div>
     <section class="content" aria-live="polite" aria-atomic="true">
       <header class="content-head">
-        <p class="brand"><b>Datazo</b> • Estud-IA: Análisis de datos</p>
+        <p class="brand"><a href="../index.html"><b>Datazo</b> • Estud-IA: Análisis de datos</a></p>
+        <button class="theme-toggle" type="button" data-theme-toggle>Modo oscuro</button>
         <p class="eyebrow">Limpieza de datos</p>
         <button class="slide-count slide-picker-button" id="slide-count" type="button" aria-label="Elegir diapositiva" aria-haspopup="dialog" aria-controls="slide-picker-dialog">01 / 09</button>
       </header>

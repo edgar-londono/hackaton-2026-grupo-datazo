@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f7">
+  <meta name="description" content="Explora las fichas del MVP de Grupo Datazo para los 11 inmuebles de prueba.">
+  <title>MVP | Grupo Datazo</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/theme.js" defer></script>
+  <script src="assets/mvp.js" defer></script>
+</head>
+<body class="inner-page">
+  <main class="site-shell">
+    <header class="topline">
+      <p class="brand"><a href="index.html"><strong>Datazo</strong></a> • Estud-IA: Análisis de datos</p>
+      <div class="top-actions">
+        <nav class="site-nav" aria-label="Navegación principal"><a href="mvp.html" aria-current="page">MVP</a><a href="presentation/limpieza_datos.html">Proceso</a><a href="equipo.html">Equipo</a></nav>
+        <button class="theme-toggle" type="button" data-theme-toggle>Modo oscuro</button>
+      </div>
+    </header>
+    <section class="hero">
+      <p class="eyebrow">MVP · 11 inmuebles de prueba</p>
+      <h1>Una ficha para cada inmueble</h1>
+      <p class="hero-deck">Selecciona una ficha para consultar el resumen de mercado, el entorno y los límites de los datos disponibles.</p>
+    </section>
+    <section class="page-section" aria-labelledby="property-index-title">
+      <div class="section-head"><h2 id="property-index-title">Inmuebles</h2><p>Los cálculos usan los anuncios seleccionados según las reglas del MVP.</p></div>
+      <div class="property-layout">
+        <nav class="property-picker" id="property-picker" aria-label="Seleccionar inmueble"></nav>
+        <article class="property-view" id="property-view" aria-live="polite">
+          <p class="eyebrow">Cargando resultados</p>
+          <p>La ficha seleccionada aparecerá aquí.</p>
+        </article>
+      </div>
+      <div class="process-callout">
+        <p>Los anuncios tienen precios publicados, no precios de cierre confirmados. El tratamiento urbanístico está pendiente por falta de capa disponible.</p>
+        <a href="presentation/limpieza_datos.html">Ver el proceso de creación ↗</a>
+      </div>
+      <a class="back-link" href="index.html">← Volver al inicio</a>
+    </section>
+    <footer class="index-footer"><p class="footer-mark" aria-hidden="true">Datazo</p><p class="footer-note">Resultados de la muestra suministrada<br><a href="equipo.html">Conoce al equipo</a></p></footer>
+  </main>
+</body>
+</html>

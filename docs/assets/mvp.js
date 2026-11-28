@@ -209,6 +209,8 @@
     priceValue.className = "price-value";
     let displayedMedian = price.mediana;
     let displayedComparableCount = price.n;
+    let confidenceStatValue = null;
+    let confidenceStatusList = null;
     priceValue.textContent = money(displayedMedian);
     const range = document.createElement("p");
     range.className = "price-range";
@@ -230,8 +232,20 @@
         const middle = Math.floor(values.length / 2);
         displayedMedian = values.length % 2 ? values[middle] : Math.round((values[middle - 1] + values[middle]) / 2);
         displayedComparableCount = values.length;
+        const average = values.reduce((sum, value) => sum + value, 0) / values.length;
+        const deviation = Math.sqrt(values.reduce((sum, value) => sum + (value - average) ** 2, 0) / (values.length - 1));
+        const coefficient = deviation / average;
+        const confidenceLevel = values.length >= 5 && coefficient <= 0.15 ? "alta"
+          : values.length >= 3 && coefficient <= 0.25 ? "media"
+          : "baja";
         priceValue.textContent = money(displayedMedian);
         comparableCountValue.textContent = formatter.format(displayedComparableCount);
+        if (confidenceStatValue) confidenceStatValue.textContent = labelCase(confidenceLevel);
+        if (confidenceStatusList) {
+          confidenceStatusList.children[0].textContent = `${labelCase(confidenceLevel)}.`;
+          confidenceStatusList.children[1].textContent = `${formatter.format(displayedComparableCount)} comparables y coeficiente de variación ${areaFormatter.format(coefficient * 100)}%; selección actualizada.`;
+          confidenceStatusList.children[2].textContent = confidenceRules[confidenceLevel] || "No se puede asignar un nivel sin comparables válidos.";
+        }
       };
       comparableToggle.addEventListener("click", () => {
         include4375000 = !include4375000;
@@ -250,6 +264,8 @@
       stat(labelCase(text(market.confianza.nivel, "No calculada")), "Nivel de confianza"),
       stat(`${formatter.format(environment.radio_busqueda_m)} m`, "Radio de análisis")
     );
+
+    confidenceStatValue = stats.querySelectorAll(".stat b")[1];
 
     const details = document.createElement("dl");
     details.className = "detail-grid";
@@ -389,6 +405,7 @@
       item.textContent = itemText;
       confidenceList.append(item);
     });
+    confidenceStatusList = confidenceList;
     status.append(confidenceTitle, confidenceList);
 
     const note = document.createElement("section");

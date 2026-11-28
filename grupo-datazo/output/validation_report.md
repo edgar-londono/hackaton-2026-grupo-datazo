@@ -6,7 +6,7 @@
 - Markdown cards present: 11.
 - Run command: `python src/mvp.py`.
 - Configuration: `config/parametros.yaml` version 1.0.
-- Listing input coverage: 47 valid, 54 pending review, 16 invalid, 0 exact duplicate removed.
+- Listing input coverage: 117 rows received, 117 retained, 0 exact duplicates removed, 54 possible repeat rows in 21 groups, 54 selected for calculations; possible repeats included.
 
 ## MVP acceptance checks
 
@@ -14,24 +14,26 @@
 - Checks completed: 11 records, input/output ID match, empty-data behavior, market null rules, coordinate precision flags, and geographic availability.
 - Issues: None.
 - Data quality limitations: recorded in each card and in `data_quality.md`; they remain explicit where supplied inputs cannot support a value.
-- Repeat-run output hash check: PASS, generated artifacts matched across two full runs.
+- Repeat-run output hash check: Not run.
 
 ## Manual reference comparison
 
-The archived manual examples remove rows by candidate ID or by zone, area, and price. The team rule removes a row only when every source field matches after case and whitespace normalization. Candidate rows with any other difference stay out of calculations and remain in the review file. Differences below follow from this stricter rule; no source values were changed to force a match.
+The archived manual examples remove rows by candidate ID or by zone, area, and price. The team removes a row only when every source field matches after whitespace normalization. Case differences remain visible.
+Possible repeats remain separate. This run includes candidate rows from calculations. Use `--include-candidates` or `--exclude-candidates` to choose.
 
 | Property | Result | Details |
 |---|---|---|
-| INM-04 | DIFFERENCE | market.n: reference=9, current=5; market.mediana: reference=4375000, current=5769231; market.promedio: reference=4871967, current=5331537; market.desviacion: reference=1148433, current=1340002; market.coef_variacion: reference=0.2357, current=0.2513; market.confidence: reference=media, current=baja; market.comparables: 9 reference, 5 current; row membership differs; quality.duplicados_eliminados: reference=28, current=0; quality.anuncios_unicos: reference=54, current=82; quality.anuncios_validos: reference=33, current=21 |
-| INM-06 | DIFFERENCE | market.n: reference=6, current=3; market.mediana: reference=6729529, current=6111111; market.promedio: reference=6888653, current=6390953; market.desviacion: reference=1170939, current=1154425; market.coef_variacion: reference=0.17, current=0.1806; market.comparables: 6 reference, 3 current; row membership differs; quality.duplicados_eliminados: reference=3, current=0; quality.anuncios_unicos: reference=13, current=16; quality.anuncios_validos: reference=13, current=10 |
-| INM-09 | DIFFERENCE | quality.duplicados_eliminados: reference=2, current=0; quality.anuncios_unicos: reference=17, current=19; quality.anuncios_validos: reference=17, current=16 |
+| INM-04 | DIFFERENCE | market.n: reference=9, current=18; market.mediana: reference=4375000, current=4077833; market.promedio: reference=4871967, current=4512322; market.desviacion: reference=1148433, current=916696; market.coef_variacion: reference=0.2357, current=0.2032; market.comparables: 9 reference, 18 current; row membership differs; quality.duplicados_eliminados: reference=28, current=0; quality.anuncios_unicos: reference=54, current=82; quality.anuncios_validos: reference=33, current=82 |
+| INM-06 | DIFFERENCE | market.n: reference=6, current=9; market.mediana: reference=6729529, current=6969697; market.promedio: reference=6888653, current=7054553; market.desviacion: reference=1170939, current=1121091; market.coef_variacion: reference=0.17, current=0.1589; market.comparables: 6 reference, 9 current; row membership differs; quality.duplicados_eliminados: reference=3, current=0; quality.anuncios_unicos: reference=13, current=16; quality.anuncios_validos: reference=13, current=16 |
+| INM-09 | DIFFERENCE | market.n: reference=9, current=11; market.mediana: reference=7058824, current=6935484; market.promedio: reference=7038232, current=6978977; market.desviacion: reference=449720, current=423295; market.coef_variacion: reference=0.0639, current=0.0607; market.comparables: 9 reference, 11 current; row membership differs; quality.duplicados_eliminados: reference=2, current=0; quality.anuncios_unicos: reference=17, current=19; quality.anuncios_validos: reference=17, current=19 |
 
 ## Data sufficiency and limits
 
 - Every output keeps unsupported numeric values as `null` and includes a reason in the card.
 - Listing rows with missing condition or area remain in the source and are excluded from calculations with a recorded reason.
-- Candidate rows with differing source columns remain available in `prepared/duplicados_para_revision.csv`; they are not removed or treated as confirmed duplicates.
-- The 54 candidate rows are organized into 21 groups in `prepared/grupos_revision_resumen.csv`, with the original values that differ listed for team decisions.
+- Candidate rows with differing source columns remain separate in `prepared/posibles_repeticiones.csv`; they are possible repeats, not confirmed duplicates.
+- Choose whether possible repeats enter calculations with `--include-candidates` or `--exclude-candidates`. The default comes from `config/parametros.yaml`.
+- Candidate groups and original differing values are listed in `prepared/grupos_posibles_repeticiones.csv`.
 - Approximate neighborhood coordinates are marked in each affected card.
 - The POT layer is not supplied. Covered Medellin records report `pendiente_capa`; Itagui reports `no_disponible`.
 - The supplied listing sample has no publication dates and no closing prices. These limits appear in each card.

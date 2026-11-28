@@ -18,17 +18,17 @@
   "mercado": {
     "estado_referencia": "remodelado",
     "precio_m2": {
-      "n": 3,
-      "mediana": 6111111,
-      "promedio": 6390953,
+      "n": 9,
+      "mediana": 6969697,
+      "promedio": 7054553,
       "minimo": 5402174,
-      "maximo": 7659574,
-      "desviacion": 1154425,
-      "coef_variacion": 0.1806
+      "maximo": 8700000,
+      "desviacion": 1121091,
+      "coef_variacion": 0.1589
     },
     "confianza": {
       "nivel": "media",
-      "motivo": "3 comparables y coeficiente de variación 18.06%; cumple la regla media."
+      "motivo": "9 comparables y coeficiente de variación 15.89%; cumple la regla media."
     },
     "comparables": [
       {
@@ -48,18 +48,66 @@
         "precio_m2": 6111111
       },
       {
+        "origen": "factibilidad_castellana.xlsx:SECTORIAL:11",
+        "id_anuncio": "fincaraiz:10710482",
+        "fuente": "fincaraiz",
+        "area_m2": 94.0,
+        "precio": 610000000,
+        "precio_m2": 6489362
+      },
+      {
+        "origen": "factibilidad_castellana.xlsx:SECTORIAL:2",
+        "id_anuncio": "fincaraiz:10710482",
+        "fuente": "fincaraiz",
+        "area_m2": 94.0,
+        "precio": 610000000,
+        "precio_m2": 6489362
+      },
+      {
+        "origen": "factibilidad_castellana.xlsx:SECTORIAL:10",
+        "id_anuncio": "fincaraiz:193287983",
+        "fuente": "fincaraiz",
+        "area_m2": 99.0,
+        "precio": 690000000,
+        "precio_m2": 6969697
+      },
+      {
+        "origen": "factibilidad_castellana.xlsx:SECTORIAL:3",
+        "id_anuncio": "fincaraiz:193287983",
+        "fuente": "fincaraiz",
+        "area_m2": 99.0,
+        "precio": 690000000,
+        "precio_m2": 6969697
+      },
+      {
         "origen": "factibilidad_castellana.xlsx:SECTORIAL:8",
         "id_anuncio": "fincaraiz:192987663",
         "fuente": "fincaraiz",
         "area_m2": 94.0,
         "precio": 720000000,
         "precio_m2": 7659574
+      },
+      {
+        "origen": "factibilidad_castellana.xlsx:SECTORIAL:12",
+        "id_anuncio": "fincaraiz:193440669",
+        "fuente": "fincaraiz",
+        "area_m2": 100.0,
+        "precio": 870000000,
+        "precio_m2": 8700000
+      },
+      {
+        "origen": "factibilidad_castellana.xlsx:SECTORIAL:9",
+        "id_anuncio": "fincaraiz:193440669",
+        "fuente": "fincaraiz",
+        "area_m2": 100.0,
+        "precio": 870000000,
+        "precio_m2": 8700000
       }
     ],
     "precio_m2_por_estado_en_zona": {
       "remodelado": {
-        "n": 4,
-        "mediana": 6885343
+        "n": 10,
+        "mediana": 6969697
       },
       "habitable": {
         "n": 6,
@@ -76,10 +124,12 @@
     "duplicados_eliminados": 0,
     "anuncios_unicos": 16,
     "anuncios_invalidos": {},
-    "anuncios_pendientes_revision": 6,
-    "grupos_pendientes_revision": 3,
+    "posibles_repeticiones": 6,
+    "grupos_posibles_repeticiones": 3,
     "filas_invalidas_unicas": 0,
-    "anuncios_validos": 10
+    "anuncios_conservados": 16,
+    "candidatos_incluidos_en_calculos": true,
+    "candidatos_seleccionados_en_zona": 6
   },
   "entorno": {
     "radio_busqueda_m": 800,

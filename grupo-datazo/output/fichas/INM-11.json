@@ -58,8 +58,8 @@
     ],
     "precio_m2_por_estado_en_zona": {
       "remodelado": {
-        "n": 11,
-        "mediana": 7058824
+        "n": 14,
+        "mediana": 6918562
       },
       "habitable": {
         "n": 0,
@@ -76,10 +76,12 @@
     "duplicados_eliminados": 0,
     "anuncios_unicos": 19,
     "anuncios_invalidos": {},
-    "anuncios_pendientes_revision": 3,
-    "grupos_pendientes_revision": 1,
+    "posibles_repeticiones": 3,
+    "grupos_posibles_repeticiones": 1,
     "filas_invalidas_unicas": 0,
-    "anuncios_validos": 16
+    "anuncios_conservados": 19,
+    "candidatos_incluidos_en_calculos": true,
+    "candidatos_seleccionados_en_zona": 3
   },
   "entorno": {
     "radio_busqueda_m": 800,

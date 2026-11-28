@@ -15,31 +15,39 @@ Generated: 2026-11-27
 ## Market summary
 
 - Reference condition: por_remodelar
-- Comparable listings: 11
-- Median asking price per m²: COP 5,116,279
-- Range: COP 4,333,333 to COP 6,744,186
-- Mean: COP 5,145,203
-- Sample standard deviation: COP 837,442
-- Coefficient of variation: 16.28%
-- Confidence: media. 11 comparables y coeficiente de variación 16.28%; cumple la regla media.
+- Comparable listings: 19
+- Median asking price per m²: COP 4,666,667
+- Range: COP 3,551,136 to COP 6,744,186
+- Mean: COP 4,722,194
+- Sample standard deviation: COP 850,468
+- Coefficient of variation: 18.01%
+- Confidence: media. 19 comparables y coeficiente de variación 18.01%; cumple la regla media.
 
 ### Zone context by condition
 
 | Condition | Valid listings | Median asking price per m² |
 |---|---:|---:|
 | remodelado | 0 | Insufficient data |
-| habitable | 7 | COP 3,909,091 |
-| por_remodelar | 14 | COP 4,933,140 |
+| habitable | 29 | COP 3,906,250 |
+| por_remodelar | 28 | COP 4,221,461 |
 
 ### Comparables
 
 | Source record | Listing ID | Source | Area | Asking price | Price per m² |
 |---|---|---|---:|---:|---:|
+| extension_poligono.xlsx:El salvador:3 | Insufficient data | aviso_calle | 70.4m² | COP 250,000,000 | COP 3,551,136 |
+| extension_poligono.xlsx:Bombona:7 | fincaraiz:192609616 | fincaraiz | 65.0m² | COP 250,000,000 | COP 3,846,154 |
+| extension_poligono.xlsx:REMODELAR:83 | fincaraiz:192609616 | fincaraiz | 65.0m² | COP 250,000,000 | COP 3,846,154 |
+| extension_poligono.xlsx:El salvador:5 | fincaraiz:7387557 | fincaraiz | 73.0m² | COP 300,000,000 | COP 4,109,589 |
+| extension_poligono.xlsx:El salvador:7 | arrendamientos_santafe:V10746 | arrendamientos_santafe | 73.0m² | COP 300,000,000 | COP 4,109,589 |
+| extension_poligono.xlsx:REMODELAR:78 | arrendamientos_santafe:V10746 | arrendamientos_santafe | 73.0m² | COP 300,000,000 | COP 4,109,589 |
 | extension_poligono.xlsx:Bombona:18 | fincaraiz:193000855 | fincaraiz | 60.0m² | COP 260,000,000 | COP 4,333,333 |
 | extension_poligono.xlsx:El salvador:9 | Insufficient data | facebook | 50.34m² | COP 220,000,000 | COP 4,370,282 |
 | extension_poligono.xlsx:REMODELAR:80 | fincaraiz:192947650 | fincaraiz | 54.0m² | COP 240,000,000 | COP 4,444,444 |
 | extension_poligono.xlsx:Bombona:16 | fincaraiz:192983429 | fincaraiz | 60.0m² | COP 280,000,000 | COP 4,666,667 |
 | extension_poligono.xlsx:Bombona:11 | fincaraiz:191865763 | fincaraiz | 52.0m² | COP 247,000,000 | COP 4,750,000 |
+| extension_poligono.xlsx:Bombona:6 | fincaraiz:193042067 | fincaraiz | 67.0m² | COP 320,000,000 | COP 4,776,119 |
+| extension_poligono.xlsx:REMODELAR:82 | fincaraiz:193042067 | fincaraiz | 67.0m² | COP 320,000,000 | COP 4,776,119 |
 | extension_poligono.xlsx:REMODELAR:81 | Insufficient data | facebook | 43.0m² | COP 220,000,000 | COP 5,116,279 |
 | extension_poligono.xlsx:Bombona:14 | fincaraiz:191795362 | fincaraiz | 48.6m² | COP 250,000,000 | COP 5,144,033 |
 | extension_poligono.xlsx:Bombona:17 | fincaraiz:191508829 | fincaraiz | 68.0m² | COP 350,000,000 | COP 5,147,059 |
@@ -73,10 +81,12 @@ Generated: 2026-11-27
 - Listings in zone: 82
 - Exact duplicate rows removed: 0
 - Unique source rows after exact deduplication: 82
-- Valid listings used for analysis: 21
-- Candidate listings held out for review: 45 rows in 17 groups
-- Invalid unique rows not held for review: 16
-- Invalid listings by reason: estado_sin_clasificar: 25; sin_area: 1
+- Listing rows retained after exact duplicate removal: 82
+- Possible repeat rows: 45 in 17 groups
+- Possible repeat option: included
+- Possible repeat rows selected in this zone: 45
+- Unique rows with data issues: 25
+- Field issues in this zone: estado_sin_clasificar: 25; sin_area: 1
 - Missing or unavailable data: fecha_publicacion_comparables; precios_de_cierre
 
 ## Sources
@@ -85,4 +95,4 @@ Generated: 2026-11-27
 - Parameter version: 1.0
 - Geographic layer date: 2026-11-13T23:03:06Z
 
-This card reports asking prices. It does not estimate closing prices or recommend an investment decision.
+Prices are reported in supplied ads. Official sources did not confirm each price. This card does not estimate closing prices or recommend an investment decision.

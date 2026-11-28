@@ -18,19 +18,99 @@
   "mercado": {
     "estado_referencia": "por_remodelar",
     "precio_m2": {
-      "n": 9,
-      "mediana": 4750000,
-      "promedio": 4970752,
-      "minimo": 4333333,
+      "n": 19,
+      "mediana": 4109589,
+      "promedio": 4335079,
+      "minimo": 3081395,
       "maximo": 6666667,
-      "desviacion": 722981,
-      "coef_variacion": 0.1454
+      "desviacion": 833587,
+      "coef_variacion": 0.1923
     },
     "confianza": {
-      "nivel": "alta",
-      "motivo": "9 comparables y coeficiente de variación 14.54%; cumple la regla alta."
+      "nivel": "media",
+      "motivo": "19 comparables y coeficiente de variación 19.23%; cumple la regla media."
     },
     "comparables": [
+      {
+        "origen": "extension_poligono.xlsx:El salvador:8",
+        "id_anuncio": null,
+        "fuente": "facebook",
+        "area_m2": 86.0,
+        "precio": 265000000,
+        "precio_m2": 3081395
+      },
+      {
+        "origen": "extension_poligono.xlsx:REMODELAR:90",
+        "id_anuncio": null,
+        "fuente": "facebook",
+        "area_m2": 86.0,
+        "precio": 265000000,
+        "precio_m2": 3081395
+      },
+      {
+        "origen": "extension_poligono.xlsx:El salvador:3",
+        "id_anuncio": null,
+        "fuente": "aviso_calle",
+        "area_m2": 70.4,
+        "precio": 250000000,
+        "precio_m2": 3551136
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:7",
+        "id_anuncio": "fincaraiz:192609616",
+        "fuente": "fincaraiz",
+        "area_m2": 65.0,
+        "precio": 250000000,
+        "precio_m2": 3846154
+      },
+      {
+        "origen": "extension_poligono.xlsx:REMODELAR:83",
+        "id_anuncio": "fincaraiz:192609616",
+        "fuente": "fincaraiz",
+        "area_m2": 65.0,
+        "precio": 250000000,
+        "precio_m2": 3846154
+      },
+      {
+        "origen": "extension_poligono.xlsx:El salvador:6",
+        "id_anuncio": "arrendamientos_santafe:V12132",
+        "fuente": "arrendamientos_santafe",
+        "area_m2": 57.0,
+        "precio": 225000000,
+        "precio_m2": 3947368
+      },
+      {
+        "origen": "extension_poligono.xlsx:REMODELAR:77",
+        "id_anuncio": "arrendamientos_santafe:V12132",
+        "fuente": "arrendamientos_santafe",
+        "area_m2": 57.0,
+        "precio": 225000000,
+        "precio_m2": 3947368
+      },
+      {
+        "origen": "extension_poligono.xlsx:El salvador:5",
+        "id_anuncio": "fincaraiz:7387557",
+        "fuente": "fincaraiz",
+        "area_m2": 73.0,
+        "precio": 300000000,
+        "precio_m2": 4109589
+      },
+      {
+        "origen": "extension_poligono.xlsx:El salvador:7",
+        "id_anuncio": "arrendamientos_santafe:V10746",
+        "fuente": "arrendamientos_santafe",
+        "area_m2": 73.0,
+        "precio": 300000000,
+        "precio_m2": 4109589
+      },
+      {
+        "origen": "extension_poligono.xlsx:REMODELAR:78",
+        "id_anuncio": "arrendamientos_santafe:V10746",
+        "fuente": "arrendamientos_santafe",
+        "area_m2": 73.0,
+        "precio": 300000000,
+        "precio_m2": 4109589
+      },
       {
         "origen": "extension_poligono.xlsx:Bombona:18",
         "id_anuncio": "fincaraiz:193000855",
@@ -110,12 +190,12 @@
         "mediana": null
       },
       "habitable": {
-        "n": 7,
-        "mediana": 3909091
+        "n": 29,
+        "mediana": 3906250
       },
       "por_remodelar": {
-        "n": 14,
-        "mediana": 4933140
+        "n": 28,
+        "mediana": 4221461
       }
     }
   },
@@ -127,10 +207,12 @@
       "estado_sin_clasificar": 25,
       "sin_area": 1
     },
-    "anuncios_pendientes_revision": 45,
-    "grupos_pendientes_revision": 17,
-    "filas_invalidas_unicas": 16,
-    "anuncios_validos": 21
+    "posibles_repeticiones": 45,
+    "grupos_posibles_repeticiones": 17,
+    "filas_invalidas_unicas": 25,
+    "anuncios_conservados": 82,
+    "candidatos_incluidos_en_calculos": true,
+    "candidatos_seleccionados_en_zona": 45
   },
   "entorno": {
     "radio_busqueda_m": 800,

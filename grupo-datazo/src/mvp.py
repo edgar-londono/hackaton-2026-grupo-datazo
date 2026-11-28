@@ -242,8 +242,9 @@ def _render_validation(
                 differences.append(f"market.comparables: {len(expected_origins)} reference, {len(actual_origins)} current; row membership differs")
             actual_quality = current["calidad_datos_zona"]
             for field, expected_value in baseline.get("calidad_datos_zona", {}).items():
-                if actual_quality.get(field) != expected_value:
-                    differences.append(f"quality.{field}: reference={expected_value}, current={actual_quality.get(field)}")
+                actual_field = "anuncios_conservados" if field == "anuncios_validos" else field
+                if actual_quality.get(actual_field) != expected_value:
+                    differences.append(f"quality.{field}: reference={expected_value}, current={actual_quality.get(actual_field)}")
             actual_geo = current["entorno"]
             expected_geo = baseline.get("entorno", {})
             for field in ("estaciones_en_radio", "equipamientos_en_radio"):
@@ -278,7 +279,13 @@ def _render_validation(
         f"- Markdown cards present: {len([item for item in record_ids if (CARDS_DIR / f'{item}.md').is_file()])}.",
         "- Run command: `python src/mvp.py`.",
         "- Configuration: `config/parametros.yaml` version " + str(load_parameters().get("version", "unknown")) + ".",
-        "- Listing input coverage: " + ", ".join(f"{count} {status.replace('_', ' ')}" for status, count in coverage.items()) + ".",
+        "- Listing input coverage: "
+        f"{coverage['rows_received']} rows received, {coverage['rows_retained']} retained, "
+        f"{coverage['exact_duplicates_removed']} exact duplicates removed, "
+        f"{coverage['possible_repeat_rows']} possible repeat rows in "
+        f"{coverage['possible_repeat_groups']} groups, "
+        f"{coverage['possible_repeat_rows_in_calculation']} selected for calculations; "
+        f"possible repeats {'included' if coverage['candidate_option_included'] else 'excluded'}.",
         "",
         "## MVP acceptance checks",
         "",

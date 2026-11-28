@@ -18,17 +18,17 @@
   "mercado": {
     "estado_referencia": "remodelado",
     "precio_m2": {
-      "n": 9,
-      "mediana": 7058824,
-      "promedio": 7038232,
+      "n": 11,
+      "mediana": 6935484,
+      "promedio": 6978977,
       "minimo": 6060606,
       "maximo": 7661290,
-      "desviacion": 449720,
-      "coef_variacion": 0.0639
+      "desviacion": 423295,
+      "coef_variacion": 0.0607
     },
     "confianza": {
       "nivel": "alta",
-      "motivo": "9 comparables y coeficiente de variación 6.39%; cumple la regla alta."
+      "motivo": "11 comparables y coeficiente de variación 6.07%; cumple la regla alta."
     },
     "comparables": [
       {
@@ -38,6 +38,22 @@
         "area_m2": 66.0,
         "precio": 400000000,
         "precio_m2": 6060606
+      },
+      {
+        "origen": "factibilidad_proyecto2.xlsx:SECTORIAL:7",
+        "id_anuncio": "fincaraiz:193131396",
+        "fuente": "fincaraiz",
+        "area_m2": 73.0,
+        "precio": 490000000,
+        "precio_m2": 6712329
+      },
+      {
+        "origen": "factibilidad_proyecto2.xlsx:SECTORIAL:9",
+        "id_anuncio": "fincaraiz:192937244",
+        "fuente": "fincaraiz",
+        "area_m2": 73.0,
+        "precio": 490000000,
+        "precio_m2": 6712329
       },
       {
         "origen": "factibilidad_proyecto2.xlsx:SECTORIAL:8",
@@ -106,8 +122,8 @@
     ],
     "precio_m2_por_estado_en_zona": {
       "remodelado": {
-        "n": 11,
-        "mediana": 7058824
+        "n": 14,
+        "mediana": 6918562
       },
       "habitable": {
         "n": 0,
@@ -124,10 +140,12 @@
     "duplicados_eliminados": 0,
     "anuncios_unicos": 19,
     "anuncios_invalidos": {},
-    "anuncios_pendientes_revision": 3,
-    "grupos_pendientes_revision": 1,
+    "posibles_repeticiones": 3,
+    "grupos_posibles_repeticiones": 1,
     "filas_invalidas_unicas": 0,
-    "anuncios_validos": 16
+    "anuncios_conservados": 19,
+    "candidatos_incluidos_en_calculos": true,
+    "candidatos_seleccionados_en_zona": 3
   },
   "entorno": {
     "radio_busqueda_m": 800,

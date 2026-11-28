@@ -27,7 +27,7 @@ Generated: 2026-11-27
 
 | Condition | Valid listings | Median asking price per m² |
 |---|---:|---:|
-| remodelado | 4 | COP 6,885,343 |
+| remodelado | 10 | COP 6,969,697 |
 | habitable | 6 | COP 6,463,980 |
 | por_remodelar | 0 | Insufficient data |
 
@@ -67,10 +67,12 @@ Generated: 2026-11-27
 - Listings in zone: 16
 - Exact duplicate rows removed: 0
 - Unique source rows after exact deduplication: 16
-- Valid listings used for analysis: 10
-- Candidate listings held out for review: 6 rows in 3 groups
-- Invalid unique rows not held for review: 0
-- Invalid listings by reason: None reported
+- Listing rows retained after exact duplicate removal: 16
+- Possible repeat rows: 6 in 3 groups
+- Possible repeat option: included
+- Possible repeat rows selected in this zone: 6
+- Unique rows with data issues: 0
+- Field issues in this zone: None reported
 - Missing or unavailable data: coordenadas_exactas; direccion; fecha_publicacion_comparables; precios_de_cierre
 
 ## Sources
@@ -79,4 +81,4 @@ Generated: 2026-11-27
 - Parameter version: 1.0
 - Geographic layer date: 2026-11-13T23:03:06Z
 
-This card reports asking prices. It does not estimate closing prices or recommend an investment decision.
+Prices are reported in supplied ads. Official sources did not confirm each price. This card does not estimate closing prices or recommend an investment decision.

@@ -18,19 +18,67 @@
   "mercado": {
     "estado_referencia": "por_remodelar",
     "precio_m2": {
-      "n": 11,
-      "mediana": 5116279,
-      "promedio": 5145203,
-      "minimo": 4333333,
+      "n": 19,
+      "mediana": 4666667,
+      "promedio": 4722194,
+      "minimo": 3551136,
       "maximo": 6744186,
-      "desviacion": 837442,
-      "coef_variacion": 0.1628
+      "desviacion": 850468,
+      "coef_variacion": 0.1801
     },
     "confianza": {
       "nivel": "media",
-      "motivo": "11 comparables y coeficiente de variación 16.28%; cumple la regla media."
+      "motivo": "19 comparables y coeficiente de variación 18.01%; cumple la regla media."
     },
     "comparables": [
+      {
+        "origen": "extension_poligono.xlsx:El salvador:3",
+        "id_anuncio": null,
+        "fuente": "aviso_calle",
+        "area_m2": 70.4,
+        "precio": 250000000,
+        "precio_m2": 3551136
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:7",
+        "id_anuncio": "fincaraiz:192609616",
+        "fuente": "fincaraiz",
+        "area_m2": 65.0,
+        "precio": 250000000,
+        "precio_m2": 3846154
+      },
+      {
+        "origen": "extension_poligono.xlsx:REMODELAR:83",
+        "id_anuncio": "fincaraiz:192609616",
+        "fuente": "fincaraiz",
+        "area_m2": 65.0,
+        "precio": 250000000,
+        "precio_m2": 3846154
+      },
+      {
+        "origen": "extension_poligono.xlsx:El salvador:5",
+        "id_anuncio": "fincaraiz:7387557",
+        "fuente": "fincaraiz",
+        "area_m2": 73.0,
+        "precio": 300000000,
+        "precio_m2": 4109589
+      },
+      {
+        "origen": "extension_poligono.xlsx:El salvador:7",
+        "id_anuncio": "arrendamientos_santafe:V10746",
+        "fuente": "arrendamientos_santafe",
+        "area_m2": 73.0,
+        "precio": 300000000,
+        "precio_m2": 4109589
+      },
+      {
+        "origen": "extension_poligono.xlsx:REMODELAR:78",
+        "id_anuncio": "arrendamientos_santafe:V10746",
+        "fuente": "arrendamientos_santafe",
+        "area_m2": 73.0,
+        "precio": 300000000,
+        "precio_m2": 4109589
+      },
       {
         "origen": "extension_poligono.xlsx:Bombona:18",
         "id_anuncio": "fincaraiz:193000855",
@@ -70,6 +118,22 @@
         "area_m2": 52.0,
         "precio": 247000000,
         "precio_m2": 4750000
+      },
+      {
+        "origen": "extension_poligono.xlsx:Bombona:6",
+        "id_anuncio": "fincaraiz:193042067",
+        "fuente": "fincaraiz",
+        "area_m2": 67.0,
+        "precio": 320000000,
+        "precio_m2": 4776119
+      },
+      {
+        "origen": "extension_poligono.xlsx:REMODELAR:82",
+        "id_anuncio": "fincaraiz:193042067",
+        "fuente": "fincaraiz",
+        "area_m2": 67.0,
+        "precio": 320000000,
+        "precio_m2": 4776119
       },
       {
         "origen": "extension_poligono.xlsx:REMODELAR:81",
@@ -126,12 +190,12 @@
         "mediana": null
       },
       "habitable": {
-        "n": 7,
-        "mediana": 3909091
+        "n": 29,
+        "mediana": 3906250
       },
       "por_remodelar": {
-        "n": 14,
-        "mediana": 4933140
+        "n": 28,
+        "mediana": 4221461
       }
     }
   },
@@ -143,10 +207,12 @@
       "estado_sin_clasificar": 25,
       "sin_area": 1
     },
-    "anuncios_pendientes_revision": 45,
-    "grupos_pendientes_revision": 17,
-    "filas_invalidas_unicas": 16,
-    "anuncios_validos": 21
+    "posibles_repeticiones": 45,
+    "grupos_posibles_repeticiones": 17,
+    "filas_invalidas_unicas": 25,
+    "anuncios_conservados": 82,
+    "candidatos_incluidos_en_calculos": true,
+    "candidatos_seleccionados_en_zona": 45
   },
   "entorno": {
     "radio_busqueda_m": 800,

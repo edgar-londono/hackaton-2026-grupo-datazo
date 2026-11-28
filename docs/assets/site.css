@@ -76,6 +76,7 @@ button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid
 .property-layout { display: grid; grid-template-columns: minmax(190px, .8fr) minmax(0, 2fr); gap: 24px; align-items: start; }
 .property-picker { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; padding: 1px; border: 1px solid var(--line); background: var(--line); }
 .property-choice { min-width: 0; min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 9px; border: 0; background: var(--paper); text-align: left; cursor: pointer; }
+.property-choice:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .property-choice[aria-pressed="true"] { background: var(--panel); color: var(--accent); }
 .property-choice small { color: var(--muted); }
 .property-view { min-height: 500px; padding: clamp(20px, 4vw, 42px); background: var(--panel); }
@@ -140,7 +141,8 @@ button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid
   .top-actions { align-items: flex-end; flex-direction: column-reverse; gap: 12px; }
   .site-nav { justify-content: flex-end; font-size: 14px; }
   .property-layout { grid-template-columns: 1fr; }
-  .property-picker { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .property-picker { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .property-choice:last-child:nth-child(odd) { grid-column: span 2; }
   .property-choice { font-size: 14px; }
 }
 @media (max-width: 520px) {

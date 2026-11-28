@@ -282,11 +282,6 @@
             }
           });
           entry.append(label);
-          if (feature.properties?.osm_id) {
-            const identifier = document.createElement("code");
-            identifier.textContent = feature.properties.osm_id;
-            entry.append(identifier);
-          }
           names.append(entry);
         });
         if (entries.length === 0) {
@@ -333,17 +328,49 @@
     mapNote.textContent = "Selecciona un punto para ver sus datos y abrir la ruta caminando en Google Maps. La ubicación del inmueble conserva el nivel de geocodificación reportado.";
     mapSection.append(mapHeading, mapContainer, mapLegend, mapNote);
 
-    const status = document.createElement("p");
+    const status = document.createElement("section");
     status.className = "status";
-    status.textContent = `Nivel de confianza: ${labelCase(text(market.confianza.nivel, "no calculado"))}. ${text(market.confianza.motivo, "No hay una explicación disponible.")}`;
+    const confidenceTitle = document.createElement("h3");
+    confidenceTitle.className = "quality-heading";
+    confidenceTitle.textContent = "Nivel de confianza:";
+    const confidenceList = document.createElement("ul");
+    confidenceList.className = "quality-list";
+    const confidenceLevel = text(market.confianza.nivel, "no calculada").toLocaleLowerCase("es-CO");
+    const confidenceReason = text(market.confianza.motivo, "No hay una explicación disponible.");
+    const confidenceEvidence = confidenceReason.split(";")[0].replace(/[.]$/, "");
+    const confidenceRules = {
+      alta: "Cumple la regla alta (5 o más comparables y coeficiente de variación de hasta 15%).",
+      media: "Cumple la regla media (3 o más comparables y coeficiente de variación de hasta 25%, siempre que no aplique la regla alta).",
+      baja: "No cumple la regla media (3 o más comparables y coeficiente de variación de hasta 25%)."
+    };
+    [
+      `${labelCase(confidenceLevel)}.`,
+      `${confidenceEvidence}.`,
+      confidenceRules[confidenceLevel] || "No se puede asignar un nivel sin comparables válidos."
+    ].forEach((itemText) => {
+      const item = document.createElement("li");
+      item.textContent = itemText;
+      confidenceList.append(item);
+    });
+    status.append(confidenceTitle, confidenceList);
 
-    const note = document.createElement("p");
-    note.className = "data-note";
+    const note = document.createElement("section");
+    note.className = "missing-data";
+    const missingTitle = document.createElement("h3");
+    missingTitle.className = "quality-heading";
+    missingTitle.textContent = "Datos faltantes o no disponibles:";
+    const missingList = document.createElement("ul");
+    missingList.className = "quality-list";
     const missing = list(record.datos_faltantes).map((item) => {
       const field = typeof item === "string" ? item : item.campo || item.dato;
       return missingLabels[field] || labelCase(field);
     }).filter(Boolean);
-    note.textContent = missing.length ? `Datos faltantes o no disponibles: ${missing.join(", ")}.` : "No se identificaron datos faltantes para este inmueble.";
+    (missing.length ? missing : ["No se identificaron datos faltantes."]).forEach((itemText) => {
+      const item = document.createElement("li");
+      item.textContent = `${itemText}.`;
+      missingList.append(item);
+    });
+    note.append(missingTitle, missingList);
 
     const links = document.createElement("div");
     links.className = "property-links";

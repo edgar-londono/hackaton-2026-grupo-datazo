@@ -87,23 +87,23 @@
       category.textContent = categoryText;
       content.append(category);
     }
-    const source = osmUrl(feature?.properties?.osm_id);
-    if (source) {
-      const sourceLink = document.createElement("a");
-      sourceLink.href = source;
-      sourceLink.target = "_blank";
-      sourceLink.rel = "noopener noreferrer";
-      sourceLink.textContent = `Ver registro ${feature.properties.osm_id} en OpenStreetMap`;
-      content.append(sourceLink);
-    }
     const point = feature?.geometry?.coordinates;
     if (origin && Array.isArray(point) && point.length === 2 && point.every(Number.isFinite)) {
       const routeLink = document.createElement("a");
       routeLink.href = directionsUrl(origin, { lon: point[0], lat: point[1] });
       routeLink.target = "_blank";
       routeLink.rel = "noopener noreferrer";
-      routeLink.textContent = "Ver distancia y tiempo caminando en Google Maps";
+      routeLink.textContent = "Ver en Google Maps";
       content.append(routeLink);
+    }
+    const source = osmUrl(feature?.properties?.osm_id);
+    if (source) {
+      const sourceLink = document.createElement("a");
+      sourceLink.href = source;
+      sourceLink.target = "_blank";
+      sourceLink.rel = "noopener noreferrer";
+      sourceLink.textContent = "Ver en OpenStreetMap";
+      content.append(sourceLink);
     }
     return content;
   }

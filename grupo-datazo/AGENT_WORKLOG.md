@@ -56,3 +56,4 @@
 - 2026-11-27 19:25:28: Completed MVP checklist points 3 through 8, generated 11 property records and cards, and verified all 117 listing statuses and repeat-run hashes.
 - 2026-11-27 19:27:51: Added a grouped review file for the 54 ambiguous listing rows, showing all 21 groups and their differing values.
 - 2026-11-27 19:30:44: Verified the MVP pipeline in a clean Python environment; all 11 property records and cards were generated.
+- 2026-11-27 19:53:19: Added a clickable slide selector, updated the requested heading, and clarified when geographic names are compared.

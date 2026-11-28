@@ -100,8 +100,9 @@ button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid
 .facility-category summary { display: flex; justify-content: space-between; gap: 12px; cursor: pointer; }
 .facility-category summary::marker { color: var(--accent); }
 .facility-category strong { font-variant-numeric: tabular-nums; }
-.facility-names { display: grid; gap: 8px; margin: 10px 0 2px; padding-left: 20px; color: var(--muted); }
-.facility-names li { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3px; border: 0; padding: 0 0 8px; font-size: 14px; }
+.facility-names { display: grid; gap: 8px; margin: 10px 0 2px; padding: 0; color: var(--muted); counter-reset: facility; list-style: none; }
+.facility-names li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 3px; border: 0; padding: 0 0 8px 28px; font-size: 14px; counter-increment: facility; }
+.facility-names li::before { position: absolute; top: 0; left: 0; color: var(--accent); content: counter(facility) "."; font-variant-numeric: tabular-nums; }
 .facility-name-button { width: fit-content; max-width: 100%; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; line-height: 1.4; cursor: pointer; }
 .facility-name-button:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 .facility-names code { width: fit-content; max-width: 100%; overflow-wrap: anywhere; font-size: 12px; }

@@ -64,5 +64,4 @@
 - 2026-11-27 23:10:42: Added a project home page, interactive MVP property cards, team roles, and a shared dark or light theme.
 - 2026-11-27 23:17:53: Removed duplicate landing copy and kept the page focused on its three destinations.
 - 2026-11-27 23:40:16: Audited and refined Spanish copy across site pages, presentation controls, and property cards.
-- 2026-11-28 00:03:51: Added a GeoJSON equipment map with Google Maps walking directions, clearer property labels, numbered facility lists, and complete selector borders.
-- 2026-11-28 00:07:31: Bundled the pinned Leaflet assets locally and versioned cached page assets after confirming the CDN script was unavailable in the live browser.
+- 2026-11-28 00:10:19: Added a locally bundled GeoJSON map, numbered equipment lists, Google Maps walking links, clearer property labels, and complete selector borders.

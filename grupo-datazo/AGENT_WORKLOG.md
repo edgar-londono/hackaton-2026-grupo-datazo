@@ -60,3 +60,4 @@
 - 2026-11-27 19:55:53: Synced the presentation to the GitHub Pages `docs/` source after confirming the deployed site uses that copy.
 - 2026-11-27 21:02:15: Implemented strict duplicate handling, include or exclude options, a 1,638-field audit, evidence-gated corrections, and updated cleanup documents and slides.
 - 2026-11-27 21:04:48: Regenerated all 11 property records and cards with possible repeats included, reusing existing prepared geographic outputs.
+- 2026-11-27 22:07:28: Refined slide copy, added data types and source links, centered slide-picker labels, and repaired artifact links.

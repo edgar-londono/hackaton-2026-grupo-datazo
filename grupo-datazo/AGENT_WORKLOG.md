@@ -62,3 +62,4 @@
 - 2026-11-27 21:04:48: Regenerated all 11 property records and cards with possible repeats included, reusing existing prepared geographic outputs.
 - 2026-11-27 22:07:28: Refined slide copy, added data types and source links, centered slide-picker labels, and repaired artifact links.
 - 2026-11-27 23:10:42: Added a project home page, interactive MVP property cards, team roles, and a shared dark or light theme.
+- 2026-11-27 23:17:53: Removed duplicate landing copy and kept the page focused on its three destinations.

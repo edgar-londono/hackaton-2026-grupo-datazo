@@ -98,7 +98,8 @@ button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid
 .category-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; margin: 0; padding: 0; list-style: none; }
 .category-list li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
 .facility-category { width: 100%; }
-.facility-category summary { display: flex; justify-content: space-between; gap: 12px; cursor: pointer; }
+.facility-category summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; }
+.category-name { display: inline-flex; align-items: center; gap: 8px; }
 .facility-category summary::marker { color: var(--accent); }
 .facility-category strong { font-variant-numeric: tabular-nums; }
 .facility-names { display: grid; gap: 8px; margin: 10px 0 2px; padding: 0; color: var(--muted); counter-reset: facility; list-style: none; }
@@ -112,7 +113,7 @@ button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid
 .facility-map { width: 100%; height: clamp(320px, 48vw, 470px); border: 1px solid var(--line); background: var(--paper); }
 .map-legend { display: flex; flex-wrap: wrap; gap: 14px 24px; margin: 10px 0 0; padding: 0; color: var(--muted); font-size: 13px; list-style: none; }
 .map-legend li { display: flex; align-items: center; gap: 8px; }
-.map-key { width: 11px; height: 11px; flex: none; border-radius: 50%; background: var(--accent); }
+.map-key { width: 11px; height: 11px; flex: none; border: 1px solid transparent; border-radius: 50%; background: var(--accent); }
 .map-key.property { background: var(--ink); }
 .leaflet-popup-content { min-width: 180px; line-height: 1.45; }
 .map-popup { display: grid; gap: 5px; }

@@ -5,6 +5,15 @@
   const areaFormatter = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 2 });
   let equipmentMap = null;
   let facilityMarkers = new Map();
+  const facilityPalette = {
+    educacion: { fill: "#a9c8e8", stroke: "#557caa" },
+    salud: { fill: "#e8b0b7", stroke: "#9b5d68" },
+    parques: { fill: "#a9d2b1", stroke: "#5b8b65" },
+    abastecimiento: { fill: "#efd28f", stroke: "#9a7739" },
+    seguridad: { fill: "#bcb0e5", stroke: "#75649d" },
+    cultura: { fill: "#dcb2dc", stroke: "#8d648d" },
+    default: { fill: "#c2cdd0", stroke: "#66777b" }
+  };
   const money = (value) => value == null ? "Datos insuficientes" : `COP ${formatter.format(value)}`;
   const text = (value, fallback = "No disponible") => value == null || value === "" ? fallback : value;
   const list = (value) => Array.isArray(value) ? value : [];
@@ -39,6 +48,7 @@
   };
   const municipality = (value) => ({ medellin: "Medellín", itagui: "Itagüí" }[value] || labelCase(value));
   const displayId = (id) => `Inmueble ${String(id).match(/\d+$/)?.[0] || id}`;
+  const facilityColor = (category) => facilityPalette[category] || facilityPalette.default;
 
   function directionsUrl(origin, destination) {
     const url = new URL("https://www.google.com/maps/dir/");
@@ -146,10 +156,10 @@
       if (!Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite)) return;
       const marker = window.L.circleMarker([point[1], point[0]], {
         radius: 6,
-        color: "#8f3c21",
-        weight: 1,
-        fillColor: "#df7953",
-        fillOpacity: 0.9
+        color: facilityColor(feature.properties?.categoria).stroke,
+        weight: 1.5,
+        fillColor: facilityColor(feature.properties?.categoria).fill,
+        fillOpacity: 0.96
       }).addTo(equipmentMap);
       marker.bindPopup(popupContent(
         text(feature.properties?.nombre, "Nombre no disponible en la fuente"),
@@ -239,7 +249,15 @@
       details.className = "facility-category";
       const summary = document.createElement("summary");
       const name = document.createElement("span");
-      name.textContent = labelCase(category);
+      name.className = "category-name";
+      const key = document.createElement("span");
+      key.className = "map-key category-key";
+      key.setAttribute("aria-hidden", "true");
+      key.style.backgroundColor = facilityColor(category).fill;
+      key.style.borderColor = facilityColor(category).stroke;
+      const label = document.createElement("span");
+      label.textContent = labelCase(category);
+      name.append(key, label);
       const total = document.createElement("strong");
       total.textContent = formatter.format(amount);
       summary.append(name, total);
@@ -294,7 +312,22 @@
     mapContainer.setAttribute("aria-label", "Mapa interactivo del inmueble y los equipamientos cercanos");
     const mapLegend = document.createElement("ul");
     mapLegend.className = "map-legend";
-    mapLegend.innerHTML = '<li><span class="map-key property"></span>Ubicación de referencia del inmueble</li><li><span class="map-key"></span>Equipamiento cercano</li>';
+    const propertyKey = document.createElement("span");
+    propertyKey.className = "map-key property";
+    propertyKey.setAttribute("aria-hidden", "true");
+    const propertyLegend = document.createElement("li");
+    propertyLegend.append(propertyKey, document.createTextNode("Ubicación de referencia del inmueble"));
+    mapLegend.append(propertyLegend);
+    Object.keys(environment.equipamientos_en_radio || {}).forEach((category) => {
+      const key = document.createElement("span");
+      key.className = "map-key category-key";
+      key.setAttribute("aria-hidden", "true");
+      key.style.backgroundColor = facilityColor(category).fill;
+      key.style.borderColor = facilityColor(category).stroke;
+      const entry = document.createElement("li");
+      entry.append(key, document.createTextNode(labelCase(category)));
+      mapLegend.append(entry);
+    });
     const mapNote = document.createElement("p");
     mapNote.className = "data-note";
     mapNote.textContent = "Selecciona un punto para ver sus datos y abrir la ruta caminando en Google Maps. La ubicación del inmueble conserva el nivel de geocodificación reportado.";

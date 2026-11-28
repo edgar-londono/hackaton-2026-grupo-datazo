@@ -66,3 +66,4 @@
 - 2026-11-27 23:40:16: Audited and refined Spanish copy across site pages, presentation controls, and property cards.
 - 2026-11-28 00:10:19: Added a locally bundled GeoJSON map, numbered equipment lists, Google Maps walking links, clearer property labels, and complete selector borders.
 - 2026-11-28 00:35:10: Put Google Maps and OpenStreetMap links in the requested order with concise labels, and refreshed the script version to bypass the page cache; Google walking duration still needs a configured Routes API service.
+- 2026-11-28 00:45:00: Added category-specific pastel markers and matching dots in nearby equipment lists and the map legend.

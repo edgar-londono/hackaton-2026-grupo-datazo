@@ -5,6 +5,34 @@ from __future__ import annotations
 from typing import Any, Optional
 
 
+CONDITIONS = {
+    "habitable": "Habitable",
+    "por_remodelar": "Por remodelar",
+    "remodelado": "Remodelado",
+    "sin_clasificar": "Sin clasificar",
+}
+FIELD_LABELS = {
+    "coordenadas_exactas": "Coordenadas exactas",
+    "direccion": "Dirección",
+    "fecha_publicacion_comparables": "Fecha de publicación de anuncios comparables",
+    "precios_de_cierre": "Precios de cierre",
+    "estado_sin_clasificar": "Estado sin clasificar",
+    "sin_area": "Área faltante",
+}
+CATEGORIES = {
+    "educacion": "Educación",
+    "salud": "Salud",
+    "parques": "Parques",
+    "abastecimiento": "Abastecimiento",
+    "seguridad": "Seguridad",
+    "cultura": "Cultura",
+}
+SOURCE_LABELS = {
+    "OpenStreetMap transit layer (ODbL)": "Capa de transporte de OpenStreetMap (ODbL)",
+    "OpenStreetMap facility layer (ODbL)": "Capa de equipamientos de OpenStreetMap (ODbL)",
+}
+
+
 def render_card(record: dict[str, Any]) -> str:
     property_data = record["inmueble"]
     market = record["mercado"]
@@ -16,99 +44,99 @@ def render_card(record: dict[str, Any]) -> str:
     quality = record["calidad_datos_zona"]
 
     lines = [
-        f"# Property market and neighborhood card: {record['id_inmueble']}",
+        f"# Ficha de mercado y entorno: {record['id_inmueble']}",
         "",
-        f"Generated: {record['metadatos']['fecha_generacion']}",
+        f"Generada: {record['metadatos']['fecha_generacion']}",
         "",
-        "## Property",
+        "## Inmueble",
         "",
-        f"- Address: {_display(property_data.get('direccion'))}",
-        f"- Neighborhood: {_display(property_data.get('barrio'))}",
-        f"- Municipality: {_display(property_data.get('municipio'))}",
-        f"- Market zone: {_display(property_data.get('zona'))}",
-        f"- Area: {_display(property_data.get('area_m2'), 'm²')}",
-        f"- Condition: {_display(property_data.get('estado'))} (source text: {_display(property_data.get('estado_texto'))})",
-        f"- Coordinates: {_coordinate_display(property_data.get('coordenadas'))}",
+        f"- Dirección reportada: {_display(property_data.get('direccion'))}",
+        f"- Barrio: {_display(property_data.get('barrio'))}",
+        f"- Municipio: {_municipality(property_data.get('municipio'))}",
+        f"- Zona de mercado: {_label(property_data.get('zona'))}",
+        f"- Área: {_display(property_data.get('area_m2'), ' m²')}",
+        f"- Estado reportado: {_condition(property_data.get('estado'))} (texto de la fuente: {_display(property_data.get('estado_texto'))})",
+        f"- Coordenadas: {_coordinate_display(property_data.get('coordenadas'))}",
         "",
-        "## Market summary",
+        "## Resumen de mercado",
         "",
-        f"- Reference condition: {_display(market.get('estado_referencia'))}",
-        f"- Comparable listings: {price['n']}",
-        f"- Median asking price per m²: {_cop(price.get('mediana'))}",
-        f"- Range: {_cop(price.get('minimo'))} to {_cop(price.get('maximo'))}",
-        f"- Mean: {_cop(price.get('promedio'))}",
-        f"- Sample standard deviation: {_cop(price.get('desviacion'))}",
-        f"- Coefficient of variation: {_percent(price.get('coef_variacion'))}",
-        f"- Confidence: {_display(confidence.get('nivel'))}. {confidence.get('motivo', '')}",
+        f"- Estado de referencia: {_condition(market.get('estado_referencia'))}",
+        f"- Anuncios comparables: {price['n']}",
+        f"- Mediana del precio anunciado por m²: {_cop(price.get('mediana'))}",
+        f"- Rango de precios anunciados: {_cop(price.get('minimo'))} a {_cop(price.get('maximo'))}",
+        f"- Promedio: {_cop(price.get('promedio'))}",
+        f"- Desviación estándar muestral: {_cop(price.get('desviacion'))}",
+        f"- Coeficiente de variación: {_percent(price.get('coef_variacion'))}",
+        f"- Nivel de confianza: {_label(confidence.get('nivel'))}. {confidence.get('motivo', '')}",
         "",
-        "### Zone context by condition",
+        "### Comparación por estado en la zona",
         "",
-        "| Condition | Valid listings | Median asking price per m² |",
+        "| Estado | Anuncios válidos | Mediana del precio anunciado por m² |",
         "|---|---:|---:|",
     ]
     for condition, summary in market["precio_m2_por_estado_en_zona"].items():
-        lines.append(f"| {condition} | {summary['n']} | {_cop(summary.get('mediana'))} |")
+        lines.append(f"| {_condition(condition)} | {summary['n']} | {_cop(summary.get('mediana'))} |")
 
-    lines.extend(["", "### Comparables", ""])
+    lines.extend(["", "### Anuncios comparables", ""])
     if market["comparables"]:
         lines.extend([
-            "| Source record | Listing ID | Source | Area | Asking price | Price per m² |",
+            "| Registro de origen | Identificador | Fuente | Área | Precio anunciado | Precio por m² |",
             "|---|---|---|---:|---:|---:|",
         ])
         for comparable in market["comparables"]:
             lines.append(
                 f"| {_display(comparable.get('origen'))} | {_display(comparable.get('id_anuncio'))} | "
-                f"{_display(comparable.get('fuente'))} | {_display(comparable.get('area_m2'), 'm²')} | "
+                f"{_label(comparable.get('fuente'))} | {_display(comparable.get('area_m2'), ' m²')} | "
                 f"{_cop(comparable.get('precio'))} | {_cop(comparable.get('precio_m2'))} |"
             )
     else:
-        lines.append("Insufficient data: no valid comparable listings match the configured rules.")
+        lines.append("No hay anuncios comparables válidos que cumplan los criterios configurados.")
 
     lines.extend([
         "",
-        "## Neighborhood summary",
+        "## Entorno geográfico",
         "",
-        f"- Search radius: {neighborhood['radio_busqueda_m']} m",
-        f"- Coordinate precision: {'Approximate neighborhood point' if neighborhood['aproximado'] else 'Intersection or supplied point'}",
-        f"- Nearest supported transit station: {_station_display(nearest)}",
-        f"- Supported stations within radius: {_display(neighborhood.get('estaciones_en_radio'))}",
+        f"- Radio de análisis: {neighborhood['radio_busqueda_m']} m",
+        f"- Precisión de las coordenadas: {_coordinate_precision(neighborhood['aproximado'])}",
+        f"- Estación de transporte más cercana: {_station_display(nearest)}",
+        f"- Estaciones de transporte dentro del radio: {_display(neighborhood.get('estaciones_en_radio'))}",
         "",
-        "| Facility category | Count within radius |",
+        "| Categoría de equipamiento | Puntos dentro del radio |",
         "|---|---:|",
     ])
     facilities = neighborhood.get("equipamientos_en_radio")
     for category, count in (facilities or {}).items():
-        lines.append(f"| {category} | {count} |")
+        lines.append(f"| {CATEGORIES.get(category, _label(category))} | {count} |")
     if facilities is None:
-        lines.append("| Not available | Insufficient data |")
+        lines.append("| No disponible | Datos insuficientes |")
 
     lines.extend([
         "",
-        "## Urban planning",
+        "## Planeación urbana",
         "",
-        f"- POT treatment: {_display(zoning.get('tratamiento_pot'))}",
-        f"- Status: {zoning['estado']}. {zoning['motivo']}",
+        f"- Tratamiento del Plan de Ordenamiento Territorial (POT): {_display(zoning.get('tratamiento_pot'))}",
+        f"- Estado: {_label(zoning['estado'])}. {zoning['motivo']}",
         "",
-        "## Data quality and limits",
+        "## Calidad de los datos y límites",
         "",
-        f"- Listings in zone: {quality['anuncios_en_zona']}",
-        f"- Exact duplicate rows removed: {quality['duplicados_eliminados']}",
-        f"- Unique source rows after exact deduplication: {quality['anuncios_unicos']}",
-        f"- Listing rows retained after exact duplicate removal: {quality['anuncios_conservados']}",
-        f"- Possible repeat rows: {quality['posibles_repeticiones']} in {quality['grupos_posibles_repeticiones']} groups",
-        f"- Possible repeat option: {'included' if quality['candidatos_incluidos_en_calculos'] else 'excluded'}",
-        f"- Possible repeat rows selected in this zone: {quality['candidatos_seleccionados_en_zona']}",
-        f"- Unique rows with data issues: {quality['filas_invalidas_unicas']}",
-        f"- Field issues in this zone: {_format_counts(quality['anuncios_invalidos'])}",
-        f"- Missing or unavailable data: {_format_missing(record['datos_faltantes'])}",
+        f"- Anuncios en la zona: {quality['anuncios_en_zona']}",
+        f"- Filas idénticas retiradas: {quality['duplicados_eliminados']}",
+        f"- Filas de origen únicas tras la deduplicación exacta: {quality['anuncios_unicos']}",
+        f"- Filas conservadas tras retirar duplicados exactos: {quality['anuncios_conservados']}",
+        f"- Filas con posibles coincidencias: {quality['posibles_repeticiones']} en {quality['grupos_posibles_repeticiones']} grupos",
+        f"- Tratamiento de posibles coincidencias: {'Incluidas' if quality['candidatos_incluidos_en_calculos'] else 'Excluidas'}",
+        f"- Filas con posibles coincidencias seleccionadas en esta zona: {quality['candidatos_seleccionados_en_zona']}",
+        f"- Filas únicas con problemas de datos: {quality['filas_invalidas_unicas']}",
+        f"- Incidencias por campo en esta zona: {_format_counts(quality['anuncios_invalidos'])}",
+        f"- Datos faltantes o no disponibles: {_format_missing(record['datos_faltantes'])}",
         "",
-        "## Sources",
+        "## Fuentes",
         "",
-        f"- Files: {', '.join(record['metadatos']['fuentes'])}",
-        f"- Parameter version: {record['metadatos']['version_parametros']}",
-        f"- Geographic layer date: {_display(record['metadatos'].get('fecha_capas_osm'))}",
+        f"- Archivos y capas: {', '.join(SOURCE_LABELS.get(source, source) for source in record['metadatos']['fuentes'])}",
+        f"- Versión de parámetros: {record['metadatos']['version_parametros']}",
+        f"- Fecha de las capas de OpenStreetMap: {_display(record['metadatos'].get('fecha_capas_osm'))}",
         "",
-        "Prices are reported in supplied ads. Official sources did not confirm each price. This card does not estimate closing prices or recommend an investment decision.",
+        "Los precios corresponden a los anuncios suministrados. No se confirmaron con fuentes oficiales.",
         "",
     ])
     return "\n".join(lines)
@@ -116,34 +144,52 @@ def render_card(record: dict[str, Any]) -> str:
 
 def _display(value: Any, suffix: str = "") -> str:
     if value is None or value == "":
-        return "Insufficient data"
+        return "No disponible"
     return f"{value}{suffix}"
+
+
+def _condition(value: Any) -> str:
+    return CONDITIONS.get(str(value), _label(value)) if value else "No disponible"
+
+
+def _label(value: Any) -> str:
+    if value is None or value == "":
+        return "No disponible"
+    return " ".join(part.capitalize() for part in str(value).replace("_", " ").split())
+
+
+def _municipality(value: Any) -> str:
+    return {"medellin": "Medellín", "itagui": "Itagüí"}.get(str(value), _display(value))
 
 
 def _coordinate_display(coordinates: Optional[dict[str, Any]]) -> str:
     if not coordinates or coordinates.get("lat") is None or coordinates.get("lon") is None:
-        return "Insufficient data"
-    label = "approximate" if coordinates.get("precision") == "barrio" else "source point"
-    return f"{coordinates['lat']}, {coordinates['lon']} ({label})"
+        return "No disponible"
+    precision = "aproximadas" if coordinates.get("precision") == "barrio" else "del punto de referencia"
+    return f"{coordinates['lat']}, {coordinates['lon']} ({precision})"
+
+
+def _coordinate_precision(approximate: bool) -> str:
+    return "Aproximada por barrio" if approximate else "Punto de referencia o intersección"
 
 
 def _cop(value: Any) -> str:
-    return "Insufficient data" if value is None else f"COP {value:,.0f}"
+    return "Datos insuficientes" if value is None else f"COP {value:,.0f}".replace(",", ".")
 
 
 def _percent(value: Any) -> str:
-    return "Insufficient data" if value is None else f"{value:.2%}"
+    return "Datos insuficientes" if value is None else f"{value:.2%}".replace(".", ",")
 
 
 def _station_display(station: Optional[dict[str, Any]]) -> str:
     if not station:
-        return "Insufficient data"
-    return f"{station['nombre']} ({station['sistema']}) at {station['distancia_m']} m"
+        return "No disponible"
+    return f"{station['nombre']} ({_label(station['sistema'])}), a {station['distancia_m']} m"
 
 
 def _format_counts(counts: dict[str, int]) -> str:
-    return "; ".join(f"{reason}: {count}" for reason, count in counts.items()) or "None reported"
+    return "; ".join(f"{FIELD_LABELS.get(reason, _label(reason))}: {count}" for reason, count in counts.items()) or "Ninguna"
 
 
 def _format_missing(fields: list[str]) -> str:
-    return "; ".join(fields) if fields else "None reported"
+    return "; ".join(FIELD_LABELS.get(field, _label(field)) for field in fields) if fields else "Ninguno"

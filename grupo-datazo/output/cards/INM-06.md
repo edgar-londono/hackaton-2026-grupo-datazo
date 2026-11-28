@@ -1,88 +1,88 @@
-# Property market and neighborhood card: INM-06
+# Ficha de mercado y entorno: INM-06
 
-Generated: 2026-11-27
+Generada: 2026-11-27
 
-## Property
+## Inmueble
 
-- Address: Insufficient data
-- Neighborhood: la castellana
-- Municipality: medellin
-- Market zone: castellana_laureles
-- Area: 90.0m²
-- Condition: remodelado (source text: REMODELADO)
-- Coordinates: 6.240226, -75.605418 (approximate)
+- Dirección reportada: No disponible
+- Barrio: la castellana
+- Municipio: Medellín
+- Zona de mercado: Castellana Laureles
+- Área: 90.0 m²
+- Estado reportado: Remodelado (texto de la fuente: REMODELADO)
+- Coordenadas: 6.240226, -75.605418 (aproximadas)
 
-## Market summary
+## Resumen de mercado
 
-- Reference condition: remodelado
-- Comparable listings: 9
-- Median asking price per m²: COP 6,969,697
-- Range: COP 5,402,174 to COP 8,700,000
-- Mean: COP 7,054,553
-- Sample standard deviation: COP 1,121,091
-- Coefficient of variation: 15.89%
-- Confidence: media. 9 comparables y coeficiente de variación 15.89%; cumple la regla media.
+- Estado de referencia: Remodelado
+- Anuncios comparables: 9
+- Mediana del precio anunciado por m²: COP 6.969.697
+- Rango de precios anunciados: COP 5.402.174 a COP 8.700.000
+- Promedio: COP 7.054.553
+- Desviación estándar muestral: COP 1.121.091
+- Coeficiente de variación: 15,89%
+- Nivel de confianza: Media. 9 comparables y coeficiente de variación 15.89%; cumple la regla media.
 
-### Zone context by condition
+### Comparación por estado en la zona
 
-| Condition | Valid listings | Median asking price per m² |
+| Estado | Anuncios válidos | Mediana del precio anunciado por m² |
 |---|---:|---:|
-| remodelado | 10 | COP 6,969,697 |
-| habitable | 6 | COP 6,463,980 |
-| por_remodelar | 0 | Insufficient data |
+| Remodelado | 10 | COP 6.969.697 |
+| Habitable | 6 | COP 6.463.980 |
+| Por remodelar | 0 | Datos insuficientes |
 
-### Comparables
+### Anuncios comparables
 
-| Source record | Listing ID | Source | Area | Asking price | Price per m² |
+| Registro de origen | Identificador | Fuente | Área | Precio anunciado | Precio por m² |
 |---|---|---|---:|---:|---:|
-| factibilidad_castellana.xlsx:SECTORIAL:4 | fincaraiz:192780858 | fincaraiz | 92.0m² | COP 497,000,000 | COP 5,402,174 |
-| factibilidad_castellana.xlsx:SECTORIAL:7 | fincaraiz:193632316 | fincaraiz | 90.0m² | COP 550,000,000 | COP 6,111,111 |
-| factibilidad_castellana.xlsx:SECTORIAL:11 | fincaraiz:10710482 | fincaraiz | 94.0m² | COP 610,000,000 | COP 6,489,362 |
-| factibilidad_castellana.xlsx:SECTORIAL:2 | fincaraiz:10710482 | fincaraiz | 94.0m² | COP 610,000,000 | COP 6,489,362 |
-| factibilidad_castellana.xlsx:SECTORIAL:10 | fincaraiz:193287983 | fincaraiz | 99.0m² | COP 690,000,000 | COP 6,969,697 |
-| factibilidad_castellana.xlsx:SECTORIAL:3 | fincaraiz:193287983 | fincaraiz | 99.0m² | COP 690,000,000 | COP 6,969,697 |
-| factibilidad_castellana.xlsx:SECTORIAL:8 | fincaraiz:192987663 | fincaraiz | 94.0m² | COP 720,000,000 | COP 7,659,574 |
-| factibilidad_castellana.xlsx:SECTORIAL:12 | fincaraiz:193440669 | fincaraiz | 100.0m² | COP 870,000,000 | COP 8,700,000 |
-| factibilidad_castellana.xlsx:SECTORIAL:9 | fincaraiz:193440669 | fincaraiz | 100.0m² | COP 870,000,000 | COP 8,700,000 |
+| factibilidad_castellana.xlsx:SECTORIAL:4 | fincaraiz:192780858 | Fincaraiz | 92.0 m² | COP 497.000.000 | COP 5.402.174 |
+| factibilidad_castellana.xlsx:SECTORIAL:7 | fincaraiz:193632316 | Fincaraiz | 90.0 m² | COP 550.000.000 | COP 6.111.111 |
+| factibilidad_castellana.xlsx:SECTORIAL:11 | fincaraiz:10710482 | Fincaraiz | 94.0 m² | COP 610.000.000 | COP 6.489.362 |
+| factibilidad_castellana.xlsx:SECTORIAL:2 | fincaraiz:10710482 | Fincaraiz | 94.0 m² | COP 610.000.000 | COP 6.489.362 |
+| factibilidad_castellana.xlsx:SECTORIAL:10 | fincaraiz:193287983 | Fincaraiz | 99.0 m² | COP 690.000.000 | COP 6.969.697 |
+| factibilidad_castellana.xlsx:SECTORIAL:3 | fincaraiz:193287983 | Fincaraiz | 99.0 m² | COP 690.000.000 | COP 6.969.697 |
+| factibilidad_castellana.xlsx:SECTORIAL:8 | fincaraiz:192987663 | Fincaraiz | 94.0 m² | COP 720.000.000 | COP 7.659.574 |
+| factibilidad_castellana.xlsx:SECTORIAL:12 | fincaraiz:193440669 | Fincaraiz | 100.0 m² | COP 870.000.000 | COP 8.700.000 |
+| factibilidad_castellana.xlsx:SECTORIAL:9 | fincaraiz:193440669 | Fincaraiz | 100.0 m² | COP 870.000.000 | COP 8.700.000 |
 
-## Neighborhood summary
+## Entorno geográfico
 
-- Search radius: 800 m
-- Coordinate precision: Approximate neighborhood point
-- Nearest supported transit station: Santa Lucía (metro) at 1994 m
-- Supported stations within radius: 0
+- Radio de análisis: 800 m
+- Precisión de las coordenadas: Aproximada por barrio
+- Estación de transporte más cercana: Santa Lucía (Metro), a 1994 m
+- Estaciones de transporte dentro del radio: 0
 
-| Facility category | Count within radius |
+| Categoría de equipamiento | Puntos dentro del radio |
 |---|---:|
-| educacion | 23 |
-| salud | 6 |
-| parques | 11 |
-| abastecimiento | 13 |
-| seguridad | 1 |
-| cultura | 5 |
+| Educación | 23 |
+| Salud | 6 |
+| Parques | 11 |
+| Abastecimiento | 13 |
+| Seguridad | 1 |
+| Cultura | 5 |
 
-## Urban planning
+## Planeación urbana
 
-- POT treatment: Insufficient data
-- Status: pendiente_capa. Falta el archivo data/geo/pot_tratamientos.geojson.
+- Tratamiento del Plan de Ordenamiento Territorial (POT): No disponible
+- Estado: Pendiente Capa. Falta el archivo data/geo/pot_tratamientos.geojson.
 
-## Data quality and limits
+## Calidad de los datos y límites
 
-- Listings in zone: 16
-- Exact duplicate rows removed: 0
-- Unique source rows after exact deduplication: 16
-- Listing rows retained after exact duplicate removal: 16
-- Possible repeat rows: 6 in 3 groups
-- Possible repeat option: included
-- Possible repeat rows selected in this zone: 6
-- Unique rows with data issues: 0
-- Field issues in this zone: None reported
-- Missing or unavailable data: coordenadas_exactas; direccion; fecha_publicacion_comparables; precios_de_cierre
+- Anuncios en la zona: 16
+- Filas idénticas retiradas: 0
+- Filas de origen únicas tras la deduplicación exacta: 16
+- Filas conservadas tras retirar duplicados exactos: 16
+- Filas con posibles coincidencias: 6 en 3 grupos
+- Tratamiento de posibles coincidencias: Incluidas
+- Filas con posibles coincidencias seleccionadas en esta zona: 6
+- Filas únicas con problemas de datos: 0
+- Incidencias por campo en esta zona: Ninguna
+- Datos faltantes o no disponibles: Coordenadas exactas; Dirección; Fecha de publicación de anuncios comparables; Precios de cierre
 
-## Sources
+## Fuentes
 
-- Files: data/inmuebles_prueba.csv, data/anuncios_muestra.csv, OpenStreetMap transit layer (ODbL), OpenStreetMap facility layer (ODbL), config/parametros.yaml (POT coverage and missing layer status)
-- Parameter version: 1.0
-- Geographic layer date: 2026-11-13T23:03:06Z
+- Archivos y capas: data/inmuebles_prueba.csv, data/anuncios_muestra.csv, Capa de transporte de OpenStreetMap (ODbL), Capa de equipamientos de OpenStreetMap (ODbL), config/parametros.yaml (POT coverage and missing layer status)
+- Versión de parámetros: 1.0
+- Fecha de las capas de OpenStreetMap: 2026-11-13T23:03:06Z
 
-Prices are reported in supplied ads. Official sources did not confirm each price. This card does not estimate closing prices or recommend an investment decision.
+Los precios corresponden a los anuncios suministrados. No se confirmaron con fuentes oficiales.

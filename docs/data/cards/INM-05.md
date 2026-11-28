@@ -1,98 +1,98 @@
-# Property market and neighborhood card: INM-05
+# Ficha de mercado y entorno: INM-05
 
-Generated: 2026-11-27
+Generada: 2026-11-27
 
-## Property
+## Inmueble
 
-- Address: Insufficient data
-- Neighborhood: Bombona No1
-- Municipality: medellin
-- Market zone: buenos_aires_el_salvador
-- Area: 67.0m²
-- Condition: por_remodelar (source text: Remodelar)
-- Coordinates: 6.244064, -75.56236 (approximate)
+- Dirección reportada: No disponible
+- Barrio: Bombona No1
+- Municipio: Medellín
+- Zona de mercado: Buenos Aires El Salvador
+- Área: 67.0 m²
+- Estado reportado: Por remodelar (texto de la fuente: Remodelar)
+- Coordenadas: 6.244064, -75.56236 (aproximadas)
 
-## Market summary
+## Resumen de mercado
 
-- Reference condition: por_remodelar
-- Comparable listings: 19
-- Median asking price per m²: COP 4,109,589
-- Range: COP 3,081,395 to COP 6,666,667
-- Mean: COP 4,335,079
-- Sample standard deviation: COP 833,587
-- Coefficient of variation: 19.23%
-- Confidence: media. 19 comparables y coeficiente de variación 19.23%; cumple la regla media.
+- Estado de referencia: Por remodelar
+- Anuncios comparables: 19
+- Mediana del precio anunciado por m²: COP 4.109.589
+- Rango de precios anunciados: COP 3.081.395 a COP 6.666.667
+- Promedio: COP 4.335.079
+- Desviación estándar muestral: COP 833.587
+- Coeficiente de variación: 19,23%
+- Nivel de confianza: Media. 19 comparables y coeficiente de variación 19.23%; cumple la regla media.
 
-### Zone context by condition
+### Comparación por estado en la zona
 
-| Condition | Valid listings | Median asking price per m² |
+| Estado | Anuncios válidos | Mediana del precio anunciado por m² |
 |---|---:|---:|
-| remodelado | 0 | Insufficient data |
-| habitable | 29 | COP 3,906,250 |
-| por_remodelar | 28 | COP 4,221,461 |
+| Remodelado | 0 | Datos insuficientes |
+| Habitable | 29 | COP 3.906.250 |
+| Por remodelar | 28 | COP 4.221.461 |
 
-### Comparables
+### Anuncios comparables
 
-| Source record | Listing ID | Source | Area | Asking price | Price per m² |
+| Registro de origen | Identificador | Fuente | Área | Precio anunciado | Precio por m² |
 |---|---|---|---:|---:|---:|
-| extension_poligono.xlsx:El salvador:8 | Insufficient data | facebook | 86.0m² | COP 265,000,000 | COP 3,081,395 |
-| extension_poligono.xlsx:REMODELAR:90 | Insufficient data | facebook | 86.0m² | COP 265,000,000 | COP 3,081,395 |
-| extension_poligono.xlsx:El salvador:3 | Insufficient data | aviso_calle | 70.4m² | COP 250,000,000 | COP 3,551,136 |
-| extension_poligono.xlsx:Bombona:7 | fincaraiz:192609616 | fincaraiz | 65.0m² | COP 250,000,000 | COP 3,846,154 |
-| extension_poligono.xlsx:REMODELAR:83 | fincaraiz:192609616 | fincaraiz | 65.0m² | COP 250,000,000 | COP 3,846,154 |
-| extension_poligono.xlsx:El salvador:6 | arrendamientos_santafe:V12132 | arrendamientos_santafe | 57.0m² | COP 225,000,000 | COP 3,947,368 |
-| extension_poligono.xlsx:REMODELAR:77 | arrendamientos_santafe:V12132 | arrendamientos_santafe | 57.0m² | COP 225,000,000 | COP 3,947,368 |
-| extension_poligono.xlsx:El salvador:5 | fincaraiz:7387557 | fincaraiz | 73.0m² | COP 300,000,000 | COP 4,109,589 |
-| extension_poligono.xlsx:El salvador:7 | arrendamientos_santafe:V10746 | arrendamientos_santafe | 73.0m² | COP 300,000,000 | COP 4,109,589 |
-| extension_poligono.xlsx:REMODELAR:78 | arrendamientos_santafe:V10746 | arrendamientos_santafe | 73.0m² | COP 300,000,000 | COP 4,109,589 |
-| extension_poligono.xlsx:Bombona:18 | fincaraiz:193000855 | fincaraiz | 60.0m² | COP 260,000,000 | COP 4,333,333 |
-| extension_poligono.xlsx:El salvador:9 | Insufficient data | facebook | 50.34m² | COP 220,000,000 | COP 4,370,282 |
-| extension_poligono.xlsx:REMODELAR:80 | fincaraiz:192947650 | fincaraiz | 54.0m² | COP 240,000,000 | COP 4,444,444 |
-| extension_poligono.xlsx:Bombona:16 | fincaraiz:192983429 | fincaraiz | 60.0m² | COP 280,000,000 | COP 4,666,667 |
-| extension_poligono.xlsx:Bombona:11 | fincaraiz:191865763 | fincaraiz | 52.0m² | COP 247,000,000 | COP 4,750,000 |
-| extension_poligono.xlsx:Bombona:14 | fincaraiz:191795362 | fincaraiz | 48.6m² | COP 250,000,000 | COP 5,144,033 |
-| extension_poligono.xlsx:Bombona:17 | fincaraiz:191508829 | fincaraiz | 68.0m² | COP 350,000,000 | COP 5,147,059 |
-| extension_poligono.xlsx:Bombona:13 | fincaraiz:191455271 | fincaraiz | 70.0m² | COP 365,000,000 | COP 5,214,286 |
-| extension_poligono.xlsx:REMODELAR:6 | Insufficient data | aviso_calle | 48.0m² | COP 320,000,000 | COP 6,666,667 |
+| extension_poligono.xlsx:El salvador:8 | No disponible | Facebook | 86.0 m² | COP 265.000.000 | COP 3.081.395 |
+| extension_poligono.xlsx:REMODELAR:90 | No disponible | Facebook | 86.0 m² | COP 265.000.000 | COP 3.081.395 |
+| extension_poligono.xlsx:El salvador:3 | No disponible | Aviso Calle | 70.4 m² | COP 250.000.000 | COP 3.551.136 |
+| extension_poligono.xlsx:Bombona:7 | fincaraiz:192609616 | Fincaraiz | 65.0 m² | COP 250.000.000 | COP 3.846.154 |
+| extension_poligono.xlsx:REMODELAR:83 | fincaraiz:192609616 | Fincaraiz | 65.0 m² | COP 250.000.000 | COP 3.846.154 |
+| extension_poligono.xlsx:El salvador:6 | arrendamientos_santafe:V12132 | Arrendamientos Santafe | 57.0 m² | COP 225.000.000 | COP 3.947.368 |
+| extension_poligono.xlsx:REMODELAR:77 | arrendamientos_santafe:V12132 | Arrendamientos Santafe | 57.0 m² | COP 225.000.000 | COP 3.947.368 |
+| extension_poligono.xlsx:El salvador:5 | fincaraiz:7387557 | Fincaraiz | 73.0 m² | COP 300.000.000 | COP 4.109.589 |
+| extension_poligono.xlsx:El salvador:7 | arrendamientos_santafe:V10746 | Arrendamientos Santafe | 73.0 m² | COP 300.000.000 | COP 4.109.589 |
+| extension_poligono.xlsx:REMODELAR:78 | arrendamientos_santafe:V10746 | Arrendamientos Santafe | 73.0 m² | COP 300.000.000 | COP 4.109.589 |
+| extension_poligono.xlsx:Bombona:18 | fincaraiz:193000855 | Fincaraiz | 60.0 m² | COP 260.000.000 | COP 4.333.333 |
+| extension_poligono.xlsx:El salvador:9 | No disponible | Facebook | 50.34 m² | COP 220.000.000 | COP 4.370.282 |
+| extension_poligono.xlsx:REMODELAR:80 | fincaraiz:192947650 | Fincaraiz | 54.0 m² | COP 240.000.000 | COP 4.444.444 |
+| extension_poligono.xlsx:Bombona:16 | fincaraiz:192983429 | Fincaraiz | 60.0 m² | COP 280.000.000 | COP 4.666.667 |
+| extension_poligono.xlsx:Bombona:11 | fincaraiz:191865763 | Fincaraiz | 52.0 m² | COP 247.000.000 | COP 4.750.000 |
+| extension_poligono.xlsx:Bombona:14 | fincaraiz:191795362 | Fincaraiz | 48.6 m² | COP 250.000.000 | COP 5.144.033 |
+| extension_poligono.xlsx:Bombona:17 | fincaraiz:191508829 | Fincaraiz | 68.0 m² | COP 350.000.000 | COP 5.147.059 |
+| extension_poligono.xlsx:Bombona:13 | fincaraiz:191455271 | Fincaraiz | 70.0 m² | COP 365.000.000 | COP 5.214.286 |
+| extension_poligono.xlsx:REMODELAR:6 | No disponible | Aviso Calle | 48.0 m² | COP 320.000.000 | COP 6.666.667 |
 
-## Neighborhood summary
+## Entorno geográfico
 
-- Search radius: 800 m
-- Coordinate precision: Approximate neighborhood point
-- Nearest supported transit station: Pabellón del agua EPM (tranvia) at 174 m
-- Supported stations within radius: 3
+- Radio de análisis: 800 m
+- Precisión de las coordenadas: Aproximada por barrio
+- Estación de transporte más cercana: Pabellón del agua EPM (Tranvia), a 174 m
+- Estaciones de transporte dentro del radio: 3
 
-| Facility category | Count within radius |
+| Categoría de equipamiento | Puntos dentro del radio |
 |---|---:|
-| educacion | 54 |
-| salud | 12 |
-| parques | 19 |
-| abastecimiento | 8 |
-| seguridad | 1 |
-| cultura | 10 |
+| Educación | 54 |
+| Salud | 12 |
+| Parques | 19 |
+| Abastecimiento | 8 |
+| Seguridad | 1 |
+| Cultura | 10 |
 
-## Urban planning
+## Planeación urbana
 
-- POT treatment: Insufficient data
-- Status: pendiente_capa. Falta el archivo data/geo/pot_tratamientos.geojson.
+- Tratamiento del Plan de Ordenamiento Territorial (POT): No disponible
+- Estado: Pendiente Capa. Falta el archivo data/geo/pot_tratamientos.geojson.
 
-## Data quality and limits
+## Calidad de los datos y límites
 
-- Listings in zone: 82
-- Exact duplicate rows removed: 0
-- Unique source rows after exact deduplication: 82
-- Listing rows retained after exact duplicate removal: 82
-- Possible repeat rows: 45 in 17 groups
-- Possible repeat option: included
-- Possible repeat rows selected in this zone: 45
-- Unique rows with data issues: 25
-- Field issues in this zone: estado_sin_clasificar: 25; sin_area: 1
-- Missing or unavailable data: coordenadas_exactas; direccion; fecha_publicacion_comparables; precios_de_cierre
+- Anuncios en la zona: 82
+- Filas idénticas retiradas: 0
+- Filas de origen únicas tras la deduplicación exacta: 82
+- Filas conservadas tras retirar duplicados exactos: 82
+- Filas con posibles coincidencias: 45 en 17 grupos
+- Tratamiento de posibles coincidencias: Incluidas
+- Filas con posibles coincidencias seleccionadas en esta zona: 45
+- Filas únicas con problemas de datos: 25
+- Incidencias por campo en esta zona: Estado sin clasificar: 25; Área faltante: 1
+- Datos faltantes o no disponibles: Coordenadas exactas; Dirección; Fecha de publicación de anuncios comparables; Precios de cierre
 
-## Sources
+## Fuentes
 
-- Files: data/inmuebles_prueba.csv, data/anuncios_muestra.csv, OpenStreetMap transit layer (ODbL), OpenStreetMap facility layer (ODbL), config/parametros.yaml (POT coverage and missing layer status)
-- Parameter version: 1.0
-- Geographic layer date: 2026-11-13T23:03:06Z
+- Archivos y capas: data/inmuebles_prueba.csv, data/anuncios_muestra.csv, Capa de transporte de OpenStreetMap (ODbL), Capa de equipamientos de OpenStreetMap (ODbL), config/parametros.yaml (POT coverage and missing layer status)
+- Versión de parámetros: 1.0
+- Fecha de las capas de OpenStreetMap: 2026-11-13T23:03:06Z
 
-Prices are reported in supplied ads. Official sources did not confirm each price. This card does not estimate closing prices or recommend an investment decision.
+Los precios corresponden a los anuncios suministrados. No se confirmaron con fuentes oficiales.

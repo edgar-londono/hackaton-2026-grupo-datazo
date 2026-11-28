@@ -1,82 +1,82 @@
-# Property market and neighborhood card: INM-11
+# Ficha de mercado y entorno: INM-11
 
-Generated: 2026-11-27
+Generada: 2026-11-27
 
-## Property
+## Inmueble
 
-- Address: Insufficient data
-- Neighborhood: ditaires
-- Municipality: itagui
-- Market zone: ditaires_itagui
-- Area: 63.0m²
-- Condition: por_remodelar (source text: SIN REMODELAR (OBRA NEGRA))
-- Coordinates: 6.168608, -75.627492 (approximate)
+- Dirección reportada: No disponible
+- Barrio: ditaires
+- Municipio: Itagüí
+- Zona de mercado: Ditaires Itagui
+- Área: 63.0 m²
+- Estado reportado: Por remodelar (texto de la fuente: SIN REMODELAR (OBRA NEGRA))
+- Coordenadas: 6.168608, -75.627492 (aproximadas)
 
-## Market summary
+## Resumen de mercado
 
-- Reference condition: por_remodelar
-- Comparable listings: 3
-- Median asking price per m²: COP 5,625,000
-- Range: COP 4,833,333 to COP 6,428,571
-- Mean: COP 5,628,968
-- Sample standard deviation: COP 797,626
-- Coefficient of variation: 14.17%
-- Confidence: media. 3 comparables y coeficiente de variación 14.17%; cumple la regla media.
+- Estado de referencia: Por remodelar
+- Anuncios comparables: 3
+- Mediana del precio anunciado por m²: COP 5.625.000
+- Rango de precios anunciados: COP 4.833.333 a COP 6.428.571
+- Promedio: COP 5.628.968
+- Desviación estándar muestral: COP 797.626
+- Coeficiente de variación: 14,17%
+- Nivel de confianza: Media. 3 comparables y coeficiente de variación 14.17%; cumple la regla media.
 
-### Zone context by condition
+### Comparación por estado en la zona
 
-| Condition | Valid listings | Median asking price per m² |
+| Estado | Anuncios válidos | Mediana del precio anunciado por m² |
 |---|---:|---:|
-| remodelado | 14 | COP 6,918,562 |
-| habitable | 0 | Insufficient data |
-| por_remodelar | 5 | COP 5,625,000 |
+| Remodelado | 14 | COP 6.918.562 |
+| Habitable | 0 | Datos insuficientes |
+| Por remodelar | 5 | COP 5.625.000 |
 
-### Comparables
+### Anuncios comparables
 
-| Source record | Listing ID | Source | Area | Asking price | Price per m² |
+| Registro de origen | Identificador | Fuente | Área | Precio anunciado | Precio por m² |
 |---|---|---|---:|---:|---:|
-| factibilidad_proyecto2.xlsx:SECTORIAL:20 | fincaraiz:193263982 | fincaraiz | 60.0m² | COP 290,000,000 | COP 4,833,333 |
-| factibilidad_proyecto2.xlsx:SECTORIAL:12 | metrocuadrado:17017-M5712498 | metrocuadrado | 64.0m² | COP 360,000,000 | COP 5,625,000 |
-| factibilidad_proyecto2.xlsx:SECTORIAL:4 | fincaraiz:192958554 | fincaraiz | 70.0m² | COP 450,000,000 | COP 6,428,571 |
+| factibilidad_proyecto2.xlsx:SECTORIAL:20 | fincaraiz:193263982 | Fincaraiz | 60.0 m² | COP 290.000.000 | COP 4.833.333 |
+| factibilidad_proyecto2.xlsx:SECTORIAL:12 | metrocuadrado:17017-M5712498 | Metrocuadrado | 64.0 m² | COP 360.000.000 | COP 5.625.000 |
+| factibilidad_proyecto2.xlsx:SECTORIAL:4 | fincaraiz:192958554 | Fincaraiz | 70.0 m² | COP 450.000.000 | COP 6.428.571 |
 
-## Neighborhood summary
+## Entorno geográfico
 
-- Search radius: 800 m
-- Coordinate precision: Approximate neighborhood point
-- Nearest supported transit station: Sabaneta (metro) at 1743 m
-- Supported stations within radius: 0
+- Radio de análisis: 800 m
+- Precisión de las coordenadas: Aproximada por barrio
+- Estación de transporte más cercana: Sabaneta (Metro), a 1743 m
+- Estaciones de transporte dentro del radio: 0
 
-| Facility category | Count within radius |
+| Categoría de equipamiento | Puntos dentro del radio |
 |---|---:|
-| educacion | 13 |
-| salud | 3 |
-| parques | 1 |
-| abastecimiento | 0 |
-| seguridad | 3 |
-| cultura | 1 |
+| Educación | 13 |
+| Salud | 3 |
+| Parques | 1 |
+| Abastecimiento | 0 |
+| Seguridad | 3 |
+| Cultura | 1 |
 
-## Urban planning
+## Planeación urbana
 
-- POT treatment: Insufficient data
-- Status: no_disponible. El municipio itagui está fuera de la cobertura configurada para la capa POT.
+- Tratamiento del Plan de Ordenamiento Territorial (POT): No disponible
+- Estado: No Disponible. El municipio itagui está fuera de la cobertura configurada para la capa POT.
 
-## Data quality and limits
+## Calidad de los datos y límites
 
-- Listings in zone: 19
-- Exact duplicate rows removed: 0
-- Unique source rows after exact deduplication: 19
-- Listing rows retained after exact duplicate removal: 19
-- Possible repeat rows: 3 in 1 groups
-- Possible repeat option: included
-- Possible repeat rows selected in this zone: 3
-- Unique rows with data issues: 0
-- Field issues in this zone: None reported
-- Missing or unavailable data: coordenadas_exactas; direccion; fecha_publicacion_comparables; precios_de_cierre
+- Anuncios en la zona: 19
+- Filas idénticas retiradas: 0
+- Filas de origen únicas tras la deduplicación exacta: 19
+- Filas conservadas tras retirar duplicados exactos: 19
+- Filas con posibles coincidencias: 3 en 1 grupos
+- Tratamiento de posibles coincidencias: Incluidas
+- Filas con posibles coincidencias seleccionadas en esta zona: 3
+- Filas únicas con problemas de datos: 0
+- Incidencias por campo en esta zona: Ninguna
+- Datos faltantes o no disponibles: Coordenadas exactas; Dirección; Fecha de publicación de anuncios comparables; Precios de cierre
 
-## Sources
+## Fuentes
 
-- Files: data/inmuebles_prueba.csv, data/anuncios_muestra.csv, OpenStreetMap transit layer (ODbL), OpenStreetMap facility layer (ODbL)
-- Parameter version: 1.0
-- Geographic layer date: 2026-11-13T23:03:06Z
+- Archivos y capas: data/inmuebles_prueba.csv, data/anuncios_muestra.csv, Capa de transporte de OpenStreetMap (ODbL), Capa de equipamientos de OpenStreetMap (ODbL)
+- Versión de parámetros: 1.0
+- Fecha de las capas de OpenStreetMap: 2026-11-13T23:03:06Z
 
-Prices are reported in supplied ads. Official sources did not confirm each price. This card does not estimate closing prices or recommend an investment decision.
+Los precios corresponden a los anuncios suministrados. No se confirmaron con fuentes oficiales.

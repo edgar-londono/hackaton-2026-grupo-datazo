@@ -8,8 +8,11 @@
     root.dataset.theme = theme;
     const button = document.querySelector("[data-theme-toggle]");
     if (button) {
-      button.textContent = theme === "dark" ? "Modo claro" : "Modo oscuro";
-      button.setAttribute("aria-label", theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+      const nextTheme = theme === "dark" ? "light" : "dark";
+      const label = nextTheme === "light" ? "Cambiar a modo claro" : "Cambiar a modo oscuro";
+      button.textContent = nextTheme === "light" ? "☀" : "☾";
+      button.setAttribute("aria-label", label);
+      button.title = label;
       button.setAttribute("aria-pressed", String(theme === "dark"));
     }
   }

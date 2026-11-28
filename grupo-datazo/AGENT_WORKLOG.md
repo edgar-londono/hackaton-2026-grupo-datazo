@@ -70,3 +70,4 @@
 - 2026-11-28 00:53:02: Removed internal OSM identifiers from nearby-place lists, separated confidence and missing-data details into labeled bullet lists, and enlarged the Datazo wordmark.
 - 2026-11-28 01:02:03: Formatted equipment map popups with a bold place name, a labeled type, and Google Maps and OpenStreetMap links; omitted stored walking times by request.
 - 2026-11-28 01:05:17: Moved Sebastian to the second team-list position and Jonathan to the third.
+- 2026-11-28 01:09:32: Improved MVP heading letter spacing, enlarged the theme icon, and clarified the footer note and team link.

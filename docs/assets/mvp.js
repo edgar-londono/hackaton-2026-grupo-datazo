@@ -5,6 +5,7 @@
   const areaFormatter = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 2 });
   let equipmentMap = null;
   let facilityMarkers = new Map();
+  let include4375000 = true;
   const facilityPalette = {
     educacion: { fill: "#a9c8e8", stroke: "#557caa" },
     salud: { fill: "#e8b0b7", stroke: "#9b5d68" },
@@ -206,16 +207,46 @@
     label.textContent = "Mediana del precio anunciado por m²";
     const priceValue = document.createElement("p");
     priceValue.className = "price-value";
-    priceValue.textContent = money(price.mediana);
+    let displayedMedian = price.mediana;
+    let displayedComparableCount = price.n;
+    priceValue.textContent = money(displayedMedian);
     const range = document.createElement("p");
     range.className = "price-range";
     range.textContent = `Entre ${money(price.minimo)} y ${money(price.maximo)} por m² en los anuncios comparables`;
     priceBlock.append(label, priceValue, range);
 
+    if (record.id_inmueble === "INM-04") {
+      const comparableToggle = document.createElement("button");
+      comparableToggle.type = "button";
+      comparableToggle.className = "comparable-toggle";
+      comparableToggle.setAttribute("aria-pressed", "true");
+      const updateComparableToggle = () => {
+        comparableToggle.textContent = include4375000 ? "Quitar grupo de COP 4.375.000/m² (3)" : "Agregar grupo de COP 4.375.000/m² (3)";
+        comparableToggle.setAttribute("aria-pressed", String(include4375000));
+        const included = include4375000
+          ? market.comparables
+          : market.comparables.filter((item) => item.precio_m2 !== 4375000);
+        const values = included.map((item) => item.precio_m2).filter(Number.isFinite).sort((a, b) => a - b);
+        const middle = Math.floor(values.length / 2);
+        displayedMedian = values.length % 2 ? values[middle] : Math.round((values[middle - 1] + values[middle]) / 2);
+        displayedComparableCount = values.length;
+        priceValue.textContent = money(displayedMedian);
+        comparableCountValue.textContent = formatter.format(displayedComparableCount);
+      };
+      comparableToggle.addEventListener("click", () => {
+        include4375000 = !include4375000;
+        updateComparableToggle();
+      });
+      updateComparableToggle();
+      priceBlock.append(comparableToggle);
+    }
+
     const stats = document.createElement("div");
     stats.className = "stat-grid";
+    const comparableCountStat = stat(formatter.format(displayedComparableCount), "Anuncios comparables");
+    const comparableCountValue = comparableCountStat.querySelector("b");
     stats.append(
-      stat(formatter.format(price.n), "Anuncios comparables"),
+      comparableCountStat,
       stat(labelCase(text(market.confianza.nivel, "No calculada")), "Nivel de confianza"),
       stat(`${formatter.format(environment.radio_busqueda_m)} m`, "Radio de análisis")
     );

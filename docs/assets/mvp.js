@@ -209,6 +209,12 @@
     priceValue.className = "price-value";
     let displayedMedian = price.mediana;
     let displayedComparableCount = price.n;
+    if (record.id_inmueble === "INM-04" && !include4375000) {
+      const values = market.comparables.filter((item) => item.precio_m2 !== 4375000).map((item) => item.precio_m2).sort((a, b) => a - b);
+      const middle = Math.floor(values.length / 2);
+      displayedMedian = values.length % 2 ? values[middle] : Math.round((values[middle - 1] + values[middle]) / 2);
+      displayedComparableCount = values.length;
+    }
     let confidenceStatValue = null;
     let confidenceStatusList = null;
     priceValue.textContent = money(displayedMedian);
@@ -221,7 +227,7 @@
       const comparableToggle = document.createElement("button");
       comparableToggle.type = "button";
       comparableToggle.className = "comparable-toggle";
-      comparableToggle.setAttribute("aria-pressed", "true");
+      comparableToggle.setAttribute("aria-pressed", String(include4375000));
       const updateComparableToggle = () => {
         comparableToggle.textContent = include4375000 ? "Quitar grupo de COP 4.375.000/m² (3)" : "Agregar grupo de COP 4.375.000/m² (3)";
         comparableToggle.setAttribute("aria-pressed", String(include4375000));
@@ -251,7 +257,7 @@
         include4375000 = !include4375000;
         updateComparableToggle();
       });
-      comparableToggle.textContent = "Quitar grupo de COP 4.375.000/m² (3)";
+      comparableToggle.textContent = include4375000 ? "Quitar grupo de COP 4.375.000/m² (3)" : "Agregar grupo de COP 4.375.000/m² (3)";
       priceBlock.append(comparableToggle);
     }
 

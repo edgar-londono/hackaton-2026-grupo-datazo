@@ -1,0 +1,27 @@
+dataset,csv_row,record_id,field,reason,value
+Listings,47,extension_poligono.xlsx:REMODELAR:53,area_m2,Required value is missing.,<blank>
+Listings,39,extension_poligono.xlsx:REMODELAR:33,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,41,extension_poligono.xlsx:REMODELAR:38,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,42,extension_poligono.xlsx:REMODELAR:39,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,43,extension_poligono.xlsx:REMODELAR:43,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,44,extension_poligono.xlsx:REMODELAR:45,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,45,extension_poligono.xlsx:REMODELAR:49,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,46,extension_poligono.xlsx:REMODELAR:52,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,47,extension_poligono.xlsx:REMODELAR:53,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,48,extension_poligono.xlsx:REMODELAR:55,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,49,extension_poligono.xlsx:REMODELAR:56,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,50,extension_poligono.xlsx:REMODELAR:59,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,51,extension_poligono.xlsx:REMODELAR:60,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,52,fincaraiz:192814617,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,53,fincaraiz:192824557,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,54,fincaraiz:191722056#,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,55,fincaraiz:7387557,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,56,fincaraiz:10766727,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,57,fincaraiz:192687997,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,58,fincaraiz:7387557,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,61,extension_poligono.xlsx:REMODELAR:74,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,62,extension_poligono.xlsx:REMODELAR:75,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,63,extension_poligono.xlsx:REMODELAR:76,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,116,extension_poligono.xlsx:VIVIR:10,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,117,extension_poligono.xlsx:VIVIR:11,estado,Cannot match this listing to a canonical condition.,<blank>
+Listings,118,extension_poligono.xlsx:VIVIR:12,estado,Cannot match this listing to a canonical condition.,<blank>

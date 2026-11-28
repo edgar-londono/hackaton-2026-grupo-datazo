@@ -13,6 +13,8 @@ This manifest tracks copied inputs for the MVP. It records verified files as eac
 | config/parametros.yaml | ../resources/venture-one-reference/config/parametros.yaml | version 1.0 | 3222 | B04A5A181AFF5EFF0EC86EE03DF55ABFF6DFB467227F006679D8C024A7251F4A |
 
 The team parameter file keeps the source version and values. Its explanatory deduplication comments were updated to record the approved full-row rule. The size and checksum above identify the unchanged reference file, not the edited team copy.
+
+`data/anuncios_verificaciones.csv` is an empty evidence ledger for future checks of existing listing fields. It is not an input copy. The source sample remains unchanged.
 ## Unavailable inputs
 
 | Expected file | Reference evidence | Status |

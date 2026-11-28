@@ -16,9 +16,10 @@ comparables:
 # --- Deduplicación ---------------------------------------------------------
 deduplicacion:
   # Estas claves encuentran candidatos, pero no autorizan borrar filas.
-  # Al comparar, ignora mayúsculas y espacios externos o repetidos; conserva tildes.
+  # La eliminación ignora espacios externos o repetidos, pero conserva mayúsculas y tildes.
   # Solo se elimina una fila si todas sus columnas coinciden con esa regla.
-  # Si una columna cambia, todas las filas candidatas quedan para revisión.
+  # Las filas que coinciden en parte se marcan y pueden incluirse o excluirse del cálculo.
+  incluir_candidatos_en_calculos: true
   claves_sin_id: [zona, area_m2, precio]
 
 # --- Estados del inmueble --------------------------------------------------

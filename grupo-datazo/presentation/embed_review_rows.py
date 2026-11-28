@@ -6,7 +6,7 @@ from pathlib import Path
 PRESENTATION_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = PRESENTATION_DIR.parent
 HTML_PATH = PRESENTATION_DIR / "limpieza_datos.html"
-REVIEW_PATH = PROJECT_DIR / "output" / "prepared" / "duplicados_para_revision.csv"
+REVIEW_PATH = PROJECT_DIR / "output" / "prepared" / "posibles_repeticiones.csv"
 DATA_SCRIPT_OPEN = '<script id="review-data" type="application/json">'
 DATA_SCRIPT_CLOSE = "</script>"
 GEO_REVIEW_PATH = PROJECT_DIR / "output" / "prepared" / "geo" / "coincidencias_para_revision.csv"

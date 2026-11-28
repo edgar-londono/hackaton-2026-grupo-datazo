@@ -6,6 +6,7 @@ import json
 import hashlib
 import math
 import sys
+import argparse
 from collections import Counter
 from datetime import date
 from pathlib import Path
@@ -39,13 +40,13 @@ VALIDATION_REPORT = OUTPUT_DIR / "validation_report.md"
 MANUAL_EXPECTED_PATH = PROJECT_ROOT.parent / "resources" / "venture-one-reference" / "validacion" / "esperado.json"
 
 
-def build_records() -> tuple[list[dict[str, Any]], dict[str, int]]:
+def build_records(include_candidates: Optional[bool] = None) -> tuple[list[dict[str, Any]], dict[str, int]]:
     """Prepare all supplied inputs and return one record per test property."""
-    generate_report()
+    generate_report(include_candidates)
     prepare_geospatial_data()
     inputs = load_inputs()
     parameters = load_parameters()
-    quality = inspect_quality(inputs, parameters)
+    quality = inspect_quality(inputs, parameters, include_candidates)
     normalized_properties = normalize_conditions(inputs.properties, parameters["estados"])
     valid_listings = quality.prepared_listings.rows
     transit = _read_geojson(OUTPUT_DIR / "prepared" / "geo" / "transporte_limpio.geojson")
@@ -78,31 +79,22 @@ def build_records() -> tuple[list[dict[str, Any]], dict[str, int]]:
 
 
 def _listing_coverage(listings: list[dict[str, Any]], quality: Any) -> dict[str, int]:
-    pending = {item.row_number for item in quality.deduplication.for_review}
+    candidates = {item.row_number for item in quality.deduplication.for_review}
     removed = {item.row_number for item in quality.deduplication.removed}
-    valid = set(quality.prepared_listings.source_row_numbers)
-    invalid = {
-        issue.row_number for issue in quality.exclusions
-        if issue.dataset == "Listings" and issue.kind != "duplicate_review"
-    } - pending
-    counts = {"valid": 0, "pending_review": 0, "invalid": 0, "exact_duplicate_removed": 0}
-    unclassified = []
-    for row_number in range(2, len(listings) + 2):
-        if row_number in pending:
-            counts["pending_review"] += 1
-        elif row_number in removed:
-            counts["exact_duplicate_removed"] += 1
-        elif row_number in valid:
-            counts["valid"] += 1
-        elif row_number in invalid:
-            counts["invalid"] += 1
-        else:
-            unclassified.append(row_number)
-    if unclassified:
-        raise ValueError(f"Listing rows have no processing status: {unclassified}")
-    if sum(counts.values()) != len(listings):
-        raise ValueError("Listing processing statuses do not account for every source row.")
-    return counts
+    retained = set(quality.deduplication.source_row_numbers)
+    selected = set(quality.prepared_listings.source_row_numbers)
+    if len(removed) + len(retained) != len(listings):
+        raise ValueError("Retained and exact duplicate rows do not account for all listings.")
+    return {
+        "rows_received": len(listings),
+        "rows_retained": len(retained),
+        "exact_duplicates_removed": len(removed),
+        "possible_repeat_rows": len(candidates),
+        "possible_repeat_groups": len({item.first_row_number for item in quality.deduplication.for_review}),
+        "possible_repeat_rows_in_calculation": len(candidates & selected),
+        "candidate_option_included": int(quality.include_candidates),
+        "rows_with_data_issues": len({issue.row_number for issue in quality.exclusions if issue.dataset == "Listings"}),
+    }
 
 
 def _build_record(
@@ -298,7 +290,8 @@ def _render_validation(
         "",
         "## Manual reference comparison",
         "",
-        "The archived manual examples remove rows by candidate ID or by zone, area, and price. The team rule removes a row only when every source field matches after case and whitespace normalization. Candidate rows with any other difference stay out of calculations and remain in the review file. Differences below follow from this stricter rule; no source values were changed to force a match.",
+        "The archived manual examples remove rows by candidate ID or by zone, area, and price. The team removes a row only when every source field matches after whitespace normalization. Case differences remain visible.",
+        "Possible repeats remain separate. This run " + ("includes" if coverage["candidate_option_included"] else "excludes") + " candidate rows from calculations. Use `--include-candidates` or `--exclude-candidates` to choose.",
         "",
         "| Property | Result | Details |",
         "|---|---|---|",
@@ -315,8 +308,9 @@ def _render_validation(
         "",
         "- Every output keeps unsupported numeric values as `null` and includes a reason in the card.",
         "- Listing rows with missing condition or area remain in the source and are excluded from calculations with a recorded reason.",
-        "- Candidate rows with differing source columns remain available in `prepared/duplicados_para_revision.csv`; they are not removed or treated as confirmed duplicates.",
-        "- The 54 candidate rows are organized into 21 groups in `prepared/grupos_revision_resumen.csv`, with the original values that differ listed for team decisions.",
+        "- Candidate rows with differing source columns remain separate in `prepared/posibles_repeticiones.csv`; they are possible repeats, not confirmed duplicates.",
+        "- Choose whether possible repeats enter calculations with `--include-candidates` or `--exclude-candidates`. The default comes from `config/parametros.yaml`.",
+        "- Candidate groups and original differing values are listed in `prepared/grupos_posibles_repeticiones.csv`.",
         "- Approximate neighborhood coordinates are marked in each affected card.",
         "- The POT layer is not supplied. Covered Medellin records report `pendiente_capa`; Itagui reports `no_disponible`.",
         "- The supplied listing sample has no publication dates and no closing prices. These limits appear in each card.",
@@ -372,6 +366,8 @@ def _validate_insufficient_data_behavior(parameters: dict[str, Any]) -> list[str
     empty_quality = SimpleNamespace(
         exclusions=[],
         deduplication=SimpleNamespace(removed=[], for_review=[]),
+        prepared_listings=SimpleNamespace(source_row_numbers=[]),
+        include_candidates=True,
     )
     sample_property = {
         "id_inmueble": "VALIDATION-EMPTY",
@@ -401,21 +397,36 @@ def _validate_insufficient_data_behavior(parameters: dict[str, Any]) -> list[str
         errors.append("Missing coordinates produced transit results")
     if neighborhood["equipamientos_en_radio"] is not None:
         errors.append("Missing coordinates produced facility counts")
-    if quality["anuncios_en_zona"] != 0 or quality["anuncios_validos"] != 0:
+    if quality["anuncios_en_zona"] != 0 or quality["anuncios_conservados"] != 0:
         errors.append("Empty input produced nonzero zone quality counts")
     return errors
 
 
 def run() -> int:
-    repeat_check = "--repeat-check" in sys.argv[1:]
-    records, coverage = build_records()
+    parser = argparse.ArgumentParser(description="Run the supplied-data MVP pipeline.")
+    candidate_options = parser.add_mutually_exclusive_group()
+    candidate_options.add_argument(
+        "--include-candidates",
+        action="store_true",
+        help="include possible repeat rows in calculations",
+    )
+    candidate_options.add_argument(
+        "--exclude-candidates",
+        action="store_true",
+        help="exclude possible repeat rows from calculations",
+    )
+    parser.add_argument("--repeat-check", action="store_true", help="run the pipeline twice and compare outputs")
+    args = parser.parse_args()
+    repeat_check = args.repeat_check
+    include_candidates = True if args.include_candidates else False if args.exclude_candidates else None
+    records, coverage = build_records(include_candidates)
     RECORDS_DIR.mkdir(parents=True, exist_ok=True)
     CARDS_DIR.mkdir(parents=True, exist_ok=True)
     _write_property_outputs(records)
     reproducibility = None
     if repeat_check:
         first_hashes = _output_hashes()
-        second_records, second_coverage = build_records()
+        second_records, second_coverage = build_records(include_candidates)
         _write_property_outputs(second_records)
         second_hashes = _output_hashes()
         reproducibility = first_hashes == second_hashes and second_coverage == coverage

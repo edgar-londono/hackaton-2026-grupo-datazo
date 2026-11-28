@@ -222,6 +222,7 @@ def prepare_valid_rows(
     source_row_numbers: list[int],
     excluded_row_numbers: set[int],
     rules: Mapping[str, Sequence[str]],
+    keep_unclassified: bool = False,
 ) -> PreparedRows:
     if len(rows) != len(source_row_numbers):
         raise ValueError("Each prepared row must have one source row number.")
@@ -230,7 +231,8 @@ def prepare_valid_rows(
     kept = [
         (row_number, row)
         for row_number, row in zip(source_row_numbers, normalized_rows)
-        if row_number not in excluded_row_numbers and row["estado_canonico"] != UNCLASSIFIED
+        if row_number not in excluded_row_numbers
+        and (keep_unclassified or row["estado_canonico"] != UNCLASSIFIED)
     ]
     return PreparedRows(
         rows=[
@@ -252,7 +254,7 @@ def _comparison_value(field: str, value: Any) -> tuple[str, Any]:
         if number.is_finite():
             return ("number", number.normalize())
     if isinstance(value, str):
-        return ("text", normalize_text_for_comparison(value))
+        return ("text", " ".join(value.split()))
     return ("value", value)
 
 

@@ -113,14 +113,18 @@ Use this checklist with [mvp_plan.md](mvp_plan.md). It has no task assignments b
     - Deliverable: normalized condition mapping in the pipeline.
     - Done when: supplied mappings create the three canonical conditions and unmapped values remain unclassified.
     - Evidence: `src/data_preparation.py` and `output/data_quality.md`
-  - [x] **4.4 Review and remove only exact duplicate rows.**
-    - Deliverable: deduplication report, review file, and cleaned working data.
-    - Done when: candidate keys only flag rows for comparison; a row is removed only when every source column matches exactly. Any differing candidate remains available for review.
-    - Evidence: `src/data_preparation.py`, `output/data_quality.md`, `output/prepared/anuncios_sin_duplicados.csv`, `output/prepared/duplicados_para_revision.csv`, and `output/prepared/grupos_revision_resumen.csv`
-  - [x] **4.5 Exclude invalid rows from calculations.**
-    - Deliverable: valid data set and exclusion counts.
-    - Done when: prepared input files exclude invalid rows before later market and neighborhood calculations, and the report records each exclusion reason.
-    - Evidence: `src/data_quality.py`, `output/prepared/anuncios_validos.csv`, `output/prepared/inmuebles_validos.csv`, `output/prepared/exclusiones.csv`, and `output/data_quality.md`
+  - [x] **4.4 Remove only exact full-row duplicates.**
+    - Deliverable: exact duplicate report and possible-repeat files.
+    - Done when: every field matches after whitespace and numeric formatting cleanup. Case and accent differences remain visible. Partial matches stay separate.
+    - Evidence: `src/data_preparation.py`, `output/prepared/anuncios_sin_duplicados.csv`, `output/prepared/posibles_repeticiones.csv`, and `output/prepared/grupos_posibles_repeticiones.csv`
+  - [x] **4.5 Keep both candidate calculation options.**
+    - Deliverable: include and exclude options with a recorded default.
+    - Done when: the run supports `--include-candidates` and `--exclude-candidates`, and its report records the selected option.
+    - Evidence: `src/mvp.py`, `src/data_quality.py`, `config/parametros.yaml`, and `output/validation_report.md`
+  - [x] **4.6 Track field-level data limits.**
+    - Deliverable: one audit row for each of the 1,638 source field values.
+    - Done when: each value is marked missing, safely normalized, invalid, source-reported, officially confirmed, or corrected with evidence. Missing fields affect only dependent calculations.
+    - Evidence: `src/data_quality.py`, `data/anuncios_verificaciones.csv`, and `output/prepared/auditoria_campos_anuncios.csv`
 
 ## 5. Calculate the market summary
 

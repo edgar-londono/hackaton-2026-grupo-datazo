@@ -30,7 +30,7 @@ def analyze_market(
     zone_rows = [row for row in input_listings if _text(row.get("zona")) == zone]
 
     issue_counts: Counter[str] = Counter()
-    pending_review_rows: set[int] = set()
+    candidate_rows = {item.row_number for item in quality.deduplication.for_review}
     for issue in quality.exclusions:
         if issue.dataset != "Listings":
             continue
@@ -39,9 +39,7 @@ def analyze_market(
             continue
         if _text(input_listings[source_index].get("zona")) != zone:
             continue
-        if issue.kind == "duplicate_review":
-            pending_review_rows.add(issue.row_number)
-        elif issue.field == "estado":
+        if issue.field == "estado":
             issue_counts["estado_sin_clasificar"] += 1
         elif issue.field == "area_m2":
             issue_counts["sin_area"] += 1
@@ -62,8 +60,11 @@ def analyze_market(
         "duplicados_eliminados": len(removed_rows),
         "anuncios_unicos": len(zone_rows) - len(removed_rows),
         "anuncios_invalidos": dict(sorted(issue_counts.items())),
-        "anuncios_pendientes_revision": len(pending_review_rows),
-        "grupos_pendientes_revision": len({
+        "posibles_repeticiones": len({
+            item.row_number for item in quality.deduplication.for_review
+            if _text(input_listings[item.row_number - 2].get("zona")) == zone
+        }),
+        "grupos_posibles_repeticiones": len({
             (item.first_row_number, item.rule, item.key)
             for item in quality.deduplication.for_review
             if _text(input_listings[item.row_number - 2].get("zona")) == zone
@@ -72,11 +73,14 @@ def analyze_market(
             issue.row_number
             for issue in quality.exclusions
             if issue.dataset == "Listings"
-            and issue.kind != "duplicate_review"
-            and issue.row_number not in pending_review_rows
             and _text(input_listings[issue.row_number - 2].get("zona")) == zone
         }),
-        "anuncios_validos": sum(1 for row in valid_listings if _text(row.get("zona")) == zone),
+        "anuncios_conservados": sum(1 for row in valid_listings if _text(row.get("zona")) == zone),
+        "candidatos_incluidos_en_calculos": quality.include_candidates,
+        "candidatos_seleccionados_en_zona": sum(
+            1 for row_number in candidate_rows & set(quality.prepared_listings.source_row_numbers)
+            if _text(input_listings[row_number - 2].get("zona")) == zone
+        ),
     }
 
     zone_valid = [

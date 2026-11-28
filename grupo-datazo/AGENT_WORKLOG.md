@@ -58,3 +58,4 @@
 - 2026-11-27 19:30:44: Verified the MVP pipeline in a clean Python environment; all 11 property records and cards were generated.
 - 2026-11-27 19:53:19: Added a clickable slide selector, updated the requested heading, and clarified when geographic names are compared.
 - 2026-11-27 19:55:53: Synced the presentation to the GitHub Pages `docs/` source after confirming the deployed site uses that copy.
+- 2026-11-27 21:02:15: Implemented strict duplicate handling, include or exclude options, a 1,638-field audit, evidence-gated corrections, and updated cleanup documents and slides.

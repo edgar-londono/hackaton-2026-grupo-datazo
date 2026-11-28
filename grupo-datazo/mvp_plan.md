@@ -27,10 +27,15 @@ The archived reference describes 117 sample listings and 11 test properties. It 
 
 - Check required fields, numeric values, and valid ranges.
 - Normalize property condition labels with the supplied mappings.
-- Detect duplicates with the supplied rules.
-- Record invalid rows, duplicate counts, and missing fields.
-- Remove a row only when all source columns match after case and whitespace normalization. Keep every other candidate in the review file and out of calculations until the team decides.
-- Exclude invalid rows from calculations and record why each row was excluded.
+- Preserve the original listing file and prepare a separate output.
+- Check all 14 source columns. Normalize safe formatting, such as surrounding whitespace and numeric representation, while keeping the original values in an audit file.
+- Find possible repeats by listing ID or configured candidate fields. These keys only flag records for comparison.
+- Remove a row only when every source column matches after whitespace and numeric formatting normalization. Preserve case and accent differences.
+- Keep every partial match as a separate ad. The team can include or exclude candidate rows from calculations with `--include-candidates` or `--exclude-candidates`. The default is set in `config/parametros.yaml`.
+- Check each calculation's required fields. A missing or invalid field affects only calculations that need that field.
+- Use an official public source to correct an existing value only when it identifies the same record without doubt. Keep the old value, corrected value, evidence, source URL, license, and check date.
+- When no official source confirms an ad claim, keep it labeled as reported in the supplied sample. Asking prices remain reported prices, not confirmed sale prices.
+- Record every source field as missing, safely normalized, reported by the source, officially confirmed, corrected with evidence, or not independently confirmable.
 - Preserve source identifiers and input references for traceability.
 
 ### 3. Comparable market summary
@@ -49,7 +54,7 @@ Use the supplied parameter file as the source of thresholds. Do not hard-code a 
 
 If no valid comparable supports a market result, set unsupported numeric fields to `null` and show “insufficient data” with the reason and missing fields. If valid comparables support a calculation but the sample is weak, show the result with the configured low confidence level.
 
-Keep other supported sections visible when one section lacks enough data. Exclude invalid inputs from calculations and record why they were excluded. Do not treat approximate coordinates as exact.
+Keep other supported sections visible when one section lacks enough data. Check each calculation's required fields and record each unusable value. Do not treat approximate coordinates as exact.
 
 ### 4. Neighborhood summary
 
@@ -117,7 +122,7 @@ Show these limits in the property card when they affect a result.
 The MVP is ready for review when:
 
 1. It creates one JSON record and one readable card for each of the 11 supplied test properties.
-2. It compares INM-04, INM-06, and INM-09 with the manual reference. It explains differences caused by the stricter team duplicate rule and does not remove rows to force a match.
+2. It compares INM-04, INM-06, and INM-09 with the manual reference. It explains differences caused by the strict full-row duplicate rule and does not remove rows to force a match.
 3. It reports missing, invalid, and duplicate data without hiding those issues.
 4. It labels approximate coordinates and unavailable POT results.
 5. It can reproduce results from the supplied input files and parameter version.
@@ -128,6 +133,7 @@ The MVP is ready for review when:
 ## Ideas after the MVP
 
 - Add a manual data-entry flow for missing information. Validate each new value and record its source. Consider this only after the MVP works with the supplied data.
+- See `docs/post_mvp_ideas.md` for later public-source checks and possible points of interest. Do not add them during the MVP.
 
 ## KISS rule
 

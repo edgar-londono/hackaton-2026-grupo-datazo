@@ -6,6 +6,8 @@ This document maps the challenge template to our JSON record and readable proper
 
 - Create one JSON file per test property under `output/fichas/`.
 - Create one Markdown card per test property under `output/cards/`.
+- Create the selected listing set, possible-repeat tables, normalization log, field audit, and quality report under `output/`.
+- Add an evidence row to `data/anuncios_verificaciones.csv` before applying an official confirmation or correction.
 - Use the supplied `plantilla_ficha.md` and `ficha_ejemplo.json` as the field and layout references.
 - Keep the reference files unchanged.
 
@@ -27,12 +29,12 @@ This document maps the challenge template to our JSON record and readable proper
 | `mercado.comparables` | Matched rows from `anuncios_muestra.csv` | Use an empty list when none qualify. Sort by `precio_m2` in ascending order. |
 | `mercado.precio_m2_por_estado_en_zona` | Count and median for each normalized condition in the zone, without the comparable area filter | Use `n: 0` and `mediana: null` when a condition has no valid records. |
 | `calidad_datos_zona.anuncios_en_zona` | All input listing rows in the property's zone | Count before deduplication. |
-| `calidad_datos_zona.duplicados_eliminados`, `anuncios_unicos` | Approved full-row comparison rule | Remove a row only when all source columns match after case and whitespace normalization. |
-| `calidad_datos_zona.anuncios_invalidos` | Validation of zone rows | Count each excluded row by reason. Do not use invalid rows in calculations. |
-| `calidad_datos_zona.anuncios_pendientes_revision` | Candidate duplicate groups with differing source columns | Count held-out rows separately from invalid rows. Do not delete or calculate with these rows before team review. |
-| `calidad_datos_zona.grupos_pendientes_revision` | Connected candidate groups with differing columns | Report the number of groups, separate from the number of rows. |
-| `calidad_datos_zona.filas_invalidas_unicas` | Unique invalid rows outside the review set | Count invalid rows once, even when a row has more than one invalid reason. |
-| `calidad_datos_zona.anuncios_validos` | Rows left after deduplication and validation | Report the actual count. |
+| `calidad_datos_zona.duplicados_eliminados`, `anuncios_unicos` | Approved full-row comparison rule | Remove a row only when all source columns match after whitespace and numeric formatting normalization. Preserve case and accents. |
+| `calidad_datos_zona.anuncios_invalidos` | Field and value checks for rows in the zone | Count issue types. Exclude a row only from calculations whose required fields are missing or invalid. |
+| `calidad_datos_zona.posibles_repeticiones`, `grupos_posibles_repeticiones` | Candidate groups with differing source columns | Keep them separate. Report rows and groups. They are not confirmed duplicates. |
+| `calidad_datos_zona.candidatos_incluidos_en_calculos`, `candidatos_seleccionados_en_zona` | Run option and candidate rows in the selected analysis set | The team can include or exclude candidates with `--include-candidates` or `--exclude-candidates`. The configured default is in `config/parametros.yaml`. |
+| `calidad_datos_zona.filas_invalidas_unicas` | Unique rows with one or more field or value issues | Count each affected row once. A field issue does not remove unrelated usable values. |
+| `calidad_datos_zona.anuncios_conservados` | Rows available under the selected candidate option | Report the actual count after exact duplicate removal and candidate selection. |
 | `entorno.radio_busqueda_m` | `config/parametros.yaml:entorno.radio_busqueda_m` | Report the configured value used for this result. |
 | `entorno.estacion_mas_cercana` | Test coordinates and supported station features in `data/geo/transporte.geojson`, using the documented Haversine method | Use `null` when the location or layer cannot support a calculation. Report the nearest station even when it is outside the search radius. |
 | `entorno.estaciones_en_radio` | Transit features in the configured radius and supported systems | Use `null` when the count cannot be calculated. Use `0` only when a valid calculation finds none. |
@@ -53,7 +55,7 @@ This document maps the challenge template to our JSON record and readable proper
 | Market | Reference condition, median price per square meter, range, comparable count, coefficient of variation, confidence, and zone context by condition | Show numeric results only when supported. Include the confidence reason. |
 | Neighborhood | Search radius, nearest station and distance, station count, facility counts by category | Mark approximate results. Show “insufficient data” when a calculation cannot run. Preserve zero when a valid calculation finds none. |
 | Zoning | POT treatment, status, and reason | Show the pending status while the layer is absent. |
-| Data quality | Zone rows, exact duplicates, held-out candidates, valid rows, invalid rows by reason, and missing fields | Show excluded data and its reason. Do not present excluded values as valid. |
+| Data quality | Zone rows, exact duplicates, possible repeats, selected candidate option, rows with field issues, and missing fields | Show the option used. Missing or invalid fields affect only calculations that need them. |
 | Sources | Input files, parameter version, and source-layer date | List the sources used for the record. |
 
 ## Data integrity rules
@@ -62,8 +64,10 @@ This document maps the challenge template to our JSON record and readable proper
 - Show “insufficient data” and the reason on the affected card section when a required input for that calculation is missing or invalid.
 - Keep other supported sections visible when one section cannot be calculated.
 - Show a low-confidence calculation when valid data supports it and the supplied rule assigns low confidence.
-- Exclude invalid rows from calculations and include their reasons in the quality section.
-- Keep differing duplicate candidates in `output/prepared/duplicados_para_revision.csv` and provide a group-level decision aid in `output/prepared/grupos_revision_resumen.csv`.
+- Check each calculation's required fields. Keep source rows available when an unrelated field is missing.
+- Keep possible repeats in `output/prepared/posibles_repeticiones.csv` and group details in `output/prepared/grupos_posibles_repeticiones.csv`.
+- Record each of the 1,638 source field values in `output/prepared/auditoria_campos_anuncios.csv`.
+- Label unconfirmed prices as reported asking prices from the supplied sample.
 
 ## Reference sources
 

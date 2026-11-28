@@ -59,6 +59,9 @@
     .brand, .eyebrow { margin: 0; }
     .eyebrow { color: var(--muted); }
     .slide-count { font-variant-numeric: tabular-nums; }
+    .slide-picker-button { border: 0; border-radius: 2px; padding: 4px 6px; background: transparent; cursor: pointer; text-decoration: underline dotted var(--line); text-underline-offset: 4px; }
+    .slide-picker-button::after { content: " ▾"; font-size: .8em; }
+    .slide-picker-button:hover, .slide-picker-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .slides { display: flex; align-items: flex-start; padding: clamp(28px, 5vh, 48px) 0 24px; }
     .slide { width: 100%; max-width: 920px; animation: arrive .28s ease-out; }
     .slide[hidden] { display: none; }
@@ -134,6 +137,10 @@
     .help-head h2 { margin: 0; font-size: 1.35rem; }
     .help-dialog ul { margin: 18px 0 0; padding-left: 1.25rem; color: var(--muted); line-height: 1.6; }
     .help-dialog li + li { margin-top: 6px; }
+    .slide-picker-list { display: grid; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+    .slide-picker-item { display: flex; width: 100%; align-items: baseline; gap: 12px; text-align: left; }
+    .slide-picker-item[aria-pressed="true"] { background: var(--panel); }
+    .slide-picker-number { flex: 0 0 2ch; color: var(--accent); font-variant-numeric: tabular-nums; }
     .button-row { display: flex; gap: 10px; }
     .nav-button { min-height: 46px; border: 1px solid #89999d; background: transparent; color: var(--ink); padding: 9px 15px; cursor: pointer; }
     .nav-button:hover:not(:disabled), .nav-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -163,7 +170,7 @@
       <header class="content-head">
         <p class="brand"><b>Datazo</b> • Estud-IA: Análisis de datos</p>
         <p class="eyebrow">Limpieza de datos</p>
-        <span class="slide-count" id="slide-count">01 / 06</span>
+        <button class="slide-count slide-picker-button" id="slide-count" type="button" aria-label="Elegir diapositiva" aria-haspopup="dialog" aria-controls="slide-picker-dialog">01 / 09</button>
       </header>
       <div class="slides">
         <article class="slide" data-slide>
@@ -255,7 +262,7 @@
           </div>
         </article>
         <article class="slide" data-slide hidden>
-          <h2>Si cambia algo, dejamos decidir</h2>
+          <h2>Datos que coinciden y datos que cambian</h2>
           <p class="lead">Encontramos anuncios con la misma zona, área y precio, pero con identificadores o datos de barrio diferentes.</p>
           <div class="compare">
             <b class="compare-title">Ejemplo:</b>
@@ -296,7 +303,7 @@
         <article class="slide" data-slide hidden>
           <h2>Luego limpiamos las capas geográficas</h2>
           <p class="lead">Revisamos la geometría, las coordenadas y la categoría. Conservamos los datos originales y no inventamos nombres.</p>
-          <p class="lead">En la salida recortamos espacios de los textos y normalizamos las categorías. Nombres con 90% o más de similitud se señalan para revisar, sin corregirlos automáticamente.</p>
+          <p class="lead">En la salida recortamos espacios de los textos y normalizamos las categorías. Solo comparamos nombres en grupos con coordenadas iguales. Si la similitud llega al 90%, se marcan para revisión, sin corregirlos.</p>
           <div class="fact-line"><strong class="fact-number">0</strong><span class="fact-text">Puntos con coordenadas inválidas, identificadores repetidos o filas idénticas.</span></div>
           <div class="fact-line"><strong class="fact-number">640</strong><span class="fact-text">Equipamientos sin nombre. Se conservan porque aún se pueden contar por categoría.</span></div>
           <div class="fact-line separated"><strong class="fact-number" id="geo-review-count">10</strong><span class="fact-text">Registros forman <strong id="geo-group-count">5</strong> pares con coordenadas coincidentes. Se conservan para revisión.</span></div>
@@ -327,6 +334,13 @@
       </footer>
     </section>
   </main>
+  <dialog class="help-dialog" id="slide-picker-dialog" aria-labelledby="slide-picker-title">
+    <div class="help-head">
+      <h2 id="slide-picker-title">Ir a una diapositiva</h2>
+      <button class="nav-button" id="close-slide-picker" type="button">Cerrar</button>
+    </div>
+    <ol class="slide-picker-list" id="slide-picker-list"></ol>
+  </dialog>
   <dialog class="help-dialog" id="help-dialog" aria-labelledby="help-title">
     <div class="help-head">
       <h2 id="help-title">Controles</h2>
@@ -348,6 +362,9 @@
       const progress = document.getElementById("progress");
       const previous = document.getElementById("previous");
       const next = document.getElementById("next");
+      const pickerDialog = document.getElementById("slide-picker-dialog");
+      const closePicker = document.getElementById("close-slide-picker");
+      const pickerList = document.getElementById("slide-picker-list");
       const helpButton = document.getElementById("help-button");
       const helpDialog = document.getElementById("help-dialog");
       const closeHelp = document.getElementById("close-help");
@@ -357,6 +374,27 @@
       const geoReviewRows = JSON.parse(document.getElementById("geo-review-data").textContent);
       const geoReviewBody = document.getElementById("geo-review-body");
       let current = 0;
+      const pickerButtons = slides.map((slide, index) => {
+        const title = slide.querySelector("h1, h2")?.textContent.trim() || "Diapositiva";
+        const item = document.createElement("li");
+        const button = document.createElement("button");
+        const number = document.createElement("span");
+        const label = document.createElement("span");
+        button.className = "nav-button slide-picker-item";
+        button.type = "button";
+        button.setAttribute("aria-pressed", "false");
+        number.className = "slide-picker-number";
+        number.textContent = String(index + 1).padStart(2, "0");
+        label.textContent = title;
+        button.append(number, label);
+        button.addEventListener("click", () => {
+          pickerDialog.close();
+          show(index);
+        });
+        item.append(button);
+        pickerList.append(item);
+        return button;
+      });
 
       const headers = {
         csv_row: "Fila del CSV",
@@ -452,16 +490,21 @@
         progress.style.width = `${((current + 1) / slides.length) * 100}%`;
         previous.disabled = current === 0;
         next.disabled = current === slides.length - 1;
+        pickerButtons.forEach((button, index) => {
+          button.setAttribute("aria-pressed", String(index === current));
+        });
         document.title = `${String(current + 1).padStart(2, "0")} · Limpieza de datos | Grupo Datazo`;
         window.scrollTo(0, 0);
       }
 
       previous.addEventListener("click", () => show(current - 1));
       next.addEventListener("click", () => show(current + 1));
+      count.addEventListener("click", () => pickerDialog.showModal());
+      closePicker.addEventListener("click", () => pickerDialog.close());
       helpButton.addEventListener("click", () => helpDialog.showModal());
       closeHelp.addEventListener("click", () => helpDialog.close());
       document.addEventListener("keydown", (event) => {
-        if (helpDialog.open) return;
+        if (helpDialog.open || pickerDialog.open) return;
         if (
           event.target instanceof Element &&
           event.target.closest(".review-table-wrap") &&
